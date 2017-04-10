@@ -6,11 +6,19 @@ class DnController {
 
     def nexusConsumerService
 
-    def index() { }
+    def index() {}
 
     def show() {
         // render "hello ! la fonction show !"
-        Dn dn = nexusConsumerService.getDnConstante()
-        render dn as JSON
+        //Dn dn = nexusConsumerService.getDnConstante()
+        //render dn as JSON
+
+        render nexusConsumerService.getDnConstante()
+
+        /*
+         ("""
+         {"name":"toto" }
+ """) as JSON
+     */
     }
 }
