@@ -1,4 +1,4 @@
-package dn.rider.nexus
+package dn.rider
 
 import grails.test.mixin.TestFor
 import spock.lang.Specification

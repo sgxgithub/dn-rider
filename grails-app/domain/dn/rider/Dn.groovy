@@ -1,4 +1,4 @@
-package dn.rider.nexus
+package dn.rider
 
 class Dn {
 

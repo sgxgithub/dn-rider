@@ -1,10 +1,7 @@
 package dn.rider.consumer.nexus
 
-import dn.rider.nexus.Dn
-import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
-import org.grails.web.json.JSONObject
 
 @Transactional
 class NexusConsumerService {
@@ -15,11 +12,10 @@ class NexusConsumerService {
 
         RestBuilder rest = new RestBuilder()
         def dn = rest.get(url)
-        dn.json instanceof JSONObject
+        //dn.json instanceof JSONObject
 
-       // Dn dnObject = new Dn(JSON.parse(dn.json))
-
+        //def dnObject = new Dn(JSON.parse(dn.json))
         return  dn.json;
-
+        //return dnObject;
     }
 }
