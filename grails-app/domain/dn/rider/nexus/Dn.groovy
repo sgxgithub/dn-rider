@@ -1,6 +1,6 @@
 package dn.rider.nexus
 
-class Ndl {
+class Dn {
 
     static constraints = {
 

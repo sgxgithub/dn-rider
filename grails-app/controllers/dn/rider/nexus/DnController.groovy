@@ -1,6 +1,6 @@
 package dn.rider.nexus
 
-class NdlController {
+class DnController {
 
     def index() { }
 
