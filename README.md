@@ -8,16 +8,16 @@ Objectif: une application web (IHM + API REST) pour manipuler les notes de livra
  * outiller le suivi du cycle de vie des versions par rapports aux infos remontées par les outils de l'usine logicielle et Katana
 
 # API REST
-## GET /api/deliveryNotes/<APP>
+## GET /api/deliveryNotes/*APP*
 Récupère la liste des note de livraison  (format JSON ou Textuel)
 
-## GET /api/deliveryNotes/<APP>/<VERSION>
+## GET /api/deliveryNotes/*APP*/*VERSION*
 Récupère une note de livraison au format json
 
-## POST /api/deliveryNotes/<APP>
+## POST /api/deliveryNotes/*APP*
 Stocke une note de livraison.
 
-## DELETE /api/deliveryNotes/<APP>/<VERSION>
+## DELETE /api/deliveryNotes/*APP*/*VERSION*
 Supprime une note de livraison
 
 # Definition Of Done
