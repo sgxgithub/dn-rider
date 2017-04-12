@@ -6,8 +6,10 @@ import grails.transaction.Transactional
 @Transactional
 class NexusConsumerService {
 
-    def getDnConstante() {
-        String url = "http://nexus/service/local/repositories/DWM-Releases/content/com/vsct/kli/delivery-notes/1.36.1/delivery-notes-1.36.1.json"
+    def getDnJson(String app,String version) {
+
+        String url = "http://nexus/service/local/repositories/${app}/content/com/vsct/kli/delivery-notes/${version}/delivery-notes-${version}.json"
+        //String url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.ccl&a=delivery-notes&v=52.00.0-2&p=json"
         //def dn = new Dn(JSON.parse(url))
 
         RestBuilder rest = new RestBuilder()

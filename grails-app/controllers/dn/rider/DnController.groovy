@@ -9,9 +9,13 @@ class DnController {
     def index() {}
 
     def show() {
-        def dn = nexusConsumerService.getDnConstante()
+        //String app =  "DWM-Releases"
+        //String version = "1.36.1"
+        String app = params.app
+        String version = params.version
+        def dn = nexusConsumerService.getDnJson(app,version)
+        //def dn = new Dn(nexusConsumerService.getDnJSon())
 
-        //render dn as JSON
-        render dn
+        render dn as JSON
     }
 }
