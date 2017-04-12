@@ -1,10 +1,12 @@
 package dn.rider
 
+import org.grails.web.json.JSONObject
+
 class Dn {
 
     static constraints = {
         //dependency
         //packages
-       HashMap NDL_pour_rundeck
+       JSONObject NDL_pour_rundeck
     }
 }
