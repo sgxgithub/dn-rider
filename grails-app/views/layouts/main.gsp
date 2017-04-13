@@ -14,32 +14,30 @@
 </head>
 <body>
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/#">
-                    <i class="fa grails-icon">
-                        <asset:image src="dn-rider-logo.gif"/>
-                    </i> DN-RIDER
-                </a>
-            </div>
-            <div class="navbar-collapse collapse" aria-expanded="false" style="height: 0.8px;">
-                <ul class="nav navbar-nav navbar-right">
-                    <g:pageProperty name="page.nav" />
-                </ul>
-            </div>
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/#">
+                <i class="fa grails-icon">
+                    <asset:image src="dn-rider-logo.gif"/>
+                </i> DN-RIDER
+            </a>
         </div>
+        <ul class="nav navbar-nav navbar-right">
+            <g:pageProperty name="page.nav"/>
+        </ul>
     </div>
+</div>
 
-    <g:layoutBody/>
+<g:layoutBody/>
 
-    <div class="footer" role="contentinfo"></div>
+<div class="footer" role="contentinfo"></div>
 
-    <div id="spinner" class="spinner" style="display:none;">
-        <g:message code="spinner.alt" default="Loading&hellip;"/>
-    </div>
+<div id="spinner" class="spinner" style="display:none;">
+    <g:message code="spinner.alt" default="Loading&hellip;"/>
+</div>
 
-    <asset:javascript src="application.js"/>
+<asset:javascript src="application.js"/>
 
 </body>
 </html>

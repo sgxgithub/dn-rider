@@ -2,14 +2,17 @@
 <html>
 <head>
     <meta name="layout" content="main"/>
-    <title>Welcome to Grails</title>
+    <title>Welcome to DN-RIDER</title>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 </head>
 <body>
     <content tag="nav">
-        <li role="presentation">
-            <a href="dn">SearchDN</a>
+        <li>
+            <a href="/#">Home</a>
+        </li>
+        <li>
+            <a href="dn">Search DN</a>
         </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
