@@ -12,7 +12,7 @@ class DnController {
         String app = params.app
         String version = params.version
 
-        log.info "calling the nexusConsumerService..."
+        log.info "searching for the delivery-notes with app=${app}, version=${version}..."
 
         def dn = nexusConsumerService.getDnJson(app,version)
 

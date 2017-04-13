@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="main"/>
     <title>
-        Search a delivery-notes
+        Search for delivery-notes
     </title>
 </head>
 <body>
