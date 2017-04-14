@@ -18,6 +18,7 @@ class DnController {
 
         log.info "received the delivery-notes"
 
-        render dn as JSON
+        //render dn as JSON
+        respond([size_packages: dn.NDL_pour_rundeck.packages.size(), packages: dn.NDL_pour_rundeck.packages ])
     }
 }
