@@ -1,10 +1,14 @@
 package dn.rider.content
 
-class DnPackage {
+class  DnPackage {
 
     String info
-    //String version
+    String ver
     String name
+
+    void setVersion(version) {
+        ver = version
+    }
 
     static constraints = {
     }

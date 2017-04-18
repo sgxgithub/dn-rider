@@ -13,11 +13,20 @@ class NexusConsumerService {
         RestBuilder rest = new RestBuilder()
 
         def response = rest.get(url)
-        //dn.json est de type JSONObject
+
         JSONObject json = response.json
 
-        //def dn = new Dn(json)
-
         return json
+    }
+
+    def getDnJsonList(String app) {
+        String url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&t=json"
+        RestBuilder rest = new RestBuilder()
+
+        def response = rest.get(url)
+
+        def listVersion = response.xml.data.artifact.version
+
+        return listVersion
     }
 }
