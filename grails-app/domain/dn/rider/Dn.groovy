@@ -4,9 +4,8 @@ import org.grails.web.json.JSONObject
 
 class Dn {
 
-    def NDL_pour_rundeck
-    //def dependency
-    //def packages
+    //JSONObject NDL_pour_rundeck
+    //static hasMany = [packages: DnPackage]
 
     static constraints = {
     }

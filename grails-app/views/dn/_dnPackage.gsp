@@ -1,12 +1,13 @@
-{<br/>
-    info: ${p.info} <br/>
-    version: ${p.version}<br/>
-    name: ${p.name}<br/>
-    uri: ${p.uri}<br/>
-    packageUrl: ${p.packageUrl}<br/>
-    type: ${p.type}<br/>
-    extension: ${p.extension}<br/>
-    module: ${p.module}<br/>
-    groupId: ${p.groupId}<br/>
-    hesperidesModule: ${p.hesperidesModule}<br/>
-}<br/>
+{
+<ul>
+    <li>info: ${dnPackage.info}</li>
+    <li>version: ${dnPackage.version}</li>
+    <li>name: ${dnPackage.name}</li>
+    <li>uri: ${dnPackage.uri}</li>
+    <li>packageUrl: ${dnPackage.packageUrl}</li>
+    <li>type: ${dnPackage.type}</li>
+    <li>extension: ${dnPackage.extension}</li>
+    <li>module: ${dnPackage.module}</li>
+    <li>groupId: ${dnPackage.groupId}</li>
+    <li>hesperidesModule: ${dnPackage.hesperidesModule}</li>
+</ul>}
