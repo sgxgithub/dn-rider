@@ -26,11 +26,7 @@ class DnController {
         dnPackage.properties = jPackage
         
         render dnPackage as JSON
-*/
-/*        //dn
-        JSONObject jDn = json.NDL_pour_rundeck
-        def oDn = new Dn(jDn)
-      */
+       */
         // render oDn as JSON
         respond([size_packages: json.NDL_pour_rundeck.packages.size(), packages: json.NDL_pour_rundeck.packages, app:app, version:version])
     }

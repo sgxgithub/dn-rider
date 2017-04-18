@@ -9,8 +9,7 @@
 <body>
 
 <g:render template="/dn/search"/>
-<g:render template="/dn/show"/>
-
+<g:render template="/dn/showDn"/>
 
 </body>
 </html>

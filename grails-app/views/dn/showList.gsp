@@ -10,12 +10,11 @@
 
 <g:render template="/dn/search"/>
 
-<h4>The result:</h4>
-<h5>There are ${size_versions} dn for app ${app}</h5>
-
 <div class="container">
     <div class="row">
         <div class="col-md-4">
+            <h4>The result:</h4>
+            <h5>There are ${size_versions} dn for app ${app}</h5>
             <ul>
                 <g:each var="version" in="${listVersion}">
                     <g:link action="showList" params="[app: app, version: version]">
@@ -26,7 +25,7 @@
         </div>
         <div class="col-md-8">
             <g:if test="${packages}">
-                <g:render template="/dn/show"/>
+                <g:render template="/dn/showDn"/>
             </g:if>
             <g:else>
                 Choose a version !
