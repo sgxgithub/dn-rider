@@ -33,14 +33,19 @@ class DnController {
 
     def showList(){
         String app = params.app
+        String releaseType = params.releaseType
         String version = params.version
 
-        log.info "searching for the list of delivery-notes with app=${app}..."
-        def listVersion = nexusConsumerService.getDnJsonList(app)
+        if(!app) {
+            flash.message = "Fill the app name !"
+        }
+
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def listVersion = nexusConsumerService.getDnJsonList(app,releaseType)
         log.info "received the list of delivery-notes"
 
         if(!version){
-            respond([size_versions: listVersion.size(), listVersion: listVersion, app:app])
+            respond([size_versions: listVersion.size(), listVersion: listVersion, app:app, releaseType:releaseType])
         } else {
             log.info "searching for the delivery-notes with app=${app}, version=${version}..."
             def json = nexusConsumerService.getDnJson(app, version)

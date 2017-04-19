@@ -10,18 +10,12 @@
 
 <g:render template="/dn/search"/>
 
+<g:render template="/dn/showFlash"/>
+
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <h4>The result:</h4>
-            <h5>There are ${size_versions} dn for app ${app}</h5>
-            <ul>
-                <g:each var="version" in="${listVersion}">
-                    <g:link action="showList" params="[app: app, version: version]">
-                        <li>Version:${version}</li>
-                    </g:link>
-                </g:each>
-            </ul>
+            <g:render template="/dn/showVersions"/>
         </div>
         <div class="col-md-8">
             <g:if test="${packages}">
@@ -32,10 +26,7 @@
             </g:else>
         </div>
     </div>
-
 </div>
-
-
 
 </body>
 </html>
