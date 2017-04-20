@@ -10,8 +10,6 @@
 
 <g:render template="/dn/search"/>
 
-<g:render template="/dn/showFlash"/>
-
 <div class="container">
     <div class="row">
         <div class="col-md-4">

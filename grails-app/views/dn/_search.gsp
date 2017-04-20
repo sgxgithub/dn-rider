@@ -1,3 +1,5 @@
+<g:render template="/dn/showFlash"/>
+
 <g:form class="form-inline" action="show" method="get" style="margin: 50px auto; width:800px"
         xmlns:g="http://www.w3.org/1999/xhtml">
     <h2 class="form-signin-heading">Search for a delivery-note</h2>

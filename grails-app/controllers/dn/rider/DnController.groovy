@@ -16,10 +16,28 @@ class DnController {
         String version = params.version
         String formatShow = params.formatShow
 
+        //flash message when there are fields null
+        if (!app) {
+            flash.message = "Fill the app name !"
+            redirect (action: "index")
+            return
+        } else if (!version) {
+            flash.message = "Fill the version !"
+            redirect action: 'index'
+            return
+        }
+
         //search for the delivery-note by using the service functioin
         log.info "searching for the delivery-note with app=${app}, version=${version}, format=${formatShow}..."
         def dn = nexusConsumerService.getDn(app, version, formatShow)
         log.info "received the delivery-note"
+
+        //when there is no result
+        if(dn.size()==0){
+            flash.message = "No result for app=${app}, version=${version} !"
+            redirect action: 'index'
+            return
+        }
 
         //format JSON
         if (formatShow == "JSON") {
@@ -40,6 +58,7 @@ class DnController {
         //flash message when the app name in null
         if (!app) {
             flash.message = "Fill the app name !"
+            redirect (action: "index")
         }
 
         //search for the list of delivery-notes by using the service functioin

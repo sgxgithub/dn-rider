@@ -47,6 +47,7 @@ dependencies {
     compile "org.hibernate:hibernate-ehcache:5.1.2.Final"
     compile 'org.grails:grails-datastore-rest-client'
     compile "org.grails.plugins:cache:3.0.2"
+    compile 'org.grails.plugins:grails-melody-plugin:1.65.0'
     console "org.grails:grails-console"
     profile "org.grails.profiles:web"
     runtime "com.bertramlabs.plugins:asset-pipeline-grails:2.11.6"
