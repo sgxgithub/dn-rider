@@ -1,12 +1,15 @@
 package dn.rider.consumer.nexus
 
+import grails.plugin.cache.Cacheable
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 
 @Transactional
 class NexusConsumerService {
 
+    @Cacheable(value='cacheDn', key='{#app, #version, #formatShow}')
     def getDn(String app, String version, String formatShow) {
+        log.info "Searching for the delivery-note in Nexus..."
         String url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
         RestBuilder rest = new RestBuilder()
         def response = rest.get(url)
@@ -19,7 +22,9 @@ class NexusConsumerService {
         }
     }
 
+    @Cacheable(value='cacheListVersions', key='{#app, #releaseType}')
     def getListVersions(String app, String releaseType) {
+        log.info "Searching for the list of delivery-notes in Nexus..."
         String url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&t=json"
         RestBuilder rest = new RestBuilder()
         def response = rest.get(url)
@@ -49,7 +54,9 @@ class NexusConsumerService {
         return list
     }
 
+    @Cacheable(value='cacheListApps')
     def getListApps() {
+        log.info "Searching for the apps with delivery-notes in Nexus..."
         String url = "http://nexus:50080/nexus/service/local/lucene/search?a=delivery-notes&t=json"
         RestBuilder rest = new RestBuilder()
         def response = rest.get(url)

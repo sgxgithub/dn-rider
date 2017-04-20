@@ -4,7 +4,11 @@ class DnController {
 
     def nexusConsumerService
 
-    def index() {}
+    def index() {
+        log.info "searching for the list of apps with delivery-notes..."
+        def sizeApps = nexusConsumerService.getListApps()
+        log.info "received the list of apps"
+    }
 
     def show() {
         //take the parameters from the variable params
