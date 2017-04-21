@@ -80,6 +80,13 @@ class DnController {
             def dn = nexusConsumerService.getDn(app, version, "JSON")
             log.info "received the delivery-note"
 
+            //when there is no result
+            if(dn.size()==0){
+                flash.message = "No result for app=${app}, version=${version} !"
+                redirect action: 'index', params:[app: app, version: version]
+                return
+            }
+
             respond([size_versions: listVersion.size(), listVersion: listVersion, size_packages: dn.NDL_pour_rundeck.packages.size(), packages: dn.NDL_pour_rundeck.packages, app: app, formatShow: "JSON"])
         }
     }
