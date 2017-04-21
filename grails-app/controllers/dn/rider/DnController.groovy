@@ -5,9 +5,15 @@ class DnController {
     def nexusConsumerService
 
     def index() {
-        log.info "searching for the list of apps with delivery-notes..."
+        String app = params.app
+        String version = params.version
+        String formatShow = params.formatShow
+        String releaseType = params.releaseType
+
+        log.info "renewing the cache for the list of apps with delivery-notes..."
         def sizeApps = nexusConsumerService.getListApps()
-        log.info "received the list of apps"
+
+        respond([app: app, version: version, formatShow: formatShow, releaseType: releaseType])
     }
 
     def show() {
@@ -19,11 +25,11 @@ class DnController {
         //flash message when there are fields null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect (action: "index")
+            redirect action: "index", params:[version: version, formatShow: formatShow]
             return
         } else if (!version) {
             flash.message = "Fill the version !"
-            redirect action: 'index'
+            redirect action: 'index', params:[app: app, formatShow: formatShow]
             return
         }
 
@@ -35,7 +41,7 @@ class DnController {
         //when there is no result
         if(dn.size()==0){
             flash.message = "No result for app=${app}, version=${version} !"
-            redirect action: 'index'
+            redirect action: 'index', params:[app: app, version: version, formatShow: formatShow]
             return
         }
 
@@ -55,10 +61,10 @@ class DnController {
         String releaseType = params.releaseType
         String version = params.version
 
-        //flash message when the app name in null
+        //flash message when the app name is null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect (action: "index")
+            redirect action: "index"
         }
 
         //search for the list of delivery-notes by using the service functioin
