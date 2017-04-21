@@ -10,9 +10,6 @@ class DnController {
         String formatShow = params.formatShow
         String releaseType = params.releaseType
 
-        log.info "renewing the cache for the list of apps with delivery-notes..."
-        def sizeApps = nexusConsumerService.getListApps()
-
         respond([app: app, version: version, formatShow: formatShow, releaseType: releaseType])
     }
 
