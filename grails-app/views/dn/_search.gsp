@@ -1,6 +1,6 @@
 <g:render template="/dn/showFlash"/>
 
-<g:form class="form-inline" action="show" method="get" style="margin: 50px auto; width:800px"
+<g:form class="form-inline" action="showDn" method="get" style="margin: 50px auto; width:800px"
         xmlns:g="http://www.w3.org/1999/xhtml">
     <h2 class="form-signin-heading">Search for a delivery-note</h2>
     <div class="form-group">
@@ -18,7 +18,7 @@
     <g:submitButton name="Search DN" class="btn btn-default"/>
 </g:form>
 
-<g:form class="form-inline" action="showList" method="get" style="margin: 50px auto; width:800px">
+<g:form class="form-inline" action="showVersions" method="get" style="margin: 50px auto; width:800px">
 <h2 class="form-signin-heading">Search for a list of delivery-notes</h2>
 <div class="form-group">
     <label for="app">APP</label>

@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <g:render template="/dn/showListApps"/>
+            <g:render template="/dn/columeApps"/>
         </div>
         <div class="col-md-3">
             apps

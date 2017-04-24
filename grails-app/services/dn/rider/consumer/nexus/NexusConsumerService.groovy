@@ -17,7 +17,7 @@ class NexusConsumerService {
         def res = rest.get(url)
 
         //return json or text according to formatShow
-        if (formatShow == "JSON") {
+        if (formatShow.toUpperCase() == "JSON") {
             return res.json
         } else {
             return res.text
@@ -25,7 +25,7 @@ class NexusConsumerService {
     }
 
     //@Cacheable(value='cacheListVersions', key='{#app, #releaseType}')
-    def getListVersions(String app, String releaseType) {
+    def getVersions(String app, String releaseType) {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
         RestBuilder rest = new RestBuilder()
@@ -57,7 +57,7 @@ class NexusConsumerService {
     }
 
    // @Cacheable(value='cacheListApps')
-    def getListApps() {
+    def getApps() {
         log.info "Searching for the apps with delivery-notes in Nexus..."
         String url = "http://nexus:50080/nexus/service/local/lucene/search?a=delivery-notes&p=json"
         def rest = new RestBuilder()

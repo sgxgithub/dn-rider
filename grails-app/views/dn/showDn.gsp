@@ -10,7 +10,7 @@
 
 <div class="container">
     <g:render template="/dn/search"/>
-    <g:render template="/dn/showDn"/>
+    <g:render template="/dn/columeDn"/>
 </div>
 
 </body>

@@ -13,11 +13,14 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <g:render template="/dn/showVersions"/>
+            <g:render template="/dn/columeVersions"/>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
+            <g:render template="/dn/columeVersionsPaginated"/>
+        </div>
+        <div class="col-md-4">
             <g:if test="${dnText}">
-                <g:render template="/dn/showDn"/>
+                <g:render template="/dn/columeDn"/>
             </g:if>
             <g:else>
                 Choose a version !

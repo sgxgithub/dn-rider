@@ -13,7 +13,7 @@ class DnController {
         respond([app: app, version: version, formatShow: formatShow, releaseType: releaseType])
     }
 
-    def show() {
+    def showDn() {
         //take the parameters from the variable params
         String app = params.app
         String version = params.version
@@ -44,7 +44,7 @@ class DnController {
 
         //format JSON
         if (formatShow == "JSON") {
-            respond([size_packages: dn.NDL_pour_rundeck.packages.size(), packages: dn.NDL_pour_rundeck.packages, app: app, version: version, formatShow: formatShow])
+            respond([packageCount: dn.NDL_pour_rundeck.packages.size(), packages: dn.NDL_pour_rundeck.packages, app: app, version: version, formatShow: formatShow])
         }
         //format text
         else {
@@ -52,7 +52,7 @@ class DnController {
         }
     }
 
-    def showList() {
+    def showVersions() {
         //take the parameters from the variable params
         String app = params.app
         String releaseType = params.releaseType
@@ -66,12 +66,12 @@ class DnController {
 
         //search for the list of delivery-notes by using the service functioin
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-        def listVersion = nexusConsumerService.getListVersions(app, releaseType)
+        def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
 
         //before the user choose the version
         if (!version) {
-            respond([size_versions: listVersion.size(), listVersion: listVersion, app: app, releaseType: releaseType])
+            respond([versionCount: versions.size(), versions: versions, app: app, releaseType: releaseType])
         }
         //when the user choose the version
         else {
@@ -87,15 +87,15 @@ class DnController {
                 return
             }
 
-            respond([size_versions: listVersion.size(), listVersion: listVersion, dnText: dn, app: app, formatShow: "Text"])
+            respond([versions: versions, versionCount: versions.size(),  dnText: dn, app: app, formatShow: "Text"])
         }
     }
 
     def showApps() {
         log.info "searching for the list of apps with delivery-notes..."
-        def listApps = nexusConsumerService.getListApps()
+        def apps = nexusConsumerService.getApps()
         log.info "received the list of apps"
 
-        respond([sizeApps: listApps.size(), listApps:listApps])
+        respond([sizeApps: apps.size(), apps:apps])
     }
 }
