@@ -76,8 +76,8 @@ class DnController {
         //when the user choose the version
         else {
             log.info "searching for the delivery-note with app=${app}, version=${version}..."
-            //format JSON by default
-            def dn = nexusConsumerService.getDn(app, version, "JSON")
+            //format Text by default
+            def dn = nexusConsumerService.getDn(app, version, "Text")
             log.info "received the delivery-note"
 
             //when there is no result
@@ -87,15 +87,15 @@ class DnController {
                 return
             }
 
-            respond([size_versions: listVersion.size(), listVersion: listVersion, size_packages: dn.NDL_pour_rundeck.packages.size(), packages: dn.NDL_pour_rundeck.packages, app: app, formatShow: "JSON"])
+            respond([size_versions: listVersion.size(), listVersion: listVersion, dnText: dn, app: app, formatShow: "Text"])
         }
     }
 
     def showApps() {
         log.info "searching for the list of apps with delivery-notes..."
-        def sizeApps = nexusConsumerService.getListApps()
+        def listApps = nexusConsumerService.getListApps()
         log.info "received the list of apps"
 
-        respond([sizeApps: sizeApps])
+        respond([sizeApps: listApps.size(), listApps:listApps])
     }
 }

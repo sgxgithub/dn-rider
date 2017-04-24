@@ -10,5 +10,5 @@
     </ul>
 </g:if>
 <g:else>
-<p>${dnText}</p>
+<pre>${dnText}</pre>
 </g:else>

@@ -16,7 +16,7 @@
             <g:render template="/dn/showVersions"/>
         </div>
         <div class="col-md-8">
-            <g:if test="${packages}">
+            <g:if test="${dnText}">
                 <g:render template="/dn/showDn"/>
             </g:if>
             <g:else>

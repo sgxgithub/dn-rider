@@ -15,8 +15,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <h5>There are ${sizeApps} repositories with delivery-notes</h5>
-            repositories
+            <g:render template="/dn/showListApps"/>
         </div>
         <div class="col-md-3">
             apps
