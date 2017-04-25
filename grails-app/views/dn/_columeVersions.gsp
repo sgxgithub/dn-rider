@@ -1,4 +1,3 @@
-<h4>The result:</h4>
 <h5>There are ${versionCount} dn for app ${app}</h5>
 <ul>
 <g:each var="version" in="${versions}">

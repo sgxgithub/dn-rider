@@ -24,6 +24,15 @@
             </a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="/#">Home</a>
+            </li>
+            <li>
+                <g:link controller="dn" action="index">Search DN</g:link>
+            </li>
+            <li>
+                <g:link controller="dn" action="validation">Validation</g:link>
+            </li>
             <g:pageProperty name="page.nav"/>
         </ul>
     </div>

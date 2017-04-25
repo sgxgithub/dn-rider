@@ -8,12 +8,6 @@
 </head>
 <body>
     <content tag="nav">
-        <li>
-            <a href="/#">Home</a>
-        </li>
-        <li>
-            <a href="dn">Search DN</a>
-        </li>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
             <ul class="dropdown-menu">
