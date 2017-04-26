@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "title": "NDL KATANA",
+  "description": "Note de livraison dematerialisée d'une version à installer avec Katana",
+  "type": "object",
+  "properties": {
+    "NDL_pour_rundeck": { 
+      "type": "object",
+      "properties": { 
+        "dependencies": {
+          "type": "array",
+          "description": "Liste des dépendances de l'application livrée (non utilisée)",
+          "items": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "dependency": { 
+          "type": "array",
+          "description": "Liste des dépendances de l'application livrée (non utilisée) - DEPRECATED - Obsolete pour retro-compatibilité,   utiliser dependencies",
+          "items": {
+            "type": "object",
+            "properties": {}
+          }
+        },
+        "minKatanaVersion": { 
+          "type": "string",
+          "description": "Version minimale de Katana à utiliser pour déployer l'application - TODO exploitation par KATANA"
+        },
+        "packages": {
+          "type": "array",
+          "description": "Liste EXHAUSTIVE des packages associés à la version applicative",
+          "items": {
+            "type": "object",
+            "properties": {
+              "info": {
+                "type": "string",
+                "description": "Information sur le package"
+              },
+              "name": {
+                "type": "string",
+                "description": "Nom identifiant le package : constitue avec le module, l'identifiant unique du package . Sert de clé de recherche. Pas d'espace. Ne pas confondre avec filename qui correspond au nom du déploiemnet",
+                "pattern": "^[0-9A-Za-z-_#.]*$"
+              },
+              "module": {
+                "type": "string",
+                "description": "Nom du module sur lequel sera déployé le package (lien avec descripteur de l'environnement Env.yaml)"
+              },
+              "installAfter": {
+                "type": "string",
+                "description": "Permet de gérer des dépendances en chainant les différents packages à installer. A installer Après => (nom du package à installer avant)",
+                "pattern": "^[0-9A-Za-z-_#.]*$"
+              },
+              "dir": {
+                "type": "string",
+                "description": "Répertoire de livraison sous packaging sous la forme suivante : gruser@packaging:/export/home/PACKAGING/livraisons/PACKAGES/... A EVITER / UTILISER NEXUS "
+              },
+              "packageUrl": {
+                "type": "string",
+                "description": "URL permetant de récupérer le package dans un repo type Nexus. Par exemple:  http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.wdi&a=WDI-UI&v=23.0.119.0&p=war"
+              },
+              "isSnapshot": { 
+                "type": "boolean",
+                "description": "DEPRECATED - (non exploité par Katana) Défini par un booléen true/false si le package est de type snapshot"
+              },
+              "version": { 
+                "type": "string",
+                "description": "Version du package livré"
+              },
+              "checksum": {
+                "type": "string",
+                "description": "Checksum du package utilisé pour le déploiement automatique Katana. Le type de checksum retenu est celui obtenu par la commande /usr/bin/md5sum"
+              },
+              "type": {
+                "type": "string",
+                "description": "Type de package déterminant l'action d'installation de Katana. https://wiki.vsct.fr/display/KTN/Note+de+livraison+JSON+pour+Katana. Exploite par le catalogue de script katana dans install-packages.sh"
+              },
+              "extension": {
+                "type": "string",
+                "description": "Extension du package - cf. lib/katana_utils.sh"
+              },
+              "targetTechno": {
+                "type": "string",
+                "description": "Permet de preciser le composant technique du module. champ non obligatoire de base, mais nécessaire dans le cas ou un module est deployé sur plusieurs technos. Exemple : le module mobile est déployé coté WAS et coté HTTP --> le package mobile-war devra comporter un champ targetTechno à WAS, et le package mobile statics devra comporter un champ targetTechno à HTTP"
+              },
+              "filename": {
+                "type": "string",
+                "description": "Nom du fichier cible contenant le package a déployer. Doit respecter le standard de deploiement <name>_<type>_<version>.[extension]. Si les packages sont livrés sur packaging ce champ est obligatoire. Si filename n'est pas renseigné, les champs name, type, version, extension seront utilisés. Ce nom doit être unique dans la note pour éviter l'écrasement"
+              },
+              "excelFile": {
+                "type": "string",
+                "description": "Propgen Excel : Chemin vers fichier excel des properties pour generation pacakge de properties"
+              },
+              "repTplCache": {
+                "type": "string",
+                "description": "Propgen Excel : Version du template de cache utilisé pour la generation des properties depuis excel"
+              },
+              "link": {
+                "type": "string",
+                "description": "Utilisé par WDI UNIQUEMENT pour relier les properties communes entre les différents composants"
+              },
+              "uri": {
+                "type": "string",
+                "description": "DEPRECATED  - liste des URI à valider pour un war par exemple liste séparés par des virgules. utiliser plutôt la liste json dans checkAfterInstall"
+              },
+              "checkAfterInstall": {
+                "type": "array",
+                "description": "Liste des items à valider dans le cadre du déploiement d'un composant WEB (HTTP, WAS)",
+                "items": {
+                  "type":"object",
+                  "properties": {
+                    "uriToCheck":  { "type": "string" },
+                    "expectedHttpCode": { 
+                      "type": "number",
+                      "description": "code Http attendue en réponse (sinon erreur)",
+                      "minimum": 200,
+                      "maximum": 520
+                    },
+                    "expectedPattern": { 
+                      "type": "string",
+                      "description": "pattern a vérifier dans la réponse HTTP"
+                    }
+                  }
+                }
+              },
+              "hesperidesModule": {
+                "type": "string",
+                "description": "Nom du module coté hesperides, correspond normalement à {module}-{type} (exemple epmCore-war) - Ce champ est obligatoire si l'on souhaite déclencher la génération des properties avec hesperides"
+              },
+              "hesperidesVersion": {
+                "type": "string",
+                "description": "Donne la version du template hesperides à considérer - si non présent et que hesperidesModule présent, on prend le champ {version}"
+              }
+            },
+            "required": ["name", "module"]
+          }
+        }       
+      },
+      "required": ["packages"]
+    }
+  },
+  "required": ["NDL_pour_rundeck"]
+}

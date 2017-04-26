@@ -31,7 +31,7 @@
                 <g:link controller="dn" action="index">Search DN</g:link>
             </li>
             <li>
-                <g:link controller="dn" action="validation">Validation</g:link>
+                <a href="/dn/validateSchema">Validation</a>
             </li>
             <g:pageProperty name="page.nav"/>
         </ul>

@@ -1,13 +1,14 @@
 package dn.rider
 
+import com.fasterxml.jackson.databind.node.JsonNodeFactory
+import com.fasterxml.jackson.databind.node.ObjectNode
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.commons.CommonsMultipartFile
-
-
 
 class DnController {
 
     def nexusConsumerService
+    def JsonSchemaValidationService
 
     def index() {
         String app = params.app
@@ -49,11 +50,11 @@ class DnController {
 
         //format JSON
         if (formatShow == "JSON") {
-            respond([packageCount: resp.json.NDL_pour_rundeck.packages.size(), packages: resp.json.NDL_pour_rundeck.packages, app: app, version: version, formatShow: formatShow],view:"showApps")
+            respond([packageCount: resp.json.NDL_pour_rundeck.packages.size(), packages: resp.json.NDL_pour_rundeck.packages, app: app, version: version, formatShow: formatShow], view: "showApps")
         }
         //format text
         else {
-            respond([dnText: resp.text, app: app, version: version, formatShow: formatShow],view:"showApps")
+            respond([dnText: resp.text, app: app, version: version, formatShow: formatShow], view: "showApps")
         }
     }
 
@@ -76,7 +77,7 @@ class DnController {
 
         //before the user choose the version
         if (!version) {
-            respond([versionCount: versions.size(), versions: versions, app: app, releaseType: releaseType], view:"showApps")
+            respond([versionCount: versions.size(), versions: versions, app: app, releaseType: releaseType], view: "showApps")
         }
         //when the user choose the version
         else {
@@ -92,7 +93,7 @@ class DnController {
             }
 
             //format Text by default
-            respond([versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, formatShow: "Text"], view:"showApps")
+            respond([versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, formatShow: "Text"], view: "showApps")
         }
     }
 
@@ -104,8 +105,8 @@ class DnController {
         respond([appCount: apps.size(), apps: apps])
     }
 
-    def validation() {
-       // MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request
+    def validateSchema() {
+        // MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request
         //CommonsMultipartFile f = (CommonsMultipartFile) mpr.getFile("fDn")
 //        def f = request.getFile('fDn')
 //
@@ -116,6 +117,21 @@ class DnController {
 //        }
 //
 //        f.transferTo(new File('/some/dic/myfile.json'))
-//        respond()
+        String schema = params.schema
+        String dn = params.dn
+
+        ObjectNode resp = JsonNodeFactory.instance.objectNode()
+        boolean valid = false
+        String content = ""
+        //String cont
+
+        if (schema && dn) {
+            resp = JsonSchemaValidationService.validateSchema(schema, dn)
+            valid = resp["valid"]
+            content = resp["results"]
+            //cont = content.substring(1,content.length()-1).replace("\\r\\n","&#13;&#10;")
+        }
+
+        respond([valid: valid, content: content, schema: schema, dn: dn])
     }
 }
