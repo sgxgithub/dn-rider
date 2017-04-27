@@ -6,7 +6,7 @@ class SearchDnCommand implements grails.validation.Validateable {
     String formatShow
 
     static constraints = {
-        app blank:false, size:3..6
-        version blank:false
+        app blank: false, size: 3..6
+        version blank: false
     }
 }

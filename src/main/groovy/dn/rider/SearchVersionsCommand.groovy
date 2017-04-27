@@ -6,7 +6,7 @@ class SearchVersionsCommand {
     String ReleaseType
 
     static constraints = {
-        app blank:false, size:3..6
-        version nullable:true
+        app blank: false, size: 3..6
+        version nullable: true
     }
 }

@@ -1,2 +1,0 @@
-from https://github.com/daveclayton/json-schema-validator
-
