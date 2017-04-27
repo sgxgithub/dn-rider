@@ -4,7 +4,7 @@
             <label for="schema">Schema:</label>
             <span class="error starthidden" id="input-invalid">Invalid JSON: parse error, <a id="input-link" href="#"> </a></span>
         </div>
-        <textarea name="schema" rows="20" cols="20" class="half" id="schema"> ${schema}</textarea>
+        <textarea name="schema" rows="20" cols="20" class="half" id="schema">${schema}</textarea>
         <div class="horiz">
             <label for="dn">DN:</label>
             <span class="error starthidden" id="input2-invalid">Invalid JSON:

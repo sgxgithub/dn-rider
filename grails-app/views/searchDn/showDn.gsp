@@ -8,19 +8,15 @@
 </head>
 <body>
 
-<g:render template="/dn/search"/>
-<g:render template="/dn/showErrors"/>
+<g:render template="/components/search"/>
+<g:render template="/components/showErrors"/>
 
 <div class="container">
     <div class="row">
         <div class="col-md-2">
-            <g:render template="/dn/columeApps"/>
-        </div>
-        <div class="col-md-2">
-            <g:render template="/dn/columeVersions"/>
         </div>
         <div class="col-md-8">
-            <g:render template="/dn/columeDn"/>
+            <g:render template="/components/columeDn"/>
         </div>
     </div>
 </div>

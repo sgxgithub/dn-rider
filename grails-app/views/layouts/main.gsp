@@ -28,7 +28,7 @@
                 <a href="/#">Home</a>
             </li>
             <li>
-                <g:link controller="dn" action="index">Search DN</g:link>
+                <g:link controller="searchDn" action="index">Search DN</g:link>
             </li>
             <li>
                 <a href="/dn/validateSchema">Validation</a>
