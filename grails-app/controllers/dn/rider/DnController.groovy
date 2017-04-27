@@ -7,7 +7,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 class DnController {
 
-    def nexusConsumerService
     def JsonSchemaValidationService
 
     def index() {
@@ -17,14 +16,6 @@ class DnController {
         String releaseType = params.releaseType
 
         respond([app: app, version: version, formatShow: formatShow, releaseType: releaseType])
-    }
-
-    def showApps() {
-        log.info "searching for the list of apps with delivery-notes..."
-        def apps = nexusConsumerService.getApps()
-        log.info "received the list of apps"
-
-        respond([appCount: apps.size(), apps: apps])
     }
 
     def validateSchema() {

@@ -30,7 +30,7 @@
 <g:submitButton name="Search DN List" class="btn btn-default"/>
 </g:form>
 
-<g:form class="form-inline" action="showApps" method="get" style="margin: 50px auto; width:800px">
+<g:form class="form-inline" url="[action:'searchApps',controller:'searchApps']" method="get" style="margin: 50px auto; width:800px">
 <h2 class="form-signin-heading">Search for the apps with delivery-notes</h2>
 <g:submitButton name="Search App" class="btn btn-default"/>
 </g:form>
