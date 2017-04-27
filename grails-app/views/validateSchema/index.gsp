@@ -18,10 +18,10 @@
 <div class="container">
     <div class="row">
         <div class="col-md-4">
-            <g:render template="/dn/inputForm"/>
+            <g:render template="/validateSchema/inputForm"/>
         </div>
         <div class="col-md-4">
-            <g:render template="/dn/resultPanel"/>
+            <g:render template="/validateSchema/resultPanel"/>
         </div>
         <div class="col-md-4">
             <pre>${content}</pre>

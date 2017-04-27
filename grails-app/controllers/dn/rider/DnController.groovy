@@ -7,8 +7,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile
 
 class DnController {
 
-    def JsonSchemaValidationService
-
     def index() {
         String app = params.app
         String version = params.version
@@ -16,35 +14,5 @@ class DnController {
         String releaseType = params.releaseType
 
         respond([app: app, version: version, formatShow: formatShow, releaseType: releaseType])
-    }
-
-    def validateSchema() {
-        // MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request
-        //CommonsMultipartFile f = (CommonsMultipartFile) mpr.getFile("fDn")
-//        def f = request.getFile('fDn')
-//
-//        if(f.empty){
-//            flash.message = "File cannot be empty"
-//            render "vide"
-//            return
-//        }
-//
-//        f.transferTo(new File('/some/dic/myfile.json'))
-        String schema = params.schema
-        String dn = params.dn
-
-        ObjectNode resp = JsonNodeFactory.instance.objectNode()
-        boolean valid = false
-        String content = ""
-        //String cont
-
-        if (schema && dn) {
-            resp = JsonSchemaValidationService.validateSchema(schema, dn)
-            valid = resp["valid"]
-            content = resp["results"]
-            //cont = content.substring(1,content.length()-1).replace("\\r\\n","&#13;&#10;")
-        }
-
-        respond([valid: valid, content: content, schema: schema, dn: dn])
     }
 }
