@@ -4,7 +4,14 @@ class SearchDnController {
 
     def nexusConsumerService
 
-    def index() {}
+    def index(SearchDnCommand cmd) {
+        //take the parameters from the object command
+        String app = cmd.app
+        String version = cmd.version
+        String formatShow = cmd.formatShow
+
+        respond([app: app, version: version, formatShow: formatShow])
+    }
 
     def searchDn(SearchDnCommand cmd) {
 
@@ -29,7 +36,7 @@ class SearchDnController {
 //                flash.message =  cmd.errors.getFieldError("version").rejectedValue
 //            }
             flash.message = cmd.errors.allErrors.toString()
-            redirect action: 'index', params: [version: version, formatShow: formatShow]
+            redirect action: 'index', params: [app: app, version: version, formatShow: formatShow]
             return
         }
 

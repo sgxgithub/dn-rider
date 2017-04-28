@@ -4,7 +4,14 @@ class SearchVersionsController {
 
     def nexusConsumerService
 
-    def index() {}
+    def index(SearchVersionsCommand cmd) {
+        //take the parameters from the object command
+        String app = cmd.app
+        String version = cmd.version
+        String releaseType = cmd.releaseType
+
+        respond([app: app, version: version, releaseType: releaseType])
+    }
 
     def searchVersions(SearchVersionsCommand cmd) {
         //take the parameters from the object command
@@ -15,7 +22,8 @@ class SearchVersionsController {
         //flash message when the app name is null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect action: "index"
+            redirect action: "index", params: [app: app, version: version, releaseType: releaseType]
+            return
         }
 
         //search for the list of delivery-notes by using the service functioin
