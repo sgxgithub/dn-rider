@@ -42,7 +42,7 @@ class SearchVersionsController {
             }
 
             //format Text by default
-            respond([versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, formatShow: "Text"], view: "showVersions")
+            respond([versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, releaseType: releaseType, formatShow: "Text"], view: "showVersions")
         }
     }
 }

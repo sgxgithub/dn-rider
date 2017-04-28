@@ -25,19 +25,32 @@ class ValidateSchemaController {
         String dn = cmd.dn
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
-        boolean valid = false
+
+        boolean invalidJson = false
+        String line = ""
+        String offset = ""
+        String message = ""
+
+        boolean invalidDn = false
         String content = ""
-        //String cont = ""
+        String cont = ""
 
         if (schema && dn) {
             resp = JsonSchemaValidationService.validateSchema(schema, dn)
-            valid = resp["valid"]
-            content = resp["results"]
-            //cont = content.substring(1,content.length()-1).replace("\\r\\n","</br>")
-            //cont = content.substring(1,content.length()-1).replace("\\r\\n","&#13;&#10;")
-            //cont = content.replace("\\r\\n","<br>;")
+
+            if(resp["input2-invalid"] != null){
+                invalidJson = true;
+                line = resp["input2-invalid"]["line"]
+                offset = resp["input2-invalid"]["offset"]
+                message = resp["input2-invalid"]["message"]
+            } else {
+                invalidDn = resp["valid"]
+                //what is the type of resp["results"] ?? why not string
+                content = resp["results"]
+                cont = content.replace("\\r\\n","&#13;&#10;").replace('\\"','"')
+            }
         }
 
-        respond([valid: valid, content: content, schema: schema, dn: dn], view: 'index')
+        respond([invalidJson:invalidJson,line:line,offset:offset,message:message,invalidDn:invalidDn, content: cont, schema: schema, dn: dn], view: 'index')
     }
 }

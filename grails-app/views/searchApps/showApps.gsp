@@ -9,7 +9,6 @@
 <body>
 
 <g:render template="/components/search"/>
-<g:render template="/components/showErrors"/>
 
 <div class="container">
     <div class="row">

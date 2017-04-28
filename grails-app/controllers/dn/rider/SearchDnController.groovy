@@ -16,11 +16,11 @@ class SearchDnController {
         //flash message when there are fields null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect action: "index", params: [version: version, formatShow: formatShow]
+            redirect action: "index", params: [app: app, version: version, formatShow: formatShow]
             return
         } else if (!version) {
             flash.message = "Fill the version !"
-            redirect action: 'index', params: [app: app, formatShow: formatShow]
+            redirect action: 'index', params: [app: app, version: version, formatShow: formatShow]
             return
         } else if (cmd.hasErrors()) {
 //            if (cmd.errors.hasFieldErrors("app")) {

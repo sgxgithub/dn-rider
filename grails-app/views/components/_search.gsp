@@ -13,7 +13,7 @@
 </div>
 <div class="form-group">
     <label for="formatShow">Format</label>
-    <g:select name="formatShow" class="form-control" from='["Text", "JSON"]' value="${format}"/>
+    <g:select name="formatShow" class="form-control" from='["Text", "JSON"]' value="${formatShow}"/>
 </div>
 <g:submitButton name="Search DN" class="btn btn-default"/>
 </g:form>
