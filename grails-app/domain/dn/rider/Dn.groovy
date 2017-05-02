@@ -9,7 +9,13 @@ class Dn {
     //static hasMany = [packages: DnPackage]
 
     //MultipartFile deliveryNoteFile
+    byte[] dnBytes
 
     static constraints = {
+        dnBytes nullable:true
+    }
+
+    static mapping = {
+        dnBytes column: 'dn_bytes', sqlType: 'longblob'
     }
 }

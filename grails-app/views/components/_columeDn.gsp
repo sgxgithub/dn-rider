@@ -4,7 +4,7 @@
 
     <ul>
         <li>"packages":[</li>
-        <g:render template="dnPackage" collection="${packages}" var="dnPackage"/>
+        <g:render template="/components/dnPackage" collection="${packages}" var="dnPackage"/>
         <li>]
         </li>
     </ul>

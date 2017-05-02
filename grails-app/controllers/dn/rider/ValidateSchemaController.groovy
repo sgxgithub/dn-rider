@@ -9,9 +9,16 @@ class ValidateSchemaController {
 
     def JsonSchemaValidationService
 
-    def index() {
-        //log.info "validation fichier json. upload: ${params.deliveryNoteContent}"
-        [dn: params.dn] //render view: 'index', model: [dn: params.deliveryNoteContent]
+    def index(UploadDnCommand cmd) {
+        boolean isChecked = false
+        String dnText = ""
+
+        if (cmd.id) {
+            Dn dn = Dn.get(cmd.id)
+            dnText = new String(dn.dnBytes)
+        }
+
+        respond([dn: dnText, isChecked: isChecked], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
@@ -31,42 +38,43 @@ class ValidateSchemaController {
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
 
-        boolean invalidJson = false
+        boolean isChecked = true
+        boolean isJsonValid = true
         String line = ""
         String offset = ""
         String message = ""
 
-        boolean invalidDn = false
+        boolean isSchemaValid = true
         String content
         String cont = ""
 
         if (schema && dn) {
             resp = JsonSchemaValidationService.validateSchema(schema, dn)
 
-            if(resp["input2-invalid"] != null){
-                invalidJson = true; //isJsonValid
+            if (resp["input2-invalid"] != null) {
+                isJsonValid = false
                 line = resp["input2-invalid"]["line"]
                 offset = resp["input2-invalid"]["offset"]
                 message = resp["input2-invalid"]["message"]
             } else {
-                invalidDn = resp["valid"]
+                isSchemaValid = resp["valid"]
                 //what is the type of resp["results"] ?? why not string
                 content = resp["results"]
-                cont = content.replace("\\r\\n","&#13;&#10;").replace('\\"','"')
+                cont = content.replace("\\r\\n", "&#13;&#10;").replace('\\"', '"')
             }
         }
 
-        respond([invalidJson:invalidJson,line:line,offset:offset,message:message,invalidDn:invalidDn, content: cont, schema: schema, dn: dn], view: 'index')
+        respond([isChecked: isChecked, isJsonValid: isJsonValid, line: line, offset: offset, message: message, isSchemaValid: isSchemaValid, content: cont, schema: schema, dn: dn], view: 'index')
     }
 
     def uploadDn(UploadDnCommand cmd) {
-        log.info "uploading dn file ${cmd.deliveryNoteFile}"
+        log.info "uploading dn file..."
 
-        String dn = cmd.deliveryNoteFile.inputStream.text
+        //save Dn in hibernate
+        def dn = new Dn(dnBytes: cmd.deliveryNoteFile.bytes)
+        dn.save(flush: true)
+        log.info "Delivery note saved with id = ${dn.id}"
 
-        // save domain Dn
-        // get the id
-
-        respond([dn:dn],view: 'uploadDn')
+        redirect(action: "index", params: [id: dn.id])
     }
 }

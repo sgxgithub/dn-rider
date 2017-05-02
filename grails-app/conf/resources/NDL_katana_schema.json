@@ -4,9 +4,9 @@
   "description": "Note de livraison dematerialisée d'une version à installer avec Katana",
   "type": "object",
   "properties": {
-    "NDL_pour_rundeck": { 
+    "NDL_pour_rundeck": {
       "type": "object",
-      "properties": { 
+      "properties": {
         "dependencies": {
           "type": "array",
           "description": "Liste des dépendances de l'application livrée (non utilisée)",
@@ -15,7 +15,7 @@
             "properties": {}
           }
         },
-        "dependency": { 
+        "dependency": {
           "type": "array",
           "description": "Liste des dépendances de l'application livrée (non utilisée) - DEPRECATED - Obsolete pour retro-compatibilité,   utiliser dependencies",
           "items": {
@@ -23,7 +23,7 @@
             "properties": {}
           }
         },
-        "minKatanaVersion": { 
+        "minKatanaVersion": {
           "type": "string",
           "description": "Version minimale de Katana à utiliser pour déployer l'application - TODO exploitation par KATANA"
         },
@@ -59,11 +59,11 @@
                 "type": "string",
                 "description": "URL permetant de récupérer le package dans un repo type Nexus. Par exemple:  http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.wdi&a=WDI-UI&v=23.0.119.0&p=war"
               },
-              "isSnapshot": { 
+              "isSnapshot": {
                 "type": "boolean",
                 "description": "DEPRECATED - (non exploité par Katana) Défini par un booléen true/false si le package est de type snapshot"
               },
-              "version": { 
+              "version": {
                 "type": "string",
                 "description": "Version du package livré"
               },
@@ -110,13 +110,13 @@
                   "type":"object",
                   "properties": {
                     "uriToCheck":  { "type": "string" },
-                    "expectedHttpCode": { 
+                    "expectedHttpCode": {
                       "type": "number",
                       "description": "code Http attendue en réponse (sinon erreur)",
                       "minimum": 200,
                       "maximum": 520
                     },
-                    "expectedPattern": { 
+                    "expectedPattern": {
                       "type": "string",
                       "description": "pattern a vérifier dans la réponse HTTP"
                     }
@@ -134,7 +134,7 @@
             },
             "required": ["name", "module"]
           }
-        }       
+        }
       },
       "required": ["packages"]
     }
