@@ -1,13 +1,18 @@
 package dn.rider
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.github.fge.jackson.JsonLoader
 
 class ValidateSchemaController {
 
     def JsonSchemaValidationService
 
-    def index() {}
+    def index() {
+        //log.info "validation fichier json. upload: ${params.deliveryNoteContent}"
+        [dn: params.dn] //render view: 'index', model: [dn: params.deliveryNoteContent]
+    }
 
     def validateSchema(ValidateSchemaCommand cmd) {
         // MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request
@@ -32,14 +37,14 @@ class ValidateSchemaController {
         String message = ""
 
         boolean invalidDn = false
-        String content = ""
+        String content
         String cont = ""
 
         if (schema && dn) {
             resp = JsonSchemaValidationService.validateSchema(schema, dn)
 
             if(resp["input2-invalid"] != null){
-                invalidJson = true;
+                invalidJson = true; //isJsonValid
                 line = resp["input2-invalid"]["line"]
                 offset = resp["input2-invalid"]["offset"]
                 message = resp["input2-invalid"]["message"]
@@ -52,5 +57,16 @@ class ValidateSchemaController {
         }
 
         respond([invalidJson:invalidJson,line:line,offset:offset,message:message,invalidDn:invalidDn, content: cont, schema: schema, dn: dn], view: 'index')
+    }
+
+    def uploadDn(UploadDnCommand cmd) {
+        log.info "uploading dn file ${cmd.deliveryNoteFile}"
+
+        String dn = cmd.deliveryNoteFile.inputStream.text
+
+        // save domain Dn
+        // get the id
+
+        respond([dn:dn],view: 'uploadDn')
     }
 }

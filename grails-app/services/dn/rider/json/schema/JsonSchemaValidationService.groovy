@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.fge.jackson.JacksonUtils
+import com.github.fge.jackson.JsonLoader
 import com.github.fge.jackson.JsonNodeReader
 import com.github.fge.jsonschema.core.report.ProcessingReport
 import com.github.fge.jsonschema.core.util.AsJson
@@ -28,9 +29,6 @@ class JsonSchemaValidationService {
     private static final JsonNodeReader NODE_READER = new JsonNodeReader();
 
     def validateSchema(String rawSchema, String rawDn) {
-        //final JsonNode fstabSchema = JsonLoader.fromResource("/NDL_katana_schema.json")
-        //schema = fstabSchema.toString()
-
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
 
         final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_INPUT, rawSchema)
@@ -42,6 +40,7 @@ class JsonSchemaValidationService {
         }
 
         final JsonNode schemaNode = ret.remove(INPUT)
+        //final JsonNode schemaNode = JsonLoader.fromResource("/NDL_katana_schema.json")
         final JsonNode dnNode = ret.remove(INPUT2)
 
         final ProcessingReport report = VALIDATOR.validateUnchecked(schemaNode, dnNode)
@@ -61,7 +60,9 @@ class JsonSchemaValidationService {
     *
     * This returns true if the data is invalid.
     */
-    private static boolean fillWithData(final ObjectNode node, final String onSuccess, final String onFailure, final String raw)
+
+    private static boolean fillWithData(
+            final ObjectNode node, final String onSuccess, final String onFailure, final String raw)
             throws IOException {
         try {
             node.put(onSuccess, NODE_READER.fromReader(new StringReader(raw)))

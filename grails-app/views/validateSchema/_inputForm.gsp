@@ -11,6 +11,12 @@
         </g:if>
     </label>
     <textarea name='dn' class="form-control" rows="10" cols="20">${dn}</textarea>
+    <!--Upload Form:<br/>-->
 </div>
 <g:submitButton name="Check Syntax" class="btn btn-default"/>
 </g:form>
+
+<g:uploadForm action="uploadDn" class="form-inline">
+    <input type="file" name="deliveryNoteFile"/>
+    <g:submitButton name="Upload DN" class="btn btn-default"/>
+</g:uploadForm>
