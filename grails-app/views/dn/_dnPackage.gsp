@@ -10,4 +10,5 @@
     <li>module: ${dnPackage.module}</li>
     <li>groupId: ${dnPackage.groupId}</li>
     <li>hesperidesModule: ${dnPackage.hesperidesModule}</li>
-</ul>}
+</ul>
+}
