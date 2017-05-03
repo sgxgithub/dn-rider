@@ -1,40 +1,43 @@
 package dn.rider
 
-import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.github.fge.jackson.JsonLoader
 
 class ValidateSchemaController {
 
     def JsonSchemaValidationService
 
+    //function to get schema string from a local file
+    def getSchemaText(){
+        String schemaText = new File("src/main/resources/NDL_katana_schema.json").getText()
+        return schemaText
+    }
+
     def index(UploadDnCommand cmd) {
         boolean isChecked = false
         String dnText = ""
-        String schemaText = ""
-        schemaText = new File("src/main/resources/NDL_katana_schema.json").getText()
 
         if (cmd.id) {
             Dn dn = Dn.get(cmd.id)
             dnText = new String(dn.dnBytes)
         }
 
-        respond([dn: dnText, schema: schemaText, isChecked: isChecked], view: 'index')
+        respond([dn: dnText, isChecked: isChecked], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
-        String schema = cmd.schema
+        String schema = getSchemaText()
         String dn = cmd.dn
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
-
+        //variable to mark if there is a validation result
         boolean isChecked = true
+        //variable to mark if the delivery-note satisfied format JSON
         boolean isJsonValid = true
         String line = ""
         String offset = ""
         String message = ""
-
+        //variable to mark if the delivery-note satisfied the schema
         boolean isSchemaValid = true
         String content
         String cont = ""
@@ -42,11 +45,11 @@ class ValidateSchemaController {
         if (schema && dn) {
             resp = JsonSchemaValidationService.validateSchema(schema, dn)
 
-            if (resp["input2-invalid"] != null) {
+            if (resp["dn-invalid"] != null) {
                 isJsonValid = false
-                line = resp["input2-invalid"]["line"]
-                offset = resp["input2-invalid"]["offset"]
-                message = resp["input2-invalid"]["message"]
+                line = resp["dn-invalid"]["line"]
+                offset = resp["dn-invalid"]["offset"]
+                message = resp["dn-invalid"]["message"]
             } else {
                 isSchemaValid = resp["valid"]
                 //what is the type of resp["results"] ?? why not string
@@ -70,7 +73,8 @@ class ValidateSchemaController {
     }
 
     def showSchema() {
-        def url = 'http://gitlab.socrate.vsct.fr/rundep/katana/raw/dev/ndl_json-schema/NDL_katana_schema.json'
-        def schema = new URL(url).getText()
+        String schemaText = getSchemaText()
+
+        respond([schema: schemaText], view: 'showSchema')
     }
 }

@@ -21,18 +21,18 @@ class JsonSchemaValidationService {
     public static final String RESULTS = "results"
     public static final String VALID = "valid"
     public static final String INPUT = "input"
-    public static final String INVALID_INPUT = "input-invalid"
+    public static final String INVALID_SCHEMA = "schema-invalid"
     public static final String INPUT2 = "input2"
-    public static final String INVALID_INPUT2 = "input2-invalid"
+    public static final String INVALID_DN = "dn-invalid"
 
     private static final JsonValidator VALIDATOR = JsonSchemaFactory.byDefault().getValidator()
-    private static final JsonNodeReader NODE_READER = new JsonNodeReader();
+    private static final JsonNodeReader NODE_READER = new JsonNodeReader()
 
     def validateSchema(String rawSchema, String rawDn) {
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
 
-        final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_INPUT, rawSchema)
-        final boolean invalidData = fillWithData(ret, INPUT2, INVALID_INPUT2, rawDn)
+        final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
+        final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
 
         if (invalidSchema || invalidData) {
             log.info "invalide json"
