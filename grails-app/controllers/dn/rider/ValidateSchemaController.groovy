@@ -30,15 +30,16 @@ class ValidateSchemaController {
         String dn = cmd.dn
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
-        //variable to mark if there is a validation result
-        boolean isChecked = true
-        //variable to mark if the delivery-note satisfied format JSON
-        boolean isJsonValid = true
+
+
+        boolean isChecked = true  //variable to mark if there is a validation result
+
+        boolean isJsonValid = true //variable to mark if the delivery-note satisfied format JSON
         String line = ""
         String offset = ""
         String message = ""
-        //variable to mark if the delivery-note satisfied the schema
-        boolean isSchemaValid = true
+
+        boolean isSchemaValid = true //variable to mark if the delivery-note satisfied the schema
         String content
         String cont = ""
 

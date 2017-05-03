@@ -6,6 +6,15 @@
         Search for delivery-notes
     </title>
     <asset:stylesheet src="validation.css"/>
+    <asset:javascript src="jquery-2.2.0.min.js"/>
+
+    <g:javascript>
+        $(document).ready(function(){
+            $("#json-error-link").click(function(){
+                $("#textarea-dn").focus().setCursorPosition(${offset});
+            });
+        });
+    </g:javascript>
 </head>
 <body>
 
