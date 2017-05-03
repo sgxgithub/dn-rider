@@ -12,27 +12,18 @@ class ValidateSchemaController {
     def index(UploadDnCommand cmd) {
         boolean isChecked = false
         String dnText = ""
+        String schemaText = ""
+        schemaText = new File("src/main/resources/NDL_katana_schema.json").getText()
 
         if (cmd.id) {
             Dn dn = Dn.get(cmd.id)
             dnText = new String(dn.dnBytes)
         }
 
-        respond([dn: dnText, isChecked: isChecked], view: 'index')
+        respond([dn: dnText, schema: schemaText, isChecked: isChecked], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
-        // MultipartHttpServletRequest mpr = (MultipartHttpServletRequest)request
-        //CommonsMultipartFile f = (CommonsMultipartFile) mpr.getFile("fDn")
-//        def f = request.getFile('fDn')
-//
-//        if(f.empty){
-//            flash.message = "File cannot be empty"
-//            render "vide"
-//            return
-//        }
-//
-//        f.transferTo(new File('/some/dic/myfile.json'))
         String schema = cmd.schema
         String dn = cmd.dn
 
@@ -76,5 +67,10 @@ class ValidateSchemaController {
         log.info "Delivery note saved with id = ${dn.id}"
 
         redirect(action: "index", params: [id: dn.id])
+    }
+
+    def showSchema() {
+        def url = 'http://gitlab.socrate.vsct.fr/rundep/katana/raw/dev/ndl_json-schema/NDL_katana_schema.json'
+        def schema = new URL(url).getText()
     }
 }
