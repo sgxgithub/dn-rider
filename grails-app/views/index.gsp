@@ -6,7 +6,6 @@
     <title>Welcome to DN-RIDER</title>
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <asset:stylesheet src="index.css"/>
 </head>
 <body>
 <content tag="nav">
@@ -15,6 +14,9 @@
     </li>
     <li class="nav-item">
         <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+    </li>
+    <li>
+        <g:link class="nav-link" controller="validateSchema" action="index">Validate Schema</g:link>
     </li>
 </content>
 

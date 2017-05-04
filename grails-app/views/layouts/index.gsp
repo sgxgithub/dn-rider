@@ -9,12 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:stylesheet src="bootstrap.css"/>
+    <asset:stylesheet src="index.css"/>
 
     <g:layoutHead/>
 </head>
 <body>
 
-<nav class="navbar navbar-toggleable-md navbar-light mb-4" style="background-color: #5C67C7;">
+<nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #5C67C7;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
