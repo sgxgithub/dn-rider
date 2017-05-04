@@ -1,5 +1,5 @@
-<!doctype html>
-<html lang="en" class="no-js">
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,24 +8,25 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <asset:stylesheet src="application.css"/>
+    <asset:stylesheet src="bootstrap.css"/>
 
     <g:layoutHead/>
 </head>
 <body>
 
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/#">
-              DN-RIDER
-            </a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
+<nav class="navbar navbar-toggleable-md navbar-light mb-4" style="background-color: #5C67C7;">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" href="/#">DN-RIDER</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav  ml-auto">
             <g:pageProperty name="page.nav"/>
         </ul>
     </div>
-</div>
+</nav>
 
 <g:layoutBody/>
 
