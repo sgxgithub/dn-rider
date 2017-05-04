@@ -1,28 +1,20 @@
-<g:form action="showSchema" class="form-inline">
-    <label>Schema:</label>
-    <g:submitButton name="Show Schema" class="btn btn-default"/>
-</g:form>
+<g:uploadForm action="uploadDn" class="form-inline">
+    DN:
+    <label class="custom-file mx-2 my-2 ">
+        <input type="file" id="file" name="deliveryNoteFile" class="custom-file-input"/>
+        <span class="custom-file-control"> </span>
+    </label>
+    <g:submitButton name="Upload" class="btn btn-secondary"/>
+</g:uploadForm>
 
 <g:form action="validateSchema" method="post">
-<div class="col-md-9">
-    <div class="form-group">
-        <label for="textarea-dn">
-            DN:
-            <g:if test="${isChecked && !isJsonValid}">
-                <span class="error" >Invalid JSON: parse error, <a id="json-error-link" href="#">line ${line}</a></span>
-            </g:if>
-        </label>
-        <textarea name='dn' id="textarea-dn" class="form-control" rows="10" cols="20">${dn}</textarea>
+<div class="form-group row">
+    <div class="col-10">
+        <textarea name='dn' id="textarea-dn" class="form-control" rows="25" cols="20">${dn}</textarea>
+    </div>
+    <div class="col-2">
+        <g:submitButton name="Check Syntax" class="btn btn-primary"/><br/>
+        <g:link action="showSchema" class="btn btn-secondary mt-2">Show Schema</g:link>
     </div>
 </div>
-<div class="col-md-3">
-    <g:submitButton name="Check Syntax" class="btn btn-primary"/>
-</div>
 </g:form>
-
-<g:uploadForm action="uploadDn" class="form-inline">
-<div class="form-group">
-    <input type="file" class="form-control" name="deliveryNoteFile"/>
-    <g:submitButton name="Upload" class="btn btn-default"/>
-</div>
-</g:uploadForm>

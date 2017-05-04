@@ -9,14 +9,8 @@
 </head>
 <body>
 <content tag="nav">
-    <li class="nav-item">
-        <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-    </li>
     <li>
-        <g:link class="nav-link" controller="validateSchema" action="index">Validate Schema</g:link>
+        <g:link class="nav-link" controller="validateSchema" action="index">Validation</g:link>
     </li>
 </content>
 

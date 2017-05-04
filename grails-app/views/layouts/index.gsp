@@ -24,6 +24,12 @@
     <a class="navbar-brand" href="/#">DN-RIDER</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+            </li>
             <g:pageProperty name="page.nav"/>
         </ul>
     </div>
