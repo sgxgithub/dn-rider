@@ -21,13 +21,13 @@ class NexusConsumerService {
         return resp
     }
 
-    @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
+    //@Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
     def getVersions(String app, String releaseType) {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
         if (app.contains("com.vsct")) {
             url = "http://nexus:50080/nexus/service/local/lucene/search?g=${app}&a=delivery-notes&p=json"
-        } else url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
+        } else url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
 
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
