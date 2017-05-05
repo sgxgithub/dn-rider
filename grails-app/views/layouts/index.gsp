@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #5C67C7;">
+<nav class="navbar navbar-toggleable-md navbar-light" style="background-color: #4682B4;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
@@ -37,7 +37,19 @@
 
 <g:layoutBody/>
 
-<div class="footer"></div>
+<footer>
+    <ul class="nav justify-content-center my-1">
+        <li class="nav-item">
+            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+        </li>
+    </ul>
+    <p>
+        <a href="#">Back to top</a>
+    </p>
+</footer>
 
 <div id="spinner" class="spinner" style="display:none;">
     <g:message code="spinner.alt" default="Loading&hellip;"/>

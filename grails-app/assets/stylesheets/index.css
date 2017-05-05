@@ -6,16 +6,21 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
-.footer {
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #5C67C7;
+  height: 100px;
+  background-color: #4682B4;
+  border-top: .05rem solid red;
+  color: #999;
+  text-align: center;
 }
-
+footer p:last-child {
+  margin-bottom: 0;
+}
 /* Custom page CSS
 -------------------------------------------------- */
