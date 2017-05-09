@@ -7,7 +7,9 @@ class SearchVersionsCommand implements grails.validation.Validateable{
     String formatShow
 
     static constraints = {
-        app blank: false, size: 3..6
+        app blank: false, size: 3..15
         version nullable: true
+        releaseType nullable: true
+        formatShow nullable: true
     }
 }

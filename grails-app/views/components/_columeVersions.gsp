@@ -2,7 +2,7 @@
 <ul>
 <g:each var="version" in="${versions}">
     <g:link action="searchVersions" controller="searchVersions"
-            params="[app: app, version: version, releaseType: releaseType]">
+            params="[app: app, version: version, releaseType: releaseType, formatShow:formatShow]">
         <li>${version}</li>
     </g:link>
 </g:each>

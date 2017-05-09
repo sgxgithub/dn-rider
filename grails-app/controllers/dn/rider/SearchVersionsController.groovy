@@ -4,15 +4,6 @@ class SearchVersionsController {
 
     def nexusConsumerService
 
-    def index(SearchVersionsCommand cmd) {
-        //take the parameters from the object command
-        String app = cmd.app
-        String version = cmd.version
-        String releaseType = cmd.releaseType
-
-        respond([app: app, version: version, releaseType: releaseType])
-    }
-
     def searchVersions(SearchVersionsCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
@@ -23,7 +14,12 @@ class SearchVersionsController {
         //flash message when the app name is null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect action: "index", params: [app: app, version: version, releaseType: releaseType]
+            render(view: '../index')
+            return
+        }
+        if (cmd.hasErrors()) {
+            flash.message = cmd.errors.allErrors.toString()
+            respond([app: app, version: version, releaseType: releaseType, formatShow: formatShow], view: 'showVersions')
             return
         }
 
@@ -45,7 +41,7 @@ class SearchVersionsController {
 
             //when there is no result
             if (resp.responseEntity.statusCode.toString() == '404') {
-                String dnUrl = getNexusConsumerService().getDnUrl(app,version)
+                String dnUrl = getNexusConsumerService().getDnUrl(app, version)
                 flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
                 respond([version: version, versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType, formatShow: formatShow], view: "showVersions")
                 return
