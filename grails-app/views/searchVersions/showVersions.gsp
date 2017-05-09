@@ -15,9 +15,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 bg-faded" >
-            <g:render template="/components/blockSearch"/>
-            <div class="my-2" style="max-height:620px; overflow:scroll">
+        <div class="col-3 py-3 bg-faded">
+            <div>
+                <g:render template="/components/blockSearch"/>
+            </div>
+            <div style="max-height:600px; overflow:scroll">
                 <g:render template="/components/columeVersions"/>
             </div>
         </div>

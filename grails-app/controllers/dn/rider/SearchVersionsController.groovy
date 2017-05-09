@@ -51,7 +51,6 @@ class SearchVersionsController {
                 return
             }
 
-            //format Text by default
             respond([version: version, versions: versions, versionCount: versions.size(), dnText: resp.text, packageCount: resp.json.NDL_pour_rundeck.packages.size(), packages: resp.json.NDL_pour_rundeck.packages, app: app, releaseType: releaseType, formatShow: formatShow], view: "showVersions")
         }
     }

@@ -31,5 +31,10 @@
             <g:select name="formatShow" class="form-control" from='["Text", "JSON"]' value="${formatShow}"/>
         </div>
     </div>
-    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <div class="row">
+        <div class="col-3 offset-9">
+            <button class="btn btn-outline-primary" type="submit">Search</button>
+        </div>
+    </div>
+
 </g:form>

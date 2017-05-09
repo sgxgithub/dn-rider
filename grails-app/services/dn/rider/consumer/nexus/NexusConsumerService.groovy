@@ -18,10 +18,7 @@ class NexusConsumerService {
     @Cacheable(value = 'cacheDn', key = '{#app, #version}')
     def getDn(String app, String version) {
         log.info "Searching for the delivery-note in Nexus..."
-        String url
-        if (app.contains("com.vsct")) {
-            url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=${app}&a=delivery-notes&v=${version}&p=json"
-        } else url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
+        String url = getDnUrl(app,version)
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
 
