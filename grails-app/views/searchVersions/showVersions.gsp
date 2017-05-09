@@ -15,9 +15,11 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 bg-faded" style="max-height:720px; overflow:scroll">
+        <div class="col-3 bg-faded" >
             <g:render template="/components/blockSearch"/>
-            <g:render template="/components/columeVersions"/>
+            <div class="my-2" style="max-height:620px; overflow:scroll">
+                <g:render template="/components/columeVersions"/>
+            </div>
         </div>
         <div class="col-9" style="max-height:720px; overflow:scroll">
             <g:render template="/components/notification"/>

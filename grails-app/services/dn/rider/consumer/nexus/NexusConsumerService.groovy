@@ -7,7 +7,6 @@ import groovy.util.slurpersupport.NodeChildren
 
 @Transactional
 class NexusConsumerService {
-
     static def getDnUrl(String app, String version){
         String url
         if (app.contains("com.vsct")) {
@@ -60,9 +59,11 @@ class NexusConsumerService {
                 list.add(version)
             }
         }
+        //filter form newest to oldest
+        list.reverse()
 
         //return the list of versions
-        return list.sort()
+        return list
     }
 
     @Cacheable(value = 'cacheListApps')
