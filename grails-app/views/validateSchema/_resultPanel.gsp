@@ -1,5 +1,7 @@
 <form class="my-4">
-    <h5>Validation results:</h5>
+    <h5>
+        <g:message code="dn.rider.validation.result.title"/>
+    </h5>
     <g:if test="${isChecked && !isJsonValid}">
         <div class="alert alert-danger">
             <strong>Invalid JSON:</strong> parse error in <a id="json-error-link" href="#">line: ${line}</a>

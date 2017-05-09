@@ -22,7 +22,9 @@
                         <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text" placeholder="trigramme"/>
                     </div>
                     <div class="col-2">
-                        <button class="btn btn-outline-primary" type="submit">Search</button>
+                        <button class="btn btn-outline-primary" type="submit">
+                            <g:message code="dn.rider.btn.search"/>
+                        </button>
                     </div>
                 </div>
             </g:form>

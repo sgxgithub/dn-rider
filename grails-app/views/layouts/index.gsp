@@ -31,6 +31,12 @@
                 <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
             </li>
             <g:pageProperty name="page.nav"/>
+            <li>
+                <a class="nav-link" href="?lang=fr">FR</a>
+            </li>
+            <li>
+                <a class="nav-link" href="?lang=en">EN</a>
+            </li>
         </ul>
     </div>
 </nav>
