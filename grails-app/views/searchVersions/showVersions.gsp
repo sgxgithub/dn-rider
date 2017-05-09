@@ -23,7 +23,7 @@
                 <g:render template="/components/columeVersions"/>
             </div>
         </div>
-        <div class="col-9" style="max-height:720px; overflow:scroll">
+        <div class="col-9" style="max-height:800px; overflow:scroll">
             <g:render template="/components/notification"/>
             <g:render template="/components/columeDn"/>
         </div>

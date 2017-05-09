@@ -1,4 +1,7 @@
 <g:uploadForm action="uploadDn" class="form-inline">
+
+    <!--<g:hiddenField name="fileName" value=""/>-->
+
     <g:message code="dn.rider.dn"/>
     <label class="custom-file mx-2 my-2 ">
         <input type="file" id="file" name="deliveryNoteFile" class="custom-file-input"/>

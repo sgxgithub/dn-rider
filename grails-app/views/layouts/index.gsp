@@ -36,6 +36,7 @@
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="?lang=fr">FR</a>
                     <a class="dropdown-item" href="?lang=en">EN</a>
+                    <a class="dropdown-item" href="?lang=zh_CN">ZH</a>
                 </div>
             </li>
         </ul>
