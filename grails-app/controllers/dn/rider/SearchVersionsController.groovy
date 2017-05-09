@@ -45,12 +45,12 @@ class SearchVersionsController {
             //when there is no result
             if (resp.responseEntity.statusCode.toString() == '404') {
                 flash.message = "No result for app=${app}, version=${version} !"
-                redirect action: 'index', params: [app: app, version: version]
+                respond([version: version, versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType, formatShow: "Text"], view: "showVersions")
                 return
             }
 
             //format Text by default
-            respond([versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, releaseType: releaseType, formatShow: "Text"], view: "showVersions")
+            respond([version: version, versions: versions, versionCount: versions.size(), dnText: resp.text, app: app, releaseType: releaseType, formatShow: "Text"], view: "showVersions")
         }
     }
 }
