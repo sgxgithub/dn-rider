@@ -31,7 +31,7 @@
                 <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
             </li>
             <g:pageProperty name="page.nav"/>
-            <li class="nav-item dropdown mr-5">
+            <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="?lang=fr">FR</a>
