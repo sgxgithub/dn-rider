@@ -7,8 +7,9 @@ import groovy.util.slurpersupport.NodeChildren
 
 @Transactional
 class NexusConsumerService {
-    static def getDnUrl(String app, String version){
+    static def getDnUrl(String app, String version) {
         String url
+        app = app.toLowerCase()
         if (app.contains("com.vsct")) {
             url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=${app}&a=delivery-notes&v=${version}&p=json"
         } else url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
@@ -18,7 +19,7 @@ class NexusConsumerService {
     @Cacheable(value = 'cacheDn', key = '{#app, #version}')
     def getDn(String app, String version) {
         log.info "Searching for the delivery-note in Nexus..."
-        String url = getDnUrl(app,version)
+        String url = getDnUrl(app, version)
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -29,6 +30,7 @@ class NexusConsumerService {
     def getVersions(String app, String releaseType) {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
+        app = app.toLowerCase()
         if (app.contains("com.vsct")) {
             url = "http://nexus:50080/nexus/service/local/lucene/search?g=${app}&a=delivery-notes&p=json"
         } else url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
