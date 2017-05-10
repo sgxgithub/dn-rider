@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-3 offset-9">
+        <div class="col-3 offset-8">
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </div>
     </div>

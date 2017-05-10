@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:asset="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -10,6 +10,7 @@
 
     <asset:stylesheet src="bootstrap.css"/>
     <asset:stylesheet src="index.css"/>
+    <asset:stylesheet src="css/font-awesome.min.css"/>
 
     <g:layoutHead/>
 </head>
@@ -19,11 +20,12 @@
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"> </span>
     </button>
     <a class="navbar-brand" href="/#">DN-RIDER</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
+            <g:render template="/components/modalPrefence"/>
             <li class="nav-item">
                 <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
             </li>
