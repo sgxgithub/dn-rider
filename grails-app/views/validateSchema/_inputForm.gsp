@@ -14,10 +14,10 @@
 
 <g:form action="validateSchema" method="post">
 <div class="form-group row">
-    <div class="col-10">
+    <div class="col-9">
         <textarea name='dn' id="textarea-dn" class="form-control" rows="25" cols="20">${dn}</textarea>
     </div>
-    <div class="col-2">
+    <div class="col-3">
         <button class="btn btn-outline-primary" type="submit">
             <g:message code="dn.rider.validation.btn.checkSyntax"/>
         </button>
