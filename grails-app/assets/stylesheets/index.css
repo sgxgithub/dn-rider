@@ -22,5 +22,13 @@ footer {
 footer p:last-child {
   margin-bottom: 0;
 }
+
+footer a{
+  color:rgba(255, 255, 255, 0.5);
+}
+
+footer a:hover{
+  color:rgba(255, 255, 255, 0.75);
+}
 /* Custom page CSS
 -------------------------------------------------- */
