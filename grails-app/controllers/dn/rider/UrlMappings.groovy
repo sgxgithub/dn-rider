@@ -12,7 +12,7 @@ class UrlMappings {
 
         "/deliveryNotes/search"(controller:"searchDn")
 
-        "/"(view: '/home/index')
+        "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')
     }

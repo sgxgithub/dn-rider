@@ -1,6 +1,6 @@
 package dn.rider
 
-class SearchVersionsCommand implements grails.validation.Validateable {
+class SearchDnCommand implements grails.validation.Validateable {
     String app
     String version
     String releaseType

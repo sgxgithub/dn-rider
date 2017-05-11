@@ -12,7 +12,7 @@ class HomeController {
         [app: params.app, apps: apps as JSON]
     }
 
-    def search(SearchVersionsCommand cmd) {
+    def search(SearchDnCommand cmd) {
         String app = cmd.app
         if (cmd.hasErrors()) {
             flash.message = cmd.errors.allErrors.toString()

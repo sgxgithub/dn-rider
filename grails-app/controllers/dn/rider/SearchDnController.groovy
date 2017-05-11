@@ -4,7 +4,7 @@ class SearchDnController {
 
     def nexusConsumerService
 
-    def index(SearchVersionsCommand cmd) {
+    def index(SearchDnCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
         String version = cmd.version
