@@ -4,61 +4,78 @@ class SearchDnController {
 
     def nexusConsumerService
 
-    def index(SearchDnCommand cmd) {
+    def index(SearchVersionsCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
         String version = cmd.version
+        String releaseType = cmd.releaseType
         String formatShow = cmd.formatShow
 
-        respond([app: app, version: version, formatShow: formatShow])
-    }
-
-    def searchDn(SearchDnCommand cmd) {
-
-        //take the parameters from the object command
-        String app = cmd.app
-        String version = cmd.version
-        String formatShow = cmd.formatShow
-
-        //flash message when there are fields null
+        //flash message when the app name is null
         if (!app) {
             flash.message = "Fill the app name !"
-            redirect action: "index", params: [app: app, version: version, formatShow: formatShow]
+            render(view: '../index')
             return
-        } else if (!version) {
-            flash.message = "Fill the version !"
-            redirect action: 'index', params: [app: app, version: version, formatShow: formatShow]
-            return
-        } else if (cmd.hasErrors()) {
-//            if (cmd.errors.hasFieldErrors("app")) {
-//                flash.message =  cmd.errors.getFieldError("app").rejectedValue
-//            } else if (cmd.errors.hasFieldErrors("version")) {
-//                flash.message =  cmd.errors.getFieldError("version").rejectedValue
-//            }
+        }
+        if (cmd.hasErrors()) {
             flash.message = cmd.errors.allErrors.toString()
-            redirect action: 'index', params: [app: app, version: version, formatShow: formatShow]
+            respond([
+                    app        : app,
+                    releaseType: releaseType,
+                    version    : version,
+                    formatShow : formatShow
+            ], view: 'index')
             return
         }
 
-        //search for the delivery-note by using the service functioin
-        log.info "searching for the delivery-note with app=${app}, version=${version}, format=${formatShow}..."
-        def resp = nexusConsumerService.getDn(app, version)
-        log.info "received the delivery-note"
+        //search for the list of delivery-notes by using the service functioin
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def versions = nexusConsumerService.getVersions(app, releaseType)
+        log.info "received the list of delivery-notes"
 
-        //when there is no result
-        if (resp.responseEntity.statusCode.toString() == "404") {
-            flash.message = "No result for app=${app}, version=${version} !"
-            redirect action: 'index', params: [app: app, version: version, formatShow: formatShow]
+        //before the user choose the version
+        if (!version) {
+            respond([
+                    versionCount: versions.size(),
+                    versions    : versions,
+                    app         : app,
+                    releaseType : releaseType,
+                    formatShow  : formatShow
+            ], view: "index")
             return
         }
-
-        //format JSON
-        if (formatShow == "JSON") {
-            respond([packageCount: resp.json.NDL_pour_rundeck.packages.size(), packages: resp.json.NDL_pour_rundeck.packages, app: app, version: version, formatShow: formatShow], view: "showDn")
-        }
-        //format text
+        //when the user choose the version
         else {
-            respond([dnText: resp.text, app: app, version: version, formatShow: formatShow], view: "showDn")
+            log.info "searching for the delivery-note with app=${app}, version=${version}..."
+            def resp = nexusConsumerService.getDn(app, version)
+            log.info "received the delivery-note"
+
+            //when there is no result
+            if (resp.responseEntity.statusCode.toString() == '404') {
+                String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+                flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+                respond([
+                        versions    : versions,
+                        versionCount: versions.size(),
+                        app         : app,
+                        releaseType : releaseType,
+                        version     : version,
+                        formatShow  : formatShow
+                ], view: "index")
+                return
+            }
+
+            respond([
+                    versions    : versions,
+                    versionCount: versions.size(),
+                    dnText      : resp.text,
+                    packageCount: resp.json.NDL_pour_rundeck.packages.size(),
+                    packages    : resp.json.NDL_pour_rundeck.packages,
+                    app         : app,
+                    releaseType : releaseType,
+                    version     : version,
+                    formatShow  : formatShow
+            ], view: "index")
         }
     }
 }

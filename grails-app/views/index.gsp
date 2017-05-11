@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html xmlns:asset="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
+    <meta charset="utf-8"/>
     <meta name="layout" content="index"/>
-    <title>Welcome to DN-RIDER</title>
-
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
-    <asset:stylesheet src="index.css"/>
+    <title>DN-RIDER</title>
 </head>
 <body>
 <content tag="nav">
     <li>
-        <a href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-    </li>
-    <li>
-        <a href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+        <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
     </li>
 </content>
 
+<g:render template="/components/notification"/>
+
 <div id="content" class="container">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="index-logo">
-                <asset:image class="img-rounded" src="dn-rider-logo.gif" width="40%"/>
-            </div>
-            <g:form url="[action:'searchVersions',controller:'searchVersions']" method="get">
-                <div class="form-groupe">
-                    <input type="text" class="form-control" name="app" placeholder="trigramme">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <asset:image class="rounded mx-auto d-block my-5" src="dn-rider-logo.gif" width="40%"/>
+            <g:form url="[action:'index',controller:'searchDn']" method="get">
+                <div class="row">
+                    <div class="col-10">
+                        <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text"
+                               placeholder="trigramme"/>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <g:message code="dn.rider.btn.search"/>
+                        </button>
+                    </div>
                 </div>
-                <g:submitButton name="Search" class="btn btn-default"/>
             </g:form>
         </div>
     </div>

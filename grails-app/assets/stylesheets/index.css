@@ -6,27 +6,41 @@ html {
 }
 body {
   /* Margin bottom by footer height */
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
-.footer {
+.navbar .dropdown-menu{
+  min-width:2rem;
+  background:#4682B4;
+}
+.navbar .dropdown-item:hover{
+  background:#4682B4;
+  color:rgba(255, 255, 255, 0.5);
+}
+
+.navbar .dropdown-item{
+ color:rgba(255, 255, 255, 0.75);
+}
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #5C67C7;
+  height: 100px;
+  background-color: #4682B4;
+  border-top: .05rem solid orange;
+  color: #999;
+  text-align: center;
+}
+footer p:last-child {
+  margin-bottom: 0;
 }
 
+footer a{
+  color:rgba(255, 255, 255, 0.5);
+}
+
+footer a:hover{
+  color:rgba(255, 255, 255, 0.75);
+}
 /* Custom page CSS
 -------------------------------------------------- */
-.index-logo{
-text-align: center;
-padding-top:100px;
-padding-bottom:20px;
-}
-
-.btn{
-margin:10px 190px;
-padding-left:40px;
-padding-right:40px;
-}

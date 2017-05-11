@@ -66,4 +66,5 @@ bootRun {
 assets {
     minifyJs = true
     minifyCss = true
+    includes = ["font-awesome-4.7.0/*"]
 }
