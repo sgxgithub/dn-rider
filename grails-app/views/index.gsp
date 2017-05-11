@@ -1,43 +1,39 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta name="layout" content="main"/>
-    <title>Welcome to DN-RIDER</title>
-
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <meta charset="utf-8"/>
+    <meta name="layout" content="index"/>
+    <title>DN-RIDER</title>
 </head>
 <body>
-    <content tag="nav">
-        <li>
-            <a href="/#">Home</a>
-        </li>
-        <li>
-            <a href="dn">Search DN</a>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                    <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
-                </g:each>
-            </ul>
-        </li>
-    </content>
+<content tag="nav">
+    <li>
+        <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+    </li>
+</content>
 
-    <div id="content" role="main">
-        <section class="row colset-2-its">
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
-            </div>
-        </section>
+<g:render template="/components/notification"/>
+
+<div id="content" class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <asset:image class="rounded mx-auto d-block my-5" src="dn-rider-logo.gif" width="40%"/>
+            <g:form url="[action:'index',controller:'searchDn']" method="get">
+                <div class="row">
+                    <div class="col-10">
+                        <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text"
+                               placeholder="trigramme"/>
+                    </div>
+                    <div class="col-2">
+                        <button class="btn btn-outline-primary" type="submit">
+                            <g:message code="dn.rider.btn.search"/>
+                        </button>
+                    </div>
+                </div>
+            </g:form>
+        </div>
     </div>
+</div>
 
 </body>
 </html>
