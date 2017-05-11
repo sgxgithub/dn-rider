@@ -28,10 +28,10 @@
                 <a href="/#">Home</a>
             </li>
             <li>
-                <g:link controller="dn" action="index">Search DN</g:link>
+                <g:link controller="searchDn" action="index">Search DN</g:link>
             </li>
             <li>
-                <g:link controller="dn" action="validation">Validation</g:link>
+                <g:link controller="validateSchema" action="index">Validate Schema</g:link>
             </li>
             <g:pageProperty name="page.nav"/>
         </ul>

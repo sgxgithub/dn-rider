@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<g:render template="/dn/search"/>
+<g:render template="/components/search"/>
 
 </body>
 </html>

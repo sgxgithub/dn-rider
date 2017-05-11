@@ -1,37 +1,37 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html xmlns:asset="http://www.w3.org/1999/xhtml">
 <head>
-    <meta name="layout" content="main"/>
+    <meta name="layout" content="index"/>
     <title>Welcome to DN-RIDER</title>
 
-    <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
+    <asset:link rel="icon" href="favicon.ico" type="image/x-ico"/>
+    <asset:stylesheet src="index.css"/>
 </head>
 <body>
-    <content tag="nav">
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Installed Plugins <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-                <g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-                    <li><a href="#">${plugin.name} - ${plugin.version}</a></li>
-                </g:each>
-            </ul>
-        </li>
-    </content>
+<content tag="nav">
+    <li>
+        <a href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
+    </li>
+    <li>
+        <a href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+    </li>
+</content>
 
-    <div id="content" role="main">
-        <section class="row colset-2-its">
-            <div id="controllers" role="navigation">
-                <h2>Available Controllers:</h2>
-                <ul>
-                    <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-                        <li class="controller">
-                            <g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link>
-                        </li>
-                    </g:each>
-                </ul>
+<div id="content" class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="index-logo">
+                <asset:image class="img-rounded" src="dn-rider-logo.gif" width="40%"/>
             </div>
-        </section>
+            <g:form url="[action:'searchVersions',controller:'searchVersions']" method="get">
+                <div class="form-groupe">
+                    <input type="text" class="form-control" name="app" placeholder="trigramme">
+                </div>
+                <g:submitButton name="Search" class="btn btn-default"/>
+            </g:form>
+        </div>
     </div>
+</div>
 
 </body>
 </html>

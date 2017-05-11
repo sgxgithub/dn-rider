@@ -13,7 +13,7 @@ class NexusConsumerService {
         log.info "Searching for the delivery-note in Nexus..."
         String url
         if (app.contains("com.vsct")) {
-            url = "http://nexus:50080/nexus/service/local/lucene/search?g=${app}&a=delivery-notes&p=json"
+            url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=${app}&a=delivery-notes&v=${version}&p=json"
         } else url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
@@ -54,7 +54,7 @@ class NexusConsumerService {
         }
 
         //return the list of versions
-        return list
+        return list.sort()
     }
 
     @Cacheable(value = 'cacheListApps')
@@ -68,12 +68,13 @@ class NexusConsumerService {
         List<String> list = []
 
         for (int i = 0; i < artifacts.size(); i++) {
-            String groupeId = artifacts[i].groupId.toString()
+            String groupeId = artifacts[i].groupId.toString() - "com.vsct."
             if (!list.contains(groupeId)) {
                 list.add(groupeId)
             }
         }
 
+        list.sort()
         //return the list of apps
         return list
     }
