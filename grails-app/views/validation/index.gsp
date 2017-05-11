@@ -26,10 +26,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-7">
-            <g:render template="/validateSchema/inputForm"/>
+            <g:render template="inputForm"/>
         </div>
         <div class="col-5">
-            <g:render template="/validateSchema/resultPanel"/>
+            <g:render template="resultPanel"/>
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@ footer {
   /* Set the fixed height of the footer here */
   height: 100px;
   background-color: #4682B4;
-  border-top: .05rem solid red;
+  border-top: .05rem solid orange;
   color: #999;
   text-align: center;
 }

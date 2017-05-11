@@ -6,8 +6,8 @@ import spock.lang.Specification
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(ValidateSchemaController)
-class ValidateSchemaControllerSpec extends Specification {
+@TestFor(ValidationController)
+class ValidationControllerSpec extends Specification {
 
     def setup() {
     }

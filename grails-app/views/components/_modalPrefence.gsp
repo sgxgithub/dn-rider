@@ -3,7 +3,7 @@
     <a class="nav-link"><span class="fa fa-cog fa-lg"> </span></a>
 </li>
 
- <!-- Modal -->
+        <!-- Modal -->
 <div class="modal fade" id="modalPrefence" tabindex="-1">
 <div class="modal-dialog">
     <div class="modal-content">
@@ -13,18 +13,18 @@
                 <span>&times;</span>
             </button>
         </div>
-        <div class="modal-body">
-            <form>
+        <g:form url="[action:'index',controller:'settings']" method="get">
+            <div class="modal-body">
                 <div class="form-group">
                     <label for="choices">Choice of applications for quick access :</label>
-                    <input type="text" class="form-control" id="choices" placeholder="Application name...">
+                    <input type="text" class="form-control" name="app" id="choices" placeholder="Application name...">
                 </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save</button>
-        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </g:form>
     </div>
 </div>
 </div>

@@ -3,7 +3,7 @@ package dn.rider
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 
-class ValidateSchemaController {
+class ValidationController {
 
     def JsonSchemaValidationService
 

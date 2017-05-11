@@ -9,7 +9,7 @@
 <body>
 <content tag="nav">
     <li>
-        <g:link class="nav-link" controller="validateSchema" action="index">Validation</g:link>
+        <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
     </li>
 </content>
 
