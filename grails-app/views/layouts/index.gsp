@@ -8,9 +8,8 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <asset:stylesheet src="bootstrap.css"/>
-    <asset:stylesheet src="index.css"/>
-    <asset:stylesheet src="css/font-awesome.min.css"/>
+    <asset:stylesheet src="dnrider.css"/>
+    %{--<asset:stylesheet src="css/font-awesome.min.css"/>--}%
 
     <g:layoutHead/>
 </head>

@@ -11,12 +11,6 @@ class SearchDnController {
         String releaseType = cmd.releaseType
         String formatShow = cmd.formatShow
 
-        //flash message when the app name is null
-        if (!app) {
-            flash.message = "Fill the app name !"
-            render(view: '../index')
-            return
-        }
         if (cmd.hasErrors()) {
             flash.message = cmd.errors.allErrors.toString()
             respond([

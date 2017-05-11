@@ -5,6 +5,8 @@
     <meta name="layout" content="index"/>
     <title>DN-RIDER</title>
 </head>
+
+
 <body>
 <content tag="nav">
     <li>
@@ -18,22 +20,26 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <asset:image class="rounded mx-auto d-block my-5" src="dn-rider-logo.gif" width="40%"/>
-            <g:form url="[action:'index',controller:'searchDn']" method="get">
+            <g:form controller="home" action="search" method="get">
                 <div class="row">
                     <div class="col-10">
-                        <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text"
-                               placeholder="trigramme"/>
+                        <g:textField class="form-control" autocomplete="off" name="app"
+                                     placeholder="trigramme" value="${app}" data-apps="${apps}"/>
                     </div>
+
                     <div class="col-2">
-                        <button class="btn btn-outline-primary" type="submit">
-                            <g:message code="dn.rider.btn.search"/>
-                        </button>
+                        <g:submitButton class="btn btn-outline-primary" type="submit" name="submit"
+                                        value="${g.message([code: 'dn.rider.btn.search'])}"/>
+
                     </div>
                 </div>
             </g:form>
         </div>
     </div>
 </div>
+
+<asset:javascript src="application.js"/>
+<asset:javascript src="search.js"/>
 
 </body>
 </html>
