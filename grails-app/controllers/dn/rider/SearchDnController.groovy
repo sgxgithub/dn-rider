@@ -1,10 +1,10 @@
 package dn.rider
 
-class SearchVersionsController {
+class SearchDnController {
 
     def nexusConsumerService
 
-    def searchVersions(SearchVersionsCommand cmd) {
+    def index(SearchVersionsCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
         String version = cmd.version
@@ -19,7 +19,12 @@ class SearchVersionsController {
         }
         if (cmd.hasErrors()) {
             flash.message = cmd.errors.allErrors.toString()
-            respond([app: app, version: version, releaseType: releaseType, formatShow: formatShow], view: 'showVersions')
+            respond([
+                    app        : app,
+                    releaseType: releaseType,
+                    version    : version,
+                    formatShow : formatShow
+            ], view: 'index')
             return
         }
 
@@ -30,7 +35,13 @@ class SearchVersionsController {
 
         //before the user choose the version
         if (!version) {
-            respond([versionCount: versions.size(), versions: versions, app: app, releaseType: releaseType, formatShow: formatShow], view: "showVersions")
+            respond([
+                    versionCount: versions.size(),
+                    versions    : versions,
+                    app         : app,
+                    releaseType : releaseType,
+                    formatShow  : formatShow
+            ], view: "index")
             return
         }
         //when the user choose the version
@@ -43,11 +54,28 @@ class SearchVersionsController {
             if (resp.responseEntity.statusCode.toString() == '404') {
                 String dnUrl = getNexusConsumerService().getDnUrl(app, version)
                 flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
-                respond([version: version, versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType, formatShow: formatShow], view: "showVersions")
+                respond([
+                        versions    : versions,
+                        versionCount: versions.size(),
+                        app         : app,
+                        releaseType : releaseType,
+                        version     : version,
+                        formatShow  : formatShow
+                ], view: "index")
                 return
             }
 
-            respond([version: version, versions: versions, versionCount: versions.size(), dnText: resp.text, packageCount: resp.json.NDL_pour_rundeck.packages.size(), packages: resp.json.NDL_pour_rundeck.packages, app: app, releaseType: releaseType, formatShow: formatShow], view: "showVersions")
+            respond([
+                    versions    : versions,
+                    versionCount: versions.size(),
+                    dnText      : resp.text,
+                    packageCount: resp.json.NDL_pour_rundeck.packages.size(),
+                    packages    : resp.json.NDL_pour_rundeck.packages,
+                    app         : app,
+                    releaseType : releaseType,
+                    version     : version,
+                    formatShow  : formatShow
+            ], view: "index")
         }
     }
 }

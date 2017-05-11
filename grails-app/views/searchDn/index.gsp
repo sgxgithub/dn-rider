@@ -17,15 +17,15 @@
     <div class="row">
         <div class="col-3 py-3 bg-faded">
             <div>
-                <g:render template="/components/blockSearch"/>
+                <g:render template="blockSearch"/>
             </div>
             <div style="max-height:600px; overflow:scroll">
-                <g:render template="/components/columeVersions"/>
+                <g:render template="blockVersions"/>
             </div>
         </div>
         <div class="col-9" style="max-height:800px; overflow:scroll">
             <g:render template="/components/notification"/>
-            <g:render template="/components/columeDn"/>
+            <g:render template="blockDn"/>
         </div>
     </div>
 </div>

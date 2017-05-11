@@ -18,7 +18,7 @@
     <div class="row justify-content-center">
         <div class="col-6">
             <asset:image class="rounded mx-auto d-block my-5" src="dn-rider-logo.gif" width="40%"/>
-            <g:form url="[action:'searchVersions',controller:'searchVersions']" method="get">
+            <g:form url="[action:'index',controller:'searchDn']" method="get">
                 <div class="row">
                     <div class="col-10">
                         <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text" placeholder="trigramme"/>
