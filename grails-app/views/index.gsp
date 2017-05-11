@@ -21,7 +21,8 @@
             <g:form url="[action:'index',controller:'searchDn']" method="get">
                 <div class="row">
                     <div class="col-10">
-                        <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text" placeholder="trigramme"/>
+                        <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text"
+                               placeholder="trigramme"/>
                     </div>
                     <div class="col-2">
                         <button class="btn btn-outline-primary" type="submit">
