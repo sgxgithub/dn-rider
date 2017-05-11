@@ -9,23 +9,18 @@
 <body>
 
 <g:render template="/dn/search"/>
-
 <g:render template="/dn/showFlash"/>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3">
-            <h5>There are ${sizeApps} repositories with delivery-notes</h5>
-            repositories
+        <div class="col-md-2">
+            <g:render template="/dn/columeApps"/>
         </div>
-        <div class="col-md-3">
-            apps
+        <div class="col-md-2">
+            <g:render template="/dn/columeVersions"/>
         </div>
-        <div class="col-md-3">
-            versions
-        </div>
-        <div class="col-md-3">
-            delivery-notes
+        <div class="col-md-8">
+            <g:render template="/dn/columeDn"/>
         </div>
     </div>
 </div>
