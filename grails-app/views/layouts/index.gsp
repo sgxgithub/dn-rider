@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:asset="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -9,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:stylesheet src="dnrider.css"/>
-    %{--<asset:stylesheet src="css/font-awesome.min.css"/>--}%
 
     <g:layoutHead/>
 </head>

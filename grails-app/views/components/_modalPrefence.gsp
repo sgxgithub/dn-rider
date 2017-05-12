@@ -16,8 +16,8 @@
         <g:form url="[action:'index',controller:'settings']" method="get">
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="choices">Choice of applications for quick access :</label>
-                    <input type="text" class="form-control" name="appsQuickAccess" id="choices" placeholder="App names, seperated by '-', no espace">
+                    <label for="appsQuickAccess">Choice of applications for quick access :</label>
+                    <g:textField class="form-control" autocomplete="off" name="appsQuickAccess" placeholder="trigramme" value="${app}" data-apps="${apps}"/>
                 </div>
             </div>
             <div class="modal-footer">
