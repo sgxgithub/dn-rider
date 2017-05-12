@@ -34,6 +34,13 @@
                     </div>
                 </div>
             </g:form>
+
+            <div class="d-flex justify-content-around bg-faded mt-5">
+                <g:each var="appQuickAccess" in="${appsQuickAccess}">
+                    <div class="p-2">${appQuickAccess}</div>
+                </g:each>
+            </div>
+
         </div>
     </div>
 </div>

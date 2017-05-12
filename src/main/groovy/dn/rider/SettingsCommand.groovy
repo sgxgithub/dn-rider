@@ -1,9 +1,9 @@
 package dn.rider
 
 class SettingsCommand implements grails.validation.Validateable{
-    String app
+    String appsQuickAccess
 
     static constraints = {
-        app nullable: true
+        appsQuickAccess nullable: true
     }
 }
