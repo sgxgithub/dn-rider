@@ -1,14 +1,13 @@
 (function ($) {
 
-    var $appsQuickAccess = $("#appsQuickAccess");
-    var apps = $appsQuickAccess.data('apps');
+    var $app = $("#app");
+    var apps = $app.data('apps');
 
-    $appsQuickAccess.autocomplete({
-        //limit the number of results to 10
+    $app.autocomplete({
         source: function(request, response) {
                     var results = $.ui.autocomplete.filter(apps, request.term);
                     response(results.slice(0, 10));
-                 }
+                }
     });
 
 }(jQuery));

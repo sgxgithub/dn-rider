@@ -4,8 +4,8 @@
     <meta charset="utf-8"/>
     <meta name="layout" content="index"/>
     <title>DN-RIDER</title>
+    <asset:stylesheet src="home.css"/>
 </head>
-
 
 <body>
 <content tag="nav">
@@ -47,8 +47,7 @@
     </div>
 </div>
 
-<asset:javascript src="application.js"/>
-<asset:javascript src="search.js"/>
+<asset:javascript src="home.js"/>
 <asset:javascript src="settings.js"/>
 
 </body>
