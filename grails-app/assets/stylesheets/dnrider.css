@@ -59,3 +59,8 @@ footer a:hover{
 }
 /* Custom page CSS
 -------------------------------------------------- */
+
+.ui-autocomplete {
+    z-index: 5000;
+    border-radius:0.25rem;
+}
