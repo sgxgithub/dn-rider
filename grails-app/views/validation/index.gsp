@@ -1,25 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:asset="http://www.w3.org/1999/XSL/Transform">
+<html lang="en">
 <head>
+    <meta charset="utf-8"/>
     <meta name="layout" content="index"/>
-    <title>
-        Search for delivery-notes
-    </title>
-    <asset:javascript src="jquery-2.2.0.min.js"/>
+    <title>DN-RIDER Validation</title>
     <asset:stylesheet src="validation.css"/>
-
-    <g:javascript>
-        $(document).ready(function(){
-            $("#json-error-link").click(function(){
-                $("#textarea-dn").focus().setCursorPosition(${offset});
-            });
-        $('input:file').change(
-            function(e){
-                $(".custom-file-control").addClass('changed').attr("data-content",e.target.files[0].name);
-                //$("#fileName").val(e.target.files[0].name); //à tester
-            });
-        });
-    </g:javascript>
 </head>
 <body>
 
@@ -33,6 +18,8 @@
         </div>
     </div>
 </div>
+
+<asset:javascript src="validation.js"/>
 
 </body>
 </html>
