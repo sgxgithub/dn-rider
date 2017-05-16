@@ -10,7 +10,6 @@
 (function ($) {
     $('input:file').change(function(e){
         $(".custom-file-control").addClass('changed').attr("data-content",e.target.files[0].name);
-        //$("#fileName").val(e.target.files[0].name); //à tester
     });
     $.fn.setCursorPosition = function (pos)
         {

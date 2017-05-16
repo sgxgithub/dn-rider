@@ -3,7 +3,7 @@
 <head>
     <meta name="layout" content="index"/>
     <title>
-        Search for delivery-notes
+        Validation
     </title>
     <asset:stylesheet src="validation.css"/>
 </head>
