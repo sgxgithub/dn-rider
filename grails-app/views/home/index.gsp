@@ -9,9 +9,7 @@
 
 <body>
 <content tag="nav">
-    <li>
-        <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
-    </li>
+    <g:render template="/components/modalPrefence"/>
 </content>
 
 <g:render template="/components/notification"/>

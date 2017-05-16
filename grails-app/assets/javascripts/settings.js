@@ -4,10 +4,9 @@
     var apps = $appsQuickAccessInput.data('apps');
 
     $appsQuickAccessInput.autocomplete({
-        //limit the number of results to 10
         source: function(request, response) {
                     var results = $.ui.autocomplete.filter(apps, request.term);
-                    response(results.slice(0, 10));
+                    response(results.slice(0, 10)); //limit the number of results to 10
                  },
         select: function (event, ui) {
                     event.preventDefault();
@@ -26,5 +25,4 @@
              $('#appsQuickAccess').val(apps);
              return;
          });
-
 }(jQuery));

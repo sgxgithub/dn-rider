@@ -24,14 +24,10 @@
     <a class="navbar-brand" href="/#">DN-RIDER</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
-            <g:render template="/components/modalPrefence"/>
-            <li class="nav-item">
-                <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-            </li>
             <g:pageProperty name="page.nav"/>
+            <li>
+                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
                 <div class="dropdown-menu">
@@ -54,6 +50,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://swagger.io/">Swagger</a>
         </li>
     </ul>
     <p>
