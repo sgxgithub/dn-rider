@@ -21,14 +21,16 @@
                                  placeholder="trigramme"
                                  data-apps="${apps}"/>
                 </div>
-            </div>
-            <div id="modal-chips" style="height:40px;border-bottom: 1px solid black;">
-                <g:each var="appQuickAccess" in="${appsQuickAccessArray}">
-                    <div class="chip">
-                        ${appQuickAccess}
-                        <span class="closebtn" onclick="this.parentElement.style.display='none'">&times;</span>
-                    </div>
-                </g:each>
+                <div id="modal-chips" class="my-2">
+                    <g:each var="appQuickAccess" in="${appsQuickAccessArray}">
+                        <div class="chip my-1">
+                            <span>${appQuickAccess}</span>
+                            <button type="button" class="close" onclick="this.parentElement.remove()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </g:each>
+                </div>
             </div>
 
             <g:hiddenField name="appsQuickAccess" value="${appsQuickAccess}"/>

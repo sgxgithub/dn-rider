@@ -12,16 +12,16 @@
         select: function (event, ui) {
                     event.preventDefault();
                     $(this).val('');
-                    $('#modal-chips').append(" <div class=\"chip\" >"+ui.item.value+"<span class=\"closebtn\" onclick=\"this.parentElement.remove()\">&times;</span></div>");
+                    $('#modal-chips').append(" <div class=\"chip\"> <span>"+ ui.item.value+ "</span> <button type=\"button\" class=\"close\" onclick=\"this.parentElement.remove()\"><span aria-hidden=\"true\">&times;</span> </button> </div>");
                  }
     });
 
     $("#formModal").submit(function(event){
-             var apps = "hello_world";
+             var apps = "";
 
-//             $('#modal-chips').children.each(function(index){
-//                apps = apps + '_' + index;
-//             });
+             $('#modal-chips .chip>span').each(function(index){
+                apps = apps + '_' + $(this).text();
+             });
 
              $('#appsQuickAccess').val(apps);
              return;

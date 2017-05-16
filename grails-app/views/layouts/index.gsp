@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <asset:stylesheet src="dnrider.css"/>
+    <asset:stylesheet src="settings.css"/>
 
     <g:layoutHead/>
 </head>

@@ -64,26 +64,3 @@ footer a:hover{
     z-index: 5000;
     border-radius:0.25rem;
 }
-
-#modal-chips .chip {
-    display: inline-block;
-    padding: 0 20px;
-    height: 32px;
-    font-size: 16px;
-    line-height: 32px;
-    border-radius: 15px;
-    background-color: #f1f1f1;
-}
-
-#modal-chips .closebtn {
-    padding-left: 10px;
-    color: #888;
-    font-weight: bold;
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-#modal-chips .closebtn:hover {
-    color: #000;
-}
