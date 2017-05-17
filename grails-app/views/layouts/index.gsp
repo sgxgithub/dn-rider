@@ -26,6 +26,9 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
             <g:pageProperty name="page.nav"/>
+            <li class="nav-item" id="nav-item-search">
+                <g:link class="nav-link" controller="search" action="index">Search</g:link>
+            </li>
             <li class="nav-item" id="nav-item-validation">
                 <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
             </li>

@@ -1,0 +1,20 @@
+#sidebar{
+    min-height: 49.5rem;
+}
+
+#blockVersions{
+    margin: 0 0;
+}
+
+#blockVersions ul{
+    padding: 0.5rem 2rem;
+    margin:0 0;
+    max-height: 28rem;
+    overflow: scroll;
+}
+
+#blockDn {
+   max-height: 49rem;
+   overflow: scroll;
+   padding:1rem;
+}

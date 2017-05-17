@@ -25,13 +25,13 @@ class HomeController {
         [apps: apps as JSON, appsQuickAccessArray:appsQuickAccessArray]
     }
 
-    def search(SearchDnCommand cmd) {
+    def search(SearchCommand cmd) {
         String app = cmd.app
         if (cmd.hasErrors()) {
-            flash.message = cmd.errors.allErrors.toString()
-            redirect action: "index", params: [app: app]
+            //flash.message = cmd.errors.allErrors.toString()
+            redirect controller: 'search', action: "index", params: [app: app]
             return
         }
-        redirect controller: 'searchDn', action: 'index', params: [app: app]
+        redirect controller: 'search', action: 'search', params: [app: app]
     }
 }

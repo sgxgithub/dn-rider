@@ -1,7 +1,7 @@
-<h5>There are ${versionCount} dn for app ${app}</h5>
+<h5>${versionCount} delivery-notes: </h5>
 <ul>
 <g:each var="version" in="${versions}">
-    <g:link action="index" controller="searchDn"
+    <g:link action="search" controller="search"
             params="[app: app, version: version, releaseType: releaseType, formatShow:formatShow]">
         <li>${version}</li>
     </g:link>

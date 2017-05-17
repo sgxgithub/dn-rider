@@ -1,4 +1,4 @@
-<g:form url="[action:'index',controller:'searchDn']" method="get">
+<g:form url="[action:'search',controller:'search']" method="get">
     <div class="form-group row">
         <div class="col-4">
             <h5>APP</h5>

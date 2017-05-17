@@ -5,25 +5,28 @@
     <title>
         Search for a liste of delivery-notes
     </title>
+    <asset:stylesheet src="search.css"/>
 </head>
 <body>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 py-3 bg-faded">
-            <div>
+        <div class="col-3 py-3 bg-faded" id="sidebar">
+            <div id="blockSearch">
                 <g:render template="blockSearch"/>
             </div>
-            <div style="max-height:600px; overflow:scroll">
+            <div id="blockVersions">
                 <g:render template="blockVersions"/>
             </div>
         </div>
-        <div class="col-9" style="max-height:800px; overflow:scroll">
+        <div id="blockDn" class="col-9">
             <g:render template="/components/notification"/>
             <g:render template="blockDn"/>
         </div>
     </div>
 </div>
+
+<asset:javascript src="search.js"/>
 
 </body>
 </html>

@@ -1,10 +1,13 @@
 package dn.rider
 
-class SearchDnController {
+class SearchController {
 
     def nexusConsumerService
 
-    def index(SearchDnCommand cmd) {
+    def index(){
+    }
+
+    def search(SearchCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
         String version = cmd.version
@@ -18,7 +21,7 @@ class SearchDnController {
                     releaseType: releaseType,
                     version    : version,
                     formatShow : formatShow
-            ], view: 'index')
+            ], view: 'search')
             return
         }
 
@@ -35,7 +38,7 @@ class SearchDnController {
                     app         : app,
                     releaseType : releaseType,
                     formatShow  : formatShow
-            ], view: "index")
+            ], view: "search")
             return
         }
         //when the user choose the version
@@ -55,7 +58,7 @@ class SearchDnController {
                         releaseType : releaseType,
                         version     : version,
                         formatShow  : formatShow
-                ], view: "index")
+                ], view: "search")
                 return
             }
 
@@ -69,7 +72,7 @@ class SearchDnController {
                     releaseType : releaseType,
                     version     : version,
                     formatShow  : formatShow
-            ], view: "index")
+            ], view: "search")
         }
     }
 }
