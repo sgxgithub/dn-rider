@@ -7,11 +7,6 @@
     </title>
 </head>
 <body>
-<content tag="nav">
-    <li>
-        <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
-    </li>
-</content>
 
 <div class="container-fluid">
     <div class="row">
