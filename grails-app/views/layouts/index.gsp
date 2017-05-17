@@ -29,6 +29,9 @@
             <li>
                 <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
             </li>
+            <li>
+                <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
                 <div class="dropdown-menu">
