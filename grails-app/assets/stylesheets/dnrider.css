@@ -24,7 +24,7 @@ body {
   margin-bottom: 100px;
 }
 .navbar .dropdown-menu{
-  min-width:2rem;
+  min-width:1.5rem;
   background:#4682B4;
 }
 .navbar .dropdown-item:hover{
@@ -34,7 +34,13 @@ body {
 
 .navbar .dropdown-item{
  color:rgba(255, 255, 255, 0.75);
+ padding: 3px 1rem;
 }
+
+.dropdown-toggle::after {
+    display:none;
+}
+
 footer {
   position: absolute;
   bottom: 0;

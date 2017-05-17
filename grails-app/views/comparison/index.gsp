@@ -18,8 +18,7 @@
     </div>
 </div>
 
-<asset:javascript src="home.js"/>
-<asset:javascript src="settings.js"/>
+<asset:javascript src="comparison.js"/>
 
 </body>
 </html>

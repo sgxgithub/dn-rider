@@ -26,14 +26,14 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
             <g:pageProperty name="page.nav"/>
-            <li>
+            <li class="nav-item" id="nav-item-validation">
                 <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
             </li>
-            <li>
+            <li class="nav-item" id="nav-item-comparison">
                 <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
+            <li class="nav-item dropdown mr-2">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown"><span class="fa fa-language fa-lg"> </span></a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="?lang=fr">FR</a>
                     <a class="dropdown-item" href="?lang=en">EN</a>
@@ -67,8 +67,6 @@
 <div id="spinner" class="spinner" style="display:none;">
     <g:message code="spinner.alt" default="Loading&hellip;"/>
 </div>
-
-
 
 </body>
 
