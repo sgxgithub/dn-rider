@@ -15,6 +15,8 @@
         <g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off" placeholder="trigramme" data-apps="${apps}"/>
         <g:textField name="version" class="form-control mr-2" id="version" value="${version}" autocomplete="off" placeholder="version"
                      data-url="${createLink(controller:'search', action: 'searchVersions', params: [releaseType:'All'])}"/>
+        <g:textField name="version2" class="form-control mr-2" id="version2" value="${version2}" autocomplete="off" placeholder="version"
+                     data-url="${createLink(controller:'search', action: 'searchVersions', params: [releaseType:'All'])}"/>
         <button class="btn btn-outline-primary" type="submit">Search</button>
     </g:form>
 
@@ -34,6 +36,14 @@
             <tr>
                 <th scope="row">v${version}</th>
                 <g:each in="${packages}">
+                    <td>${it.version}</td>
+                </g:each>
+            </tr>
+        </g:if>
+        <g:if test="${version2}">
+            <tr>
+                <th scope="row">v${version2}</th>
+                <g:each in="${packages2}">
                     <td>${it.version}</td>
                 </g:each>
             </tr>

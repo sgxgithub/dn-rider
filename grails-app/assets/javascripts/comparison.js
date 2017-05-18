@@ -18,8 +18,7 @@
                         url: $('#version').data('url') + '&app=' + ui.item.value
                    })
                    .done(function( versions ) {
-                      alert( "Data Saved: ");
-                      $('#version').autocomplete({
+                      $('#version, #version2').autocomplete({
                                         source: function(request, response) {
                                                    var results = $.ui.autocomplete.filter(versions, request.term);
                                                    response(results.slice(0, 10));
