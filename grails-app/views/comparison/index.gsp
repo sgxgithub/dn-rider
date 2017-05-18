@@ -11,33 +11,32 @@
 <g:render template="/components/notification"/>
 
 <div id="content" class="container">
-    <div class="row justify-content-center">
-        <div class="col-6">
-            <asset:image class="rounded mx-auto d-block my-5" src="dn-rider-logo-bgremoved.gif" width="40%"/>
-        </div>
-    </div>
+    <g:form class="form-inline my-5" url="[action:'search',controller:'comparison']" method="get">
+        <g:textField name="app" class="form-control mr-2" value="${app}" placeholder="trigramme"/>
+        <g:textField name="version" class="form-control mr-2" value="${version}" placeholder="version"/>
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </g:form>
 
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>#</th>
-            <th>package 1</th>
-            <th>package 2</th>
-            <th>package 3</th>
+            <g:if test="${packageCount}">
+            <th>${app}</th>
+            <g:each var="i" in="${(1..packageCount)}">
+                <th>pk ${i}</th>
+            </g:each>
+            </g:if>
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">v1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">v2</th>
-            <td colspan="2">Larry the Bird</td>
-            <td>@twitter</td>
-        </tr>
+        <g:if test="${version}">
+            <tr>
+                <th scope="row">v${version}</th>
+                <g:each in="${packages}">
+                    <td>${it.version}</td>
+                </g:each>
+            </tr>
+        </g:if>
         </tbody>
     </table>
 </div>
