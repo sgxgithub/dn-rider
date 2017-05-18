@@ -12,8 +12,9 @@
 
 <div id="content" class="container">
     <g:form class="form-inline my-5" url="[action:'search',controller:'comparison']" method="get">
-        <g:textField name="app" class="form-control mr-2" value="${app}" placeholder="trigramme"/>
-        <g:textField name="version" class="form-control mr-2" value="${version}" placeholder="version"/>
+        <g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off" placeholder="trigramme" data-apps="${apps}"/>
+        <g:textField name="version" class="form-control mr-2" id="version" value="${version}" autocomplete="off" placeholder="version"
+                     data-url="${createLink(controller:'search', action: 'searchVersions', params: [releaseType:'All'])}"/>
         <button class="btn btn-outline-primary" type="submit">Search</button>
     </g:form>
 

@@ -1,12 +1,17 @@
 package dn.rider
 
+import grails.converters.JSON
+
 class ComparisonController {
 
     def nexusConsumerService
 
-    def index() { }
+    def index() {
+        def apps = nexusConsumerService.getApps()
+        [apps: apps as JSON]
+    }
 
-    def search(){
+    def search() {
         String app = params.app
         String version = params.version
 
@@ -19,8 +24,8 @@ class ComparisonController {
             String dnUrl = getNexusConsumerService().getDnUrl(app, version)
             flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
             respond([
-                    app         : app,
-                    version     : version
+                    app    : app,
+                    version: version
             ], view: "index")
             return
         }
