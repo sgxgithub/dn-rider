@@ -1,7 +1,4 @@
 <g:uploadForm action="uploadDn" class="form-inline">
-
-    <!--<g:hiddenField name="fileName" value=""/>-->
-
     <g:message code="dn.rider.dn"/>
     <label class="custom-file mx-2 my-2 ">
         <input type="file" id="file" name="deliveryNoteFile" class="custom-file-input"/>
@@ -14,6 +11,7 @@
 
 <g:form action="validateSchema" method="post">
 <div class="form-group row">
+    <g:hiddenField name="offset" value="${offset}"/>
     <div class="col-9">
         <textarea name='dn' id="textarea-dn" class="form-control" rows="25" cols="20">${dn}</textarea>
     </div>

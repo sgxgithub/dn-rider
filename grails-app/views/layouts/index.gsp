@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:asset="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,8 +8,9 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
+    <asset:link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <asset:stylesheet src="dnrider.css"/>
-    %{--<asset:stylesheet src="css/font-awesome.min.css"/>--}%
+    <asset:stylesheet src="settings.css"/>
 
     <g:layoutHead/>
 </head>
@@ -24,14 +25,10 @@
     <a class="navbar-brand" href="/#">DN-RIDER</a>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
-            <g:render template="/components/modalPrefence"/>
-            <li class="nav-item">
-                <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-            </li>
             <g:pageProperty name="page.nav"/>
+            <li>
+                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
                 <div class="dropdown-menu">
@@ -44,6 +41,7 @@
     </div>
 </nav>
 
+<asset:javascript src="application.js"/>
 <g:layoutBody/>
 
 <footer>
@@ -53,6 +51,9 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://swagger.io/">Swagger</a>
         </li>
     </ul>
     <p>
@@ -64,7 +65,7 @@
     <g:message code="spinner.alt" default="Loading&hellip;"/>
 </div>
 
-<asset:javascript src="application.js"/>
+
 
 </body>
 

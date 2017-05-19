@@ -6,10 +6,23 @@ class HomeController {
 
     def nexusConsumerService
 
-    def index() {
+    def getAppsQuickAccessArray(){
+        def appsQuickAccess = request.cookies.find { it.name == 'appsQuickAccess' }?.value
 
+        if(appsQuickAccess){
+            log.info "appsQuickAccess cookie found:" + appsQuickAccess
+        }
+
+       return appsQuickAccess?.tokenize('_')
+    }
+
+    def index() {
+        //get the apps for quick access in cookie
+        def appsQuickAccessArray = getAppsQuickAccessArray()
+        //get the list of apps in service
         def apps = nexusConsumerService.getApps()
-        [app: params.app, apps: apps as JSON]
+
+        [apps: apps as JSON, appsQuickAccessArray:appsQuickAccessArray]
     }
 
     def search(SearchDnCommand cmd) {
