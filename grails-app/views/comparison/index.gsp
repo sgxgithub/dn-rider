@@ -42,7 +42,7 @@
                                 target="_blank">v${version}</g:link>
                     </th>
                     <g:each var="p" in="${packages[i]}">
-                        <g:if test="${p.version == null}">
+                        <g:if test="${p.tag == 'deleted'}">
                             <td>
                                 <span class="badge badge-danger">Deleted</span>
                             </td>

@@ -85,10 +85,9 @@ class ComparisonController {
                     if (!isExist) {
                         //how to create a JSONObject
                         //this is a linked map
-                        packagesOrderd.add([
-                                packageUrl: null,
-                                version   : null
-                        ])
+                        JSONObject p = new JSONObject()
+                        p.put('tag','deleted')
+                        packagesOrderd << p
                     }
                 }
                 if (packages) {
