@@ -4,6 +4,7 @@
     <meta name="layout" content="index"/>
     <title>Comparison</title>
 </head>
+
 <body>
 
 <g:render template="/components/notification"/>
@@ -24,10 +25,10 @@
     <table class="table table-hover table-responsive">
         <thead>
         <tr>
-            <g:if test="${packageNames}">
+            <g:if test="${packageIds}">
                 <th>${app}</th>
-                <g:each var="packageName" in="${packageNames}">
-                    <th>${packageName}</th>
+                <g:each var="packageId" in="${packageIds}">
+                    <th>${packageId}</th>
                 </g:each>
             </g:if>
         </tr>
@@ -41,9 +42,16 @@
                                 target="_blank">v${version}</g:link>
                     </th>
                     <g:each var="p" in="${packages[i]}">
-                        <td>
-                            <a href="${p.packageUrl}">${p.version}</a>
-                        </td>
+                        <g:if test="${p.version == null}">
+                            <td>
+                                <span class="badge badge-danger">Deleted</span>
+                            </td>
+                        </g:if>
+                        <g:else>
+                            <td>
+                                <a href="${p.packageUrl}">${p.version}</a>
+                            </td>
+                        </g:else>
                     </g:each>
                 </tr>
             </g:each>

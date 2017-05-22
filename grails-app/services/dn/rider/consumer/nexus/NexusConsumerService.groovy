@@ -16,7 +16,7 @@ class NexusConsumerService {
         return url
     }
 
-    @Cacheable(value = 'cacheDn', key = '{#app, #version}')
+    //@Cacheable(value = 'cacheDn', key = '{#app, #version}')
     def getDn(String app, String version) {
         log.info "Searching for the delivery-note in Nexus..."
         String url = getDnUrl(app, version)

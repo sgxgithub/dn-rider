@@ -1,6 +1,9 @@
 package dn.rider
 
+import com.google.gson.JsonArray
 import grails.converters.JSON
+import org.grails.web.json.JSONArray
+import org.grails.web.json.JSONObject
 
 class ComparisonController {
 
@@ -17,8 +20,7 @@ class ComparisonController {
         String version2 = params.version2
 
         List<String> versions = [version1, version2]
-        def resps = []
-        def packages = [] //a list of packages
+        List<JSONObject> dns = []
 
         def apps = nexusConsumerService.getApps()
 
@@ -34,37 +36,76 @@ class ComparisonController {
                 flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
             } else {
                 log.info "received the delivery-note"
-                resps.add(resp)
-                packages.add(resp.json.NDL_pour_rundeck.packages)
+                dns << resp.json.NDL_pour_rundeck
             }
         }
 
-        def packageNames = getPackageNames(resps)
+        def packageIds
+        def packages
+        (packageIds, packages) = sortPackages(dns)
 
         respond([
-                packageNames: packageNames,
-                versions    : versions,
-                packages    : packages,
-                apps        : apps as JSON,
-                app         : app,
-                version1    : version1,
-                version2    : version2
+                packageIds: packageIds,
+                versions  : versions,
+                packages  : packages,
+                apps      : apps as JSON,
+                app       : app,
+                version1  : version1,
+                version2  : version2
         ], view: "index")
     }
 
-    def getPackageNames(resps) {
-        List<String> list = []
+    def sortPackages(dns) {
+        List<JsonArray> listPackages = []
+        List<String> packageIds = []
 
-        for (int i = 0; i < resps.size(); i++) {
-            def packages = resps[i].json.NDL_pour_rundeck.packages
+        dns.eachWithIndex { dn, i ->
+            //add id attribute to package
+            def packages = dn.packages
+            packages.each { p ->
+                p.id = p.name.toString() - ('-' + p.version.toString()) + '/' + p.module
+            }
 
-            for (int j = 0; j < packages.size(); j++) {
-                String name = packages[j].name.toString() - ('-' + packages[j].version.toString())
-                if (!list.contains(name)) {
-                    list.add(name)
+            //initialise with the earliest version
+            if (i == 0) {
+                packages.each {
+                    packageIds << it.id
                 }
+                listPackages << packages
+            } else {
+                JSONArray packagesOrderd = []
+                packageIds.each { packageId ->
+                    boolean isExist = false
+                    for (int j = 0; j < packages.size(); j++) {
+                        if (packages[j].id.equals(packageId.toString())) {
+                            packagesOrderd.add(packages[j])
+                            packages.remove(j)
+                            isExist = true
+                            break
+                        }
+                    }
+//                    packages.any { p ->
+//                        if (p.id == packageId) {
+//                            packagesOrderd.add(p)
+//                            packages.remove(p)
+//                            return true
+//                        }
+//                    }
+                    if (!isExist) {
+                        packagesOrderd.add([
+                                packageUrl: null,
+                                version   : null
+                        ])
+                    }
+                }
+                if (packages) {
+                    packageIds << packages.id
+                    packagesOrderd << packages
+                }
+                listPackages << packagesOrderd
             }
         }
-        return list
+
+        return [packageIds, listPackages]
     }
 }
