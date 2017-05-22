@@ -13,39 +13,58 @@ class ComparisonController {
 
     def search() {
         String app = params.app
-        String version = params.version
+        String version1 = params.version1
         String version2 = params.version2
+
+        List<String> versions = [version1, version2]
+        def resps = []
+        def packages = [] //a list of packages
 
         def apps = nexusConsumerService.getApps()
 
-        log.info "searching for the delivery-note with app=${app}, version=${version}..."
-        def resp = nexusConsumerService.getDn(app, version)
-        log.info "received the delivery-note"
+        for (int i = 0; i < versions.size(); i++) {
+            String version = versions[i]
+            log.info "searching for the delivery-note with app=${app}, version=${version}..."
+            def resp = nexusConsumerService.getDn(app, version)
 
-        log.info "searching for the delivery-note with app=${app}, version=${version2}..."
-        def resp2 = nexusConsumerService.getDn(app, version2)
-        log.info "received the delivery-note"
-
-        //when there is no result
-        if (resp.responseEntity.statusCode.toString() == '404') {
-            String dnUrl = getNexusConsumerService().getDnUrl(app, version)
-            flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
-            respond([
-                    apps   : apps as JSON,
-                    app    : app,
-                    version: version
-            ], view: "index")
-            return
+            //when there is no result for this version
+            if (resp.responseEntity.statusCode.toString() == '404') {
+                String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+                log.info "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+                flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+            } else {
+                log.info "received the delivery-note"
+                resps.add(resp)
+                packages.add(resp.json.NDL_pour_rundeck.packages)
+            }
         }
 
+        def packageNames = getPackageNames(resps)
+
         respond([
-                packageCount: resp.json.NDL_pour_rundeck.packages.size(),
-                packages    : resp.json.NDL_pour_rundeck.packages,
-                packages2   : resp2.json.NDL_pour_rundeck.packages,
+                packageNames: packageNames,
+                versions    : versions,
+                packages    : packages,
                 apps        : apps as JSON,
                 app         : app,
-                version     : version,
+                version1    : version1,
                 version2    : version2
         ], view: "index")
+    }
+
+    def getPackageNames(resps) {
+        List<String> list = []
+
+        for (int i = 0; i < resps.size(); i++) {
+            def packages = resps[i].json.NDL_pour_rundeck.packages
+
+            for (int j = 0; j < packages.size(); j++) {
+                String name = packages[j].name.toString() - ('-' + packages[j].version.toString())
+                if (!list.contains(name)) {
+                    list.add(name)
+                }
+            }
+        }
+        return list
     }
 }

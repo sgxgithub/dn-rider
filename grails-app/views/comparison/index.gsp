@@ -1,52 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="layout" content="index"/>
     <title>Comparison</title>
 </head>
-
 <body>
 
 <g:render template="/components/notification"/>
 
 <div id="content" class="container">
-    <g:form class="form-inline my-5" url="[action:'search',controller:'comparison']" method="get">
-        <g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off" placeholder="trigramme" data-apps="${apps}"/>
-        <g:textField name="version" class="form-control mr-2" id="version" value="${version}" autocomplete="off" placeholder="version"
-                     data-url="${createLink(controller:'search', action: 'searchVersions', params: [releaseType:'All'])}"/>
-        <g:textField name="version2" class="form-control mr-2" id="version2" value="${version2}" autocomplete="off" placeholder="version"
-                     data-url="${createLink(controller:'search', action: 'searchVersions', params: [releaseType:'All'])}"/>
+    <g:form class="form-inline my-5" url="[action: 'search', controller: 'comparison']" method="get">
+        <g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off"
+                     placeholder="trigramme" data-apps="${apps}"/>
+        <g:textField name="version1" class="form-control mr-2" id="version1" value="${version1}" autocomplete="off"
+                     placeholder="version1"
+                     data-url="${createLink(controller: 'search', action: 'searchVersions', params: [releaseType: 'All'])}"/>
+        <g:textField name="version2" class="form-control mr-2" id="version2" value="${version2}" autocomplete="off"
+                     placeholder="version2"
+                     data-url="${createLink(controller: 'search', action: 'searchVersions', params: [releaseType: 'All'])}"/>
         <button class="btn btn-outline-primary" type="submit">Search</button>
     </g:form>
 
-    <table class="table table-hover">
+    <table class="table table-hover table-responsive">
         <thead>
         <tr>
-            <g:if test="${packageCount}">
-            <th>${app}</th>
-            <g:each var="i" in="${(1..packageCount)}">
-                <th>pk ${i}</th>
-            </g:each>
+            <g:if test="${packageNames}">
+                <th>${app}</th>
+                <g:each var="packageName" in="${packageNames}">
+                    <th>${packageName}</th>
+                </g:each>
             </g:if>
         </tr>
         </thead>
         <tbody>
-        <g:if test="${version}">
-            <tr>
-                <th scope="row">v${version}</th>
-                <g:each in="${packages}">
-                    <td>${it.version}</td>
-                </g:each>
-            </tr>
-        </g:if>
-        <g:if test="${version2}">
-            <tr>
-                <th scope="row">v${version2}</th>
-                <g:each in="${packages2}">
-                    <td>${it.version}</td>
-                </g:each>
-            </tr>
+        <g:if test="${versions}">
+            <g:each status="i" var="version" in="${versions}">
+                <tr>
+                    <th scope="row">
+                        <g:link controller="search" action="search" params="[app: app, version: version]"
+                                target="_blank">v${version}</g:link>
+                    </th>
+                    <g:each var="p" in="${packages[i]}">
+                        <td>
+                            <a href="${p.packageUrl}">${p.version}</a>
+                        </td>
+                    </g:each>
+                </tr>
+            </g:each>
         </g:if>
         </tbody>
     </table>
