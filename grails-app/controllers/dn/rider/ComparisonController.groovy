@@ -75,23 +75,16 @@ class ComparisonController {
             } else {
                 JSONArray packagesOrderd = []
                 packageIds.each { packageId ->
-                    boolean isExist = false
-                    for (int j = 0; j < packages.size(); j++) {
-                        if (packages[j].id.equals(packageId.toString())) {
-                            packagesOrderd.add(packages[j])
-                            packages.remove(j)
-                            isExist = true
-                            break
+                    boolean isExist = packages.any { p ->
+                        if (p.id == packageId) {
+                            packagesOrderd.add(p)
+                            packages.remove(p)
+                            return true
                         }
                     }
-//                    packages.any { p ->
-//                        if (p.id == packageId) {
-//                            packagesOrderd.add(p)
-//                            packages.remove(p)
-//                            return true
-//                        }
-//                    }
                     if (!isExist) {
+                        //how to create a JSONObject
+                        //this is a linked map
                         packagesOrderd.add([
                                 packageUrl: null,
                                 version   : null
@@ -100,7 +93,10 @@ class ComparisonController {
                 }
                 if (packages) {
                     packageIds << packages.id
-                    packagesOrderd << packages
+                    packages.each { p ->
+                        p.tag = 'new'
+                        packagesOrderd << p
+                    }
                 }
                 listPackages << packagesOrderd
             }

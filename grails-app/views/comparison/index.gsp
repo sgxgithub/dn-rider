@@ -50,6 +50,9 @@
                         <g:else>
                             <td>
                                 <a href="${p.packageUrl}">${p.version}</a>
+                                <g:if test="${p.tag == 'new'}">
+                                    <span class="badge badge-success">New</span>
+                                </g:if>
                             </td>
                         </g:else>
                     </g:each>
