@@ -1,0 +1,72 @@
+/*
+*= require bootstrap
+*= require css/font-awesome.min
+*= require_tree jqueryui
+*= require_self
+*/
+
+//global colors
+$color-primary: #4682B4;
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+}
+
+.navbar .dropdown-menu {
+  min-width: 1.5rem;
+  background: $color-primary;
+}
+
+.navbar .dropdown-item:hover {
+  background: $color-primary;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar .dropdown-item {
+  color: rgba(255, 255, 255, 0.75);
+  padding: 3px 1rem;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: $color-primary;
+  border-top: .05rem solid orange;
+  color: #999;
+  text-align: center;
+}
+
+footer p:last-child {
+  margin-bottom: 0;
+}
+
+footer a {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+footer a:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Custom page CSS
+-------------------------------------------------- */
+
+.ui-autocomplete {
+  z-index: 5000;
+  border-radius: 0.25rem;
+}
