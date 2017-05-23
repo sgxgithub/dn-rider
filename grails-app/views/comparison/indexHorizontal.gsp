@@ -25,40 +25,38 @@
     <table class="table table-hover table-responsive">
         <thead>
         <tr>
-            <g:if test="${versions}">
+            <g:if test="${packageIds}">
                 <th>${app}</th>
-                <g:each var="version" in="${versions}">
-                    <th>v${version}</th>
+                <g:each var="packageId" in="${packageIds}">
+                    <th>${packageId}</th>
                 </g:each>
             </g:if>
         </tr>
         </thead>
         <tbody>
-        <g:if test="${packageIds}">
-            <g:each status="i" var="packageId" in="${packageIds}">
+        <g:if test="${versions}">
+            <g:each status="i" var="version" in="${versions}">
                 <tr>
-                    <th>${packageId}</th>
-                    <g:each var="packages" in="${listPackages}">
-                        <g:if test="${packages[i]}">
-                            <g:if test="${packages[i].tag == 'deleted'}">
-                                <td>
-                                    <span class="badge badge-danger">Deleted</span>
-                                </td>
-                            </g:if>
-                            <g:else>
-                                <td>
-                                    <a href="${packages[i].packageUrl}">${packages[i].version}</a>
-                                    <g:if test="${packages[i].tag == 'new'}">
-                                        <span class="badge badge-success">New</span>
-                                    </g:if>
-                                    <g:if test="${packages[i].tag == 'updated'}">
-                                        <span class="badge badge-info">Updated</span>
-                                    </g:if>
-                                </td>
-                            </g:else>
+                    <th scope="row">
+                        <g:link controller="search" action="search" params="[app: app, version: version]"
+                                target="_blank">v${version}</g:link>
+                    </th>
+                    <g:each var="p" in="${packages[i]}">
+                        <g:if test="${p.tag == 'deleted'}">
+                            <td>
+                                <span class="badge badge-danger">Deleted</span>
+                            </td>
                         </g:if>
                         <g:else>
-                            <td> </td>
+                            <td>
+                                <a href="${p.packageUrl}">${p.version}</a>
+                                <g:if test="${p.tag == 'new'}">
+                                    <span class="badge badge-success">New</span>
+                                </g:if>
+                                <g:if test="${p.tag == 'updated'}">
+                                    <span class="badge badge-info">Updated</span>
+                                </g:if>
+                            </td>
                         </g:else>
                     </g:each>
                 </tr>

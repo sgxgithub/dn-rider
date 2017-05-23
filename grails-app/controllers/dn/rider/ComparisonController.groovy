@@ -1,13 +1,12 @@
 package dn.rider
 
-import com.google.gson.JsonArray
 import grails.converters.JSON
-import org.grails.web.json.JSONArray
 import org.grails.web.json.JSONObject
 
 class ComparisonController {
 
     def nexusConsumerService
+    def comparisonService
 
     def index() {
         def apps = nexusConsumerService.getApps()
@@ -41,66 +40,17 @@ class ComparisonController {
         }
 
         def packageIds
-        def packages
-        (packageIds, packages) = sortPackages(dns)
+        def listPackages
+        (packageIds, listPackages) = comparisonService.sortPackages(dns)
 
         respond([
                 packageIds: packageIds,
                 versions  : versions,
-                packages  : packages,
+                listPackages  : listPackages,
                 apps      : apps as JSON,
                 app       : app,
                 version1  : version1,
                 version2  : version2
         ], view: "index")
-    }
-
-    def sortPackages(dns) {
-        List<JsonArray> listPackages = []
-        List<String> packageIds = []
-
-        dns.eachWithIndex { dn, i ->
-            //add id attribute to package
-            def packages = dn.packages
-            packages.each { p ->
-                p.id = p.name.toString() - ('-' + p.version.toString()) + '/' + p.module
-            }
-
-            //initialise with the earliest version
-            if (i == 0) {
-                packages.each {
-                    packageIds << it.id
-                }
-                listPackages << packages
-            } else {
-                JSONArray packagesOrderd = []
-                packageIds.each { packageId ->
-                    boolean isExist = packages.any { p ->
-                        if (p.id == packageId) {
-                            packagesOrderd.add(p)
-                            packages.remove(p)
-                            return true
-                        }
-                    }
-                    if (!isExist) {
-                        //how to create a JSONObject
-                        //this is a linked map
-                        JSONObject p = new JSONObject()
-                        p.put('tag','deleted')
-                        packagesOrderd << p
-                    }
-                }
-                if (packages) {
-                    packageIds << packages.id
-                    packages.each { p ->
-                        p.tag = 'new'
-                        packagesOrderd << p
-                    }
-                }
-                listPackages << packagesOrderd
-            }
-        }
-
-        return [packageIds, listPackages]
     }
 }
