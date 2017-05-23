@@ -37,7 +37,7 @@ class ComparisonService {
                     boolean isExist = packages.any { p ->
                         if (p.id == packageId) {
                             if (compareVersions(listPackages[i - 1][j]?.version, p.version)) {
-                                p.tag = 'updated'
+                                p.tag = 'changed'
                             }
                             packagesOrderd.add(p)
                             packages.remove(p)
@@ -51,7 +51,7 @@ class ComparisonService {
                     }
                 }
                 if (packages) {
-                    packageIds << packages.id
+                    packageIds.addAll(packages.id)
                     packages.each { p ->
                         p.tag = 'new'
                         packagesOrderd << p

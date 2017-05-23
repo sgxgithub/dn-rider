@@ -1,5 +1,4 @@
-.ui-menu-item .ui-menu-item-wrapper:hover
-{
+.ui-menu-item .ui-menu-item-wrapper:hover {
     border: none !important;
     background-color: #4682B4;
 }

@@ -9,7 +9,7 @@
 
 <g:render template="/components/notification"/>
 
-<div id="content" class="container">
+<div class="container">
     <g:form class="form-inline my-5" url="[action: 'search', controller: 'comparison']" method="get">
         <g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off"
                      placeholder="trigramme" data-apps="${apps}"/>
@@ -28,7 +28,7 @@
             <g:if test="${versions}">
                 <th>${app}</th>
                 <g:each var="version" in="${versions}">
-                    <th>v${version}</th>
+                    <th>${version}</th>
                 </g:each>
             </g:if>
         </tr>
@@ -51,8 +51,8 @@
                                     <g:if test="${packages[i].tag == 'new'}">
                                         <span class="badge badge-success">New</span>
                                     </g:if>
-                                    <g:if test="${packages[i].tag == 'updated'}">
-                                        <span class="badge badge-info">Updated</span>
+                                    <g:if test="${packages[i].tag == 'changed'}">
+                                        <span class="badge badge-info">!</span>
                                     </g:if>
                                 </td>
                             </g:else>
