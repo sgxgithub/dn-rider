@@ -6,10 +6,10 @@ class SearchController {
 
     def nexusConsumerService
 
-    def index(){
+    def index() {
     }
 
-    def searchVersions(){
+    def searchVersions() {
         String app = params.app
         String releaseType = params.releaseType
 
@@ -28,7 +28,10 @@ class SearchController {
         String formatShow = cmd.formatShow
 
         if (cmd.hasErrors()) {
-            flash.message = cmd.errors.allErrors.toString()
+            def firstError = cmd.errors.allErrors[0]
+            if (firstError.field == 'app') {
+                flash.message = "The valid size range of field app is between 3 and 15"
+            }
             respond([
                     app        : app,
                     releaseType: releaseType,
