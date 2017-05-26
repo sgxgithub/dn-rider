@@ -23,6 +23,9 @@ class ComparisonController {
 
         def apps = nexusConsumerService.getApps()
 
+        //sort the versions
+        //code here
+
         for (int i = 0; i < versions.size(); i++) {
             String version = versions[i]
             log.info "searching for the delivery-note with app=${app}, version=${version}..."
@@ -35,22 +38,26 @@ class ComparisonController {
                 flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
             } else {
                 log.info "received the delivery-note"
-                dns << resp.json.NDL_pour_rundeck
+                def dn = resp.json.NDL_pour_rundeck
+                dn.put('version', version)
+                dns << dn
             }
         }
 
-        def packageIds
-        def listPackages
-        (packageIds, listPackages) = comparisonService.sortPackages(dns)
+//        def packageKeys
+//        def listPackages
+//        (packageKeys, listPackages) = comparisonService.sortPackages(dns)
+        def rowPackages = comparisonService.sortPackages(dns, versions)
 
         respond([
-                packageIds: packageIds,
-                versions  : versions,
-                listPackages  : listPackages,
-                apps      : apps as JSON,
-                app       : app,
-                version1  : version1,
-                version2  : version2
+                rowPackages: rowPackages,
+                versions   : versions,
+//                packageKeys: packageKeys,
+//                listPackages  : listPackages,
+                apps       : apps as JSON,
+                app        : app,
+                version1   : version1,
+                version2   : version2
         ], view: "index")
     }
 }
