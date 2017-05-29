@@ -17,7 +17,7 @@ class SearchController {
         def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
 
-        render versions as JSON
+        render template: "/comparison/listVersions", model: [versions: versions]
     }
 
     def search(SearchCommand cmd) {

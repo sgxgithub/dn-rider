@@ -36,5 +36,4 @@
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </div>
     </div>
-
 </g:form>

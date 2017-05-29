@@ -13,18 +13,15 @@ class ComparisonController {
         [apps: apps as JSON]
     }
 
-    def search() {
+    def compare() {
         String app = params.app
-        String version1 = params.version1
-        String version2 = params.version2
-
-        List<String> versions = [version1, version2]
+        List<String> versions = params.versions
         List<JSONObject> dns = []
 
         def apps = nexusConsumerService.getApps()
 
         //sort the versions
-        //code here
+        versions.sort()
 
         for (int i = 0; i < versions.size(); i++) {
             String version = versions[i]
@@ -44,20 +41,13 @@ class ComparisonController {
             }
         }
 
-//        def packageKeys
-//        def listPackages
-//        (packageKeys, listPackages) = comparisonService.sortPackages(dns)
         def rowPackages = comparisonService.sortPackages(dns, versions)
 
         respond([
-                rowPackages: rowPackages,
                 versions   : versions,
-//                packageKeys: packageKeys,
-//                listPackages  : listPackages,
+                rowPackages: rowPackages,
                 apps       : apps as JSON,
-                app        : app,
-                version1   : version1,
-                version2   : version2
+                app        : app
         ], view: "index")
     }
 }
