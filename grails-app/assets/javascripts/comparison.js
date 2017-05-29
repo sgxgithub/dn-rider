@@ -28,6 +28,7 @@
         }
     });
 
+    //search the list of versions
     $("#btnSearch").click(function () {
         let app = $("#app").val();
         let releaseType = $("#releaseType").val();
@@ -38,6 +39,24 @@
         })
             .done(function (result) {
                 $("#versions").html(result)
+            });
+    });
+
+    //compare
+    $("#btnCompare").click(function (event) {
+        event.preventDefault();
+
+        let formData = new FormData(document.getElementById("formCompare"));
+
+        $.ajax({
+            method: "POST",
+            url: "compare",
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+            .done(function (result) {
+                $("#tableComparison").html(result);
             });
     });
 

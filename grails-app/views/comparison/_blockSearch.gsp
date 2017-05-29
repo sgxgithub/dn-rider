@@ -1,4 +1,4 @@
-<g:form action="compare" controller="comparison">
+<form id="formCompare">
     <div class="form-group row">
         <div class="col-4">
             <h5>APP</h5>
@@ -27,11 +27,11 @@
         </div>
 
         <div class="col-3 offset-5">
-            <button class="btn btn-outline-primary" type="submit" id="btnCompare">Compare</button>
+            <button class="btn btn-outline-primary" id="btnCompare">Compare</button>
         </div>
     </div>
 
     <div id="versions">
         <g:render template="listVersions"/>
     </div>
-</g:form>
+</form>

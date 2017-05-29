@@ -18,8 +18,6 @@ class ComparisonController {
         List<String> versions = params.versions
         List<JSONObject> dns = []
 
-        def apps = nexusConsumerService.getApps()
-
         //sort the versions
         versions.sort()
 
@@ -43,11 +41,6 @@ class ComparisonController {
 
         def rowPackages = comparisonService.sortPackages(dns, versions)
 
-        respond([
-                versions   : versions,
-                rowPackages: rowPackages,
-                apps       : apps as JSON,
-                app        : app
-        ], view: "index")
+        render template: "tableComparison", model: [versions: versions, rowPackages: rowPackages]
     }
 }

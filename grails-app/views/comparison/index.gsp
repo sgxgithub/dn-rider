@@ -15,15 +15,15 @@
             <g:render template="blockSearch"/>
         </div>
 
-        <div class="col-9">
+        <div class="col-9" id="tableComparison">
             %{--<g:form class="form-inline my-5" url="[action: 'search', controller: 'comparison']" method="get">--}%
-                %{--<g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off"--}%
-                             %{--placeholder="trigramme" data-apps="${apps}"/>--}%
-                %{--<g:textField name="version1" class="form-control mr-2" id="version1" value="${version1}"--}%
-                             %{--autocomplete="off"--}%
-                             %{--placeholder="version1"--}%
-                             %{--data-url="${createLink(controller: 'search', action: 'searchVersions', params: [releaseType: 'All'])}"/>--}%
-                %{--<button class="btn btn-outline-primary" type="submit">Compare</button>--}%
+            %{--<g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off"--}%
+            %{--placeholder="trigramme" data-apps="${apps}"/>--}%
+            %{--<g:textField name="version1" class="form-control mr-2" id="version1" value="${version1}"--}%
+            %{--autocomplete="off"--}%
+            %{--placeholder="version1"--}%
+            %{--data-url="${createLink(controller: 'search', action: 'searchVersions', params: [releaseType: 'All'])}"/>--}%
+            %{--<button class="btn btn-outline-primary" type="submit">Compare</button>--}%
             %{--</g:form>--}%
             <g:render template="tableComparison"/>
         </div>
