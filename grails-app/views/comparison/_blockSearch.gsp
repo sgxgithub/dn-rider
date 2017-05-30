@@ -5,7 +5,7 @@
         </div>
 
         <div class="col-8">
-            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}"/>
+            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}" autocomplete="off"/>
         </div>
     </div>
 
@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-3">
             <div class="btn btn-outline-primary" id="btnSearch"
-                 data-url="${createLink(controller: 'search', action: 'searchVersions')}">Search</div>
+                 data-url="${createLink(controller: 'search', action: 'getVersionsView')}">Search</div>
         </div>
 
         <div class="col-3 offset-5">

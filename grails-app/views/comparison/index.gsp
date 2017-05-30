@@ -11,21 +11,18 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-3 py-3 bg-faded">
+        <div class="col-3 py-3 bg-faded collapse show width" id="sidebar">
             <g:render template="blockSearch"/>
         </div>
 
-        <div class="col-9" id="tableComparison">
-            %{--<g:form class="form-inline my-5" url="[action: 'search', controller: 'comparison']" method="get">--}%
-            %{--<g:textField name="app" class="form-control mr-2" id="app" value="${app}" autocomplete="off"--}%
-            %{--placeholder="trigramme" data-apps="${apps}"/>--}%
-            %{--<g:textField name="version1" class="form-control mr-2" id="version1" value="${version1}"--}%
-            %{--autocomplete="off"--}%
-            %{--placeholder="version1"--}%
-            %{--data-url="${createLink(controller: 'search', action: 'searchVersions', params: [releaseType: 'All'])}"/>--}%
-            %{--<button class="btn btn-outline-primary" type="submit">Compare</button>--}%
-            %{--</g:form>--}%
-            <g:render template="tableComparison"/>
+        <div class="col-9">
+            <a data-toggle="collapse" href="#sidebar">
+                <i class="fa fa-navicon fa-lg"></i>
+            </a>
+
+            <div id="tableComparison">
+                <g:render template="tableComparison"/>
+            </div>
         </div>
     </div>
 </div>

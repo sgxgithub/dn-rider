@@ -7,9 +7,22 @@ class SearchController {
     def nexusConsumerService
 
     def index() {
+        def apps = nexusConsumerService.getApps()
+        [apps: apps as JSON]
     }
 
-    def searchVersions() {
+    def getVersionsList() {
+        String app = params.app
+        String releaseType = params.releaseType
+
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def versions = nexusConsumerService.getVersions(app, releaseType)
+        log.info "received the list of delivery-notes"
+
+        render versions as JSON
+    }
+
+    def getVersionsView() {
         String app = params.app
         String releaseType = params.releaseType
 

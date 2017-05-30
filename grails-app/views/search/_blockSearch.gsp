@@ -1,36 +1,48 @@
-<g:form url="[action:'search',controller:'search']" method="get">
+<g:form url="[action: 'search', controller: 'search']" method="get">
     <div class="form-group row">
         <div class="col-4">
             <h5>APP</h5>
         </div>
+
         <div class="col-8">
-            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..."/>
+            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}"
+                         autocomplete="off"/>
         </div>
     </div>
+
     <div class="form-group row">
         <div class="col-4">
             <h5>ReleaseType</h5>
         </div>
+
         <div class="col-8">
-            <g:select name="releaseType" class="form-control" from='["All", "Snapshots","Releases"]' value="${releaseType}"/>
+            <g:select name="releaseType" class="form-control" from='["All", "Snapshots", "Releases"]'
+                      value="${releaseType}"/>
         </div>
     </div>
+
     <div class="form-group row">
         <div class="col-4">
             <h5>Version</h5>
         </div>
+
         <div class="col-8">
-            <g:textField name="version" class="form-control" value="${version}" placeholder="52.00.0-2, 1.36.1..."/>
+            <g:textField name="version" class="form-control" value="${version}" placeholder="52.00.0-2, 1.36.1..."
+                         autocomplete="off"
+                         data-url="${createLink(controller: 'search', action: 'getVersionsList', params: [releaseType: 'All'])}"/>
         </div>
     </div>
+
     <div class="form-group row">
         <div class="col-4">
             <h5>Format</h5>
         </div>
+
         <div class="col-8">
             <g:select name="formatShow" class="form-control" from='["Text", "JSON"]' value="${formatShow}"/>
         </div>
     </div>
+
     <div class="form-group row">
         <div class="col-3 offset-8">
             <button class="btn btn-outline-primary" type="submit">Search</button>
