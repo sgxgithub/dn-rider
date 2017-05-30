@@ -1,11 +1,13 @@
 <table class="table table-hover table-responsive">
     <thead>
     <tr>
-        <g:if test="${versions}">
+        <g:if test="${rowVersions}">
             <th>module</th>
             <th>name</th>
-            <g:each var="version" in="${versions}">
-                <th>${version}</th>
+            <g:each var="rowVersion" in="${rowVersions}">
+                <th>
+                    <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
+                </th>
             </g:each>
         </g:if>
     </tr>
@@ -16,8 +18,8 @@
             <tr>
                 <th>${rowPackage.key.module}</th>
                 <th>${rowPackage.key.name}</th>
-                <g:if test="${versions}">
-                    <g:each var="version" in="${versions}">
+                <g:if test="${rowVersions}">
+                    <g:each var="version" in="${rowVersions.name}">
                         <g:if test="${rowPackage[version]?.tag == 'deleted'}">
                             <td>
                                 <span class="badge badge-danger">Deleted</span>

@@ -39,8 +39,8 @@ class ComparisonController {
             }
         }
 
-        def rowPackages = comparisonService.sortPackages(dns, versions)
+        def table = comparisonService.sortPackages(app, dns, versions)
 
-        render template: "tableComparison", model: [versions: versions, rowPackages: rowPackages]
+        render template: "tableComparison", model: [rowVersions: table.rowVersions, rowPackages: table.rowPackages]
     }
 }

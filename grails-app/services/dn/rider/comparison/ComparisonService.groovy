@@ -12,9 +12,18 @@ class ComparisonService {
         return true
     }
 
-    def sortPackages(dns, versions) {
-        List<JSONObject> rowPackages = []
+    def sortPackages(app, dns, versions) {
+        //the table head
+        List<JSONObject> rowVersions = []
+        versions.each { version ->
+            JSONObject rowVersion = new JSONObject()
+            rowVersion.put('name', version)
+            rowVersion.put('url', "/deliveryNotes/search/search?app=${app}&version=${version}")
+            rowVersions << rowVersion
+        }
 
+        //the table body
+        List<JSONObject> rowPackages = []
         dns.eachWithIndex { dn, i ->
             def packages = dn.packages
             packages.each { p ->
@@ -59,6 +68,6 @@ class ComparisonService {
         }
         rowPackages.sort(mc)
 
-        return rowPackages
+        return [rowVersions: rowVersions, rowPackages: rowPackages]
     }
 }
