@@ -19,6 +19,7 @@
     </div>
 </div>
 
+<asset:javascript src="jquery.numberedtextarea.js"/>
 <asset:javascript src="validation.js"/>
 
 </body>
