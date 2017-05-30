@@ -56,7 +56,7 @@ class ComparisonService {
             versions.eachWithIndex { version, i ->
                 if (i > 0) {
                     //if the previous dn has this package
-                    if (!rowPackage[version] && rowPackage[versions[i - 1]]) {
+                    if (!rowPackage[version]?.name && rowPackage[versions[i - 1]]?.name) {
                         rowPackage.put(version, [tag: 'deleted'])
                     }
                 }

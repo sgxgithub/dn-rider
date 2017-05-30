@@ -27,13 +27,13 @@
                         </g:if>
                         <g:else>
                             <td>
-                                <a href="${rowPackage[version]?.packageUrl}">${rowPackage[version]?.name}</a>
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
-                                    <span class="badge badge-success">New</span>
+                                    <span class="badge badge-success">N</span>
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.tag == 'changed'}">
-                                    <span class="badge badge-info">!</span>
+                                    <span class="badge badge-info">C</span>
                                 </g:if>
+                                <a href="${rowPackage[version]?.packageUrl}">${rowPackage[version]?.name}</a>
                             </td>
                         </g:else>
                     </g:each>
