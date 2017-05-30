@@ -18,3 +18,21 @@
    overflow: scroll;
    padding:1rem;
 }
+
+.collapse.show {
+    visibility: visible;
+    display: block;
+}
+
+.collapsing.width {
+    position: relative;
+    width: 0;
+    height: auto;
+    overflow: hidden;
+    -webkit-transition-property: width, visibility;
+    transition-property: width, visibility;
+    -webkit-transition-duration: 0.1s;
+    transition-duration: 0.1s;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+}

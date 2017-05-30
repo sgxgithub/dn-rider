@@ -6,7 +6,7 @@
 
         <div class="col-8">
             <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}"
-                         autocomplete="off"/>
+                         autocomplete="off" required="true"/>
         </div>
     </div>
 
