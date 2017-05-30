@@ -18,9 +18,11 @@ WEB: IHM Web
 
 - [ ] [WEB] accès aux écrans par URL 
 
-- [ ] [WEB] Consolidation page de Comparaison (ex: selection d'un intervalle de versions)
+- [ ] [WEB] Consolidation page de Comparaison (ex: selection d'un intervalle de versions, toutes les versions)
 
 - [ ] [WEB] Editeur de NDL (avec validation et stockage)
+
+- [ ] [WEB/API] swagger
 
 - [ ] [API] Récupèrer une note de livraison au format json (GET /api/deliveryNotes/*APP*/*VERSION*)
 
