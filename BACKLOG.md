@@ -14,9 +14,11 @@ WEB: IHM Web
 
 - [ ] [IC] pipeline de deploiement continue sur "epidural" vers "crisdorgames"
 
+- [ ] [IC] tests automatiques de non-regressions
+
 - [ ] [WEB] accès aux écrans par URL 
 
-- [ ] [WEB] Tableau de Comparaison par selection d'un intervalle de versions
+- [ ] [WEB] Consolidation page de Comparaison (ex: selection d'un intervalle de versions)
 
 - [ ] [WEB] Editeur de NDL (avec validation et stockage)
 
