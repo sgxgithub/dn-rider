@@ -42,3 +42,6 @@ WEB: IHM Web
 
 - [ ] [API] Valider une note de livraison (POST /api/validations pour une note de livraison non stockée,  GET /api/validations/*APP*/*VERSION* pour une note de livraison deja stockée)
     -  validation selon schema http://gitlab.socrate.vsct.fr/rundep/katana/tree/dev/ndl_json-schema
+
+- [ ] [API] Autres appels pour extraire des infos des NDLS (a définir)
+
