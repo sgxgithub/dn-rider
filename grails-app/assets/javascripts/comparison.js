@@ -46,4 +46,12 @@
             });
     });
 
+    $('#sidebar')
+        .on('show.bs.collapse', function () {
+            $("#content").toggleClass("col-12 col-9");
+        })
+        .on('hidden.bs.collapse', function () {
+            $("#content").toggleClass("col-12 col-9");
+        });
+
 }(jQuery));

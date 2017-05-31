@@ -10,12 +10,12 @@
 <g:render template="/components/notification"/>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-3 py-3 bg-faded collapse show width" id="sidebar">
+    <div class="row" id="row-main">
+        <div class="col-3 py-3 bg-faded collapse show" id="sidebar">
             <g:render template="blockSearch"/>
         </div>
 
-        <div class="col-9">
+        <div class="col-9" id="content">
             <a data-toggle="collapse" href="#sidebar">
                 <i class="fa fa-navicon fa-lg"></i>
             </a>
