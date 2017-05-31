@@ -50,7 +50,11 @@
         .on('show.bs.collapse', function () {
             $("#content").toggleClass("col-12 col-9");
         })
-        .on('hidden.bs.collapse', function () {
+        // .on('hide.bs.collapse', function (e) {
+            // e.preventDefault();
+        // })
+        .on('hidden.bs.collapse', function (e) {
+            // e.preventDefault();
             $("#content").toggleClass("col-12 col-9");
         });
 
