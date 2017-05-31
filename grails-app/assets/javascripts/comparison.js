@@ -24,7 +24,7 @@
             url: $("#btnSearch").data('url') + '?app=' + app + '&releaseType=' + releaseType
         })
             .done(function (result) {
-                $("#versions").html(result)
+                $("#versions").html(result);
             });
     });
 
