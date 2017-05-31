@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:asset="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -8,35 +8,40 @@
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-    <asset:stylesheet src="bootstrap.css"/>
-    <asset:stylesheet src="index.css"/>
-    <asset:stylesheet src="css/font-awesome.min.css"/>
+    <asset:link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <asset:stylesheet src="dnrider.css"/>
+    <asset:stylesheet src="settings.css"/>
 
-    <asset:javascript src="application.js"/>
-    
     <g:layoutHead/>
 </head>
+
 <body>
 
 <nav class="navbar navbar-toggleable-md navbar-inverse" style="background-color: #4682B4;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"> </span>
+        <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/#">DN-RIDER</a>
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
-            <g:render template="/components/modalPrefence"/>
-            <li class="nav-item">
-                <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-            </li>
             <g:pageProperty name="page.nav"/>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">Lang<span class="caret"></span></a>
+            <li class="nav-item" id="nav-item-search">
+                <g:link class="nav-link" controller="search" action="index">Search</g:link>
+            </li>
+            <li class="nav-item" id="nav-item-validation">
+                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+            </li>
+            <li class="nav-item" id="nav-item-comparison">
+                <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
+            </li>
+            <li class="nav-item dropdown mr-2">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-language fa-lg"></span>
+                </a>
+
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="?lang=fr">FR</a>
                     <a class="dropdown-item" href="?lang=en">EN</a>
@@ -47,24 +52,37 @@
     </div>
 </nav>
 
+%{--jquery from cdn and local--}%
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script type="text/javascript" src="/assets/jquery-3.2.1.min.js?compile=false" ><\/script>')</script>
+%{--other javascript--}%
+<asset:javascript src="application.js"/>
+
 <g:layoutBody/>
 
 <footer>
-    <ul class="nav justify-content-center my-1" >
+    <ul class="nav justify-content-center my-1">
         <li class="nav-item">
             <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://swagger.io/">Swagger</a>
+        </li>
     </ul>
+
     <p>
         <a href="#">Back to top</a>
     </p>
 </footer>
 
 <div id="spinner" class="spinner" style="display:none;">
-    <g:message code="spinner.alt" default="Loading&hellip;"/>
+    <asset:image src="spinner.gif"/>
+    <g:message code="spinner.alt"/>
 </div>
 
 </body>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="main"/>
     <title>DN-RIDER</title>
     <asset:stylesheet src="home.css"/>
 </head>

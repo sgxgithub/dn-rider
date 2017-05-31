@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8"/>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="main"/>
     <title>Comparison</title>
     <asset:stylesheet src="comparison.css"/></head>
 
@@ -11,7 +11,7 @@
 
 <div class="container-fluid">
     <div class="row" id="row-main">
-        <div class="col-3 py-3 bg-faded collapse show" id="sidebar">
+        <div class="col-3 py-3 bg-faded sidebar collapse show" id="sidebar">
             <g:render template="blockSearch"/>
         </div>
 

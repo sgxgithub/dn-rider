@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:asset="http://www.w3.org/1999/XSL/Transform">
 <head>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="main"/>
     <title>
         Validation
     </title>

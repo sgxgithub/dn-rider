@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta name="layout" content="index"/>
+    <meta name="layout" content="main"/>
     <title>
         Search for a liste of delivery-notes
     </title>

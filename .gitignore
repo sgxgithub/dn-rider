@@ -11,3 +11,4 @@ build/
 .classpath
 out
 .asscache
+src/main/webapp/
