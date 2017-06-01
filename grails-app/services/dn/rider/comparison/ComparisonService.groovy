@@ -6,12 +6,6 @@ import org.grails.web.json.JSONObject
 @Transactional
 class ComparisonService {
 
-    def compareVersions(version1, version2) {
-        if (!version1) return true
-        if (version1 == version2) return false
-        return true
-    }
-
     def sortPackages(app, dns, versions) {
         //the table head
         List<JSONObject> rowVersions = []
@@ -32,36 +26,19 @@ class ComparisonService {
                 if (!rowPackages.any() { rowPackage ->
                     if (rowPackage.key == p.key) {
                         rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
-                        //add tag 'changed'
-                        if (i > 0 && compareVersions(rowPackage.(versions[i - 1])?.name, p.version)) {
-                            rowPackage[dn.version].put('tag', 'changed')
-                        }
                         return true
                     }
                 }) { // when the package is new, create a new JSONObject rowPackage
                     JSONObject rowPackage = new JSONObject()
                     rowPackage.put('key', p.key)
                     rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
-                    //add tag 'new'
-                    if (i > 0) {
-                        rowPackage.(dn.version).tag = 'new'
-                    }
                     rowPackages << rowPackage
                 }
             }
         }
 
-        //add 'deleted' tag
-        rowPackages.each { rowPackage ->
-            versions.eachWithIndex { version, i ->
-                if (i > 0) {
-                    //if the previous dn has this package
-                    if (!rowPackage[version]?.name && rowPackage[versions[i - 1]]?.name) {
-                        rowPackage.put(version, [tag: 'deleted'])
-                    }
-                }
-            }
-        }
+        rowPackages = addTags(rowPackages, versions)
+
         //sort the row by module and name
         Comparator mc = { a, b ->
             (a.key.module + '/' + a.key.name) <=> (b.key.module + '/' + b.key.name)
@@ -69,5 +46,34 @@ class ComparisonService {
         rowPackages.sort(mc)
 
         return [rowVersions: rowVersions, rowPackages: rowPackages]
+    }
+
+    def addTags(List<JSONObject> rowPackages, versions) {
+        //add  tag 'deleted', 'new', 'changed'
+        rowPackages.each { rowPackage ->
+            versions.eachWithIndex { version, i ->
+                if (i > 0) {
+                    //if the previous dn has this package
+                    if (!rowPackage[version]?.name && rowPackage[versions[i - 1]]?.name) {
+                        rowPackage.put(version, [tag: 'deleted'])
+                    }
+                    //if the previous dn does not have this package
+                    else if (rowPackage[version]?.name && !rowPackage[versions[i - 1]]?.name) {
+                        rowPackage[version].put('tag', 'new')
+                    }
+                    //add tag 'changed'
+                    else if (compareVersions(rowPackage[version]?.name, rowPackage[versions[i - 1]]?.name)) {
+                        rowPackage[version].put('tag', 'changed')
+                    }
+                }
+            }
+        }
+        return rowPackages
+    }
+
+    def compareVersions(version1, version2) {
+        if (!version1 || !version2) return true
+        if (version1 == version2) return false
+        return true
     }
 }
