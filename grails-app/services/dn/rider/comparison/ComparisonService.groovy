@@ -25,13 +25,23 @@ class ComparisonService {
                 //if the package exist, add the version to the JSONObject rowPackage
                 if (!rowPackages.any() { rowPackage ->
                     if (rowPackage.key == p.key) {
-                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                        if (p.type == 'propertiesLink') {
+                            rowPackage.put(dn.version, [name: p.name])
+                        } else {
+                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                        }
+//                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                         return true
                     }
                 }) { // when the package is new, create a new JSONObject rowPackage
                     JSONObject rowPackage = new JSONObject()
                     rowPackage.put('key', p.key)
-                    rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                    if (p.type == 'propertiesLink') {
+                        rowPackage.put(dn.version, [name: p.name])
+                    } else {
+                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                    }
+//                    rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                     rowPackages << rowPackage
                 }
             }
@@ -63,7 +73,12 @@ class ComparisonService {
                     }
                     //add tag 'changed'
                     else if (compareVersions(rowPackage[version]?.name, rowPackage[versions[i - 1]]?.name)) {
-                        rowPackage[version].put('tag', 'changed')
+                        if (rowPackage[version]) {
+                            rowPackage[version].put('tag', 'changed')
+                        } else {
+                            rowPackage.put(version, [tag: 'changed'])
+                        }
+
                     }
                 }
             }
@@ -72,7 +87,7 @@ class ComparisonService {
     }
 
     def compareVersions(version1, version2) {
-        if (!version1 || !version2) return true
+        if (!version1 || !version2) return false
         if (version1 == version2) return false
         return true
     }
