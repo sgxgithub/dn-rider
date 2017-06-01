@@ -6,27 +6,40 @@
 
     //autocomplete of apps
     let $app = $("#app");
+
+    let setVersions = function () {
+        // $("#btnSearch").click(function () {
+        let app = $app.val();
+        //fired only if the length >= 3
+        if (app.length < 3) return;
+
+        let releaseType = $("#releaseType").val();
+
+        $.ajax({
+            method: "GET",
+            url: $app.data('url') + '?app=' + app + '&releaseType=' + releaseType
+        })
+            .done(function (result) {
+                console.log(result);
+                $("#versions").html(result);
+            });
+    };
+
     let apps = $app.data('apps');
     $app.autocomplete({
         source: function (request, response) {
             let results = $.ui.autocomplete.filter(apps, request.term);
             response(results.slice(0, 10));
+        },
+        select: function (event, ui) {
+            //set the input value from selected item
+            $app.val(ui.item.value);
+            setVersions();
         }
     });
 
     //search the list of versions
-    $("#btnSearch").click(function () {
-        let app = $("#app").val();
-        let releaseType = $("#releaseType").val();
-
-        $.ajax({
-            method: "GET",
-            url: $("#btnSearch").data('url') + '?app=' + app + '&releaseType=' + releaseType
-        })
-            .done(function (result) {
-                $("#versions").html(result);
-            });
-    });
+    $app.on('input', setVersions);
 
     //compare
     $("#btnCompare").click(function (event) {

@@ -30,7 +30,6 @@ class ComparisonService {
                         } else {
                             rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                         }
-//                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                         return true
                     }
                 }) { // when the package is new, create a new JSONObject rowPackage
@@ -41,7 +40,6 @@ class ComparisonService {
                     } else {
                         rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                     }
-//                    rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
                     rowPackages << rowPackage
                 }
             }

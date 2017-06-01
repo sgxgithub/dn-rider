@@ -16,8 +16,13 @@ class ComparisonController {
     def compare() {
         String app = params.app
         List<String> versions = params.versions
-        List<JSONObject> dns = []
 
+        if (!app || !versions) {
+            render text: "<div></div>"
+            return
+        }
+
+        List<JSONObject> dns = []
         //sort the versions
         versions.sort()
 
