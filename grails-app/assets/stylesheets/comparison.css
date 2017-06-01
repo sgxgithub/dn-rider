@@ -1,7 +1,7 @@
 #versions {
     padding: 0.5rem 2rem;
     margin: 0 0;
-    height: 36rem;
+    height: 34rem;
     overflow: scroll;
 }
 
@@ -21,16 +21,16 @@
 }
 
 #content {
-    -webkit-transition: width .3s ease;
-    -moz-transition: width .3s ease;
-    -o-transition: width .3s ease;
-    transition: width .3s ease;
+    -webkit-transition: width .35s ease;
+    -moz-transition: width .35s ease;
+    -o-transition: width .35s ease;
+    transition: width .35s ease;
 }
 
 #sidebar {
     height: auto;
-    -webkit-transition: margin .3s ease;
-    -moz-transition: margin .3s ease;
-    -o-transition: margin .3s ease;
-    transition: margin .3s ease;
+    -webkit-transition: margin .35s ease;
+    -moz-transition: margin .35s ease;
+    -o-transition: margin .35s ease;
+    transition: margin .35s ease;
 }

@@ -11,13 +11,13 @@
 
 <div class="container-fluid">
     <div class="row" id="row-main">
-        <div class="col-3 py-3 bg-faded sidebar collapse show" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="sidebar">
+        <div class="col-3 py-3 bg-faded sidebar collapse show" id="sidebar">
             <g:render template="blockSearch"/>
         </div>
 
         <div class="col-9" id="content">
-            <a data-toggle="collapse" href="#sidebar">
-                <i class="fa fa-navicon fa-lg"></i>
+            <a data-toggle="collapse" href="#sidebar" id="btn-sidebar">
+                <i class="fa fa-navicon fa-lg py-3 p-1"></i>
             </a>
 
             <div id="tableComparison">

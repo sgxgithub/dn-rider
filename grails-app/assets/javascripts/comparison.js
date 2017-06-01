@@ -61,10 +61,13 @@
 
     $('#sidebar')
         .on('show.bs.collapse', function () {
-            $("#content").toggleClass("col-12 col-9");
+            $("#content").toggleClass("col-9 col-12");
         })
         .on('hidden.bs.collapse', function () {
-            $("#content").toggleClass("col-12 col-9");
+            setTimeout(
+                function () {
+                    $("#content").toggleClass("col-9 col-12");
+                }, 350);
         });
 
 }(jQuery));
