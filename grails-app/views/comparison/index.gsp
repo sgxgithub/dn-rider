@@ -7,8 +7,6 @@
 
 <body>
 
-<g:render template="/components/notification"/>
-
 <div class="container-fluid">
     <div class="row" id="row-main">
         <div class="col-3 py-3 bg-faded sidebar collapse show" id="sidebar">

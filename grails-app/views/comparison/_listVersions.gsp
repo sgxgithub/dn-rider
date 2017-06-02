@@ -1,7 +1,7 @@
 <g:if test="${versions}">
-    <div class="alert alert-info alert-dismissable fade show">
+    <div class="alert alert-info alert-dismissable fade show px-2 py-1">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        Use shift to select or clear a range of versions.
+        Use shift to select/clear a range.
     </div>
 </g:if>
 <g:each var="version" in="${versions}">

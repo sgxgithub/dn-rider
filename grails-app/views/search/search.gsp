@@ -27,7 +27,6 @@
             <a data-toggle="collapse" href="#sidebar">
                 <i class="fa fa-navicon fa-lg"></i>
             </a>
-            <g:render template="/components/notification"/>
             <g:render template="blockDn"/>
         </div>
     </div>

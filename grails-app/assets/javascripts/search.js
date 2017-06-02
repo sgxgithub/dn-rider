@@ -41,6 +41,8 @@
         });
 
     //json format
+    //plugin found in jqueryscript.net
+    //ref : http://www.jqueryscript.net/demo/Tiny-jQuery-Plugin-For-Pretty-JSON-Print-JSON-Browse/
     let $blockDn = $("#blockDn");
     let dnJson = $blockDn.data('dnjson');
     let dnRaw = $blockDn.data('dnraw');

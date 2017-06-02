@@ -8,7 +8,7 @@ ul.json-dict, ol.json-array {
   margin: 0 0 0 1px;
   border-left: 1px dotted #ccc;
   padding-left: 2em;
-  font: 13px/18px monospace;
+  font: 15px/18px monospace;
   -webkit-font-smoothing: antialiased;
 }
 .json-string {
@@ -16,7 +16,7 @@ ul.json-dict, ol.json-array {
 }
 .json-literal {
   color: #1A01CC;
-  font-weight: bold;
+  /*font-weight: bold;*/
 }
 
 /* Toggle button */

@@ -12,8 +12,6 @@
     <g:render template="/components/modalPrefence"/>
 </content>
 
-<g:render template="/components/notification"/>
-
 <div id="content" class="container">
     <div class="row justify-content-center">
         <div class="col-6">

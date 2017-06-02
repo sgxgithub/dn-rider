@@ -29,6 +29,7 @@
                 <g:message code="spinner.alt"/>
             </div>
         </div>
+
         <div class="col-md-3">
             <button class="btn btn-outline-primary" id="btnCompare">Compare</button>
         </div>
