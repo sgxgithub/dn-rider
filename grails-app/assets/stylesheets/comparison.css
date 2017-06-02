@@ -5,10 +5,6 @@
     overflow: scroll;
 }
 
-#row-main {
-    overflow-x: hidden; /* necessary to hide collapsed sidebar */
-}
-
 .sidebar.collapse.show {
     visibility: visible;
     display: block;
@@ -18,13 +14,6 @@
 .sidebar.collapse {
     display: block;
     margin-left: -25%; /* same width as sidebar */
-}
-
-#content {
-    -webkit-transition: width .35s ease;
-    -moz-transition: width .35s ease;
-    -o-transition: width .35s ease;
-    transition: width .35s ease;
 }
 
 #sidebar {

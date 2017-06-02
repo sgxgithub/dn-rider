@@ -23,13 +23,13 @@
     </div>
 
     <div class="row">
-        <div class="col-5">
+        <div class="col-md-7">
             <div id="spinner" class="spinner" style="display:none;">
                 <asset:image src="spinner.gif"/>
                 <g:message code="spinner.alt"/>
             </div>
         </div>
-        <div class="col-3 offset-2">
+        <div class="col-md-3">
             <button class="btn btn-outline-primary" id="btnCompare">Compare</button>
         </div>
     </div>
