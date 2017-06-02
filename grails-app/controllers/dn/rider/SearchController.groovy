@@ -38,7 +38,6 @@ class SearchController {
         String app = cmd.app
         String version = cmd.version
         String releaseType = cmd.releaseType
-        String formatShow = cmd.formatShow
 
         if (cmd.hasErrors()) {
             def firstError = cmd.errors.allErrors[0]
@@ -48,8 +47,7 @@ class SearchController {
             respond([
                     app        : app,
                     releaseType: releaseType,
-                    version    : version,
-                    formatShow : formatShow
+                    version    : version
             ], view: 'search')
             return
         }
@@ -65,8 +63,7 @@ class SearchController {
                     versionCount: versions.size(),
                     versions    : versions,
                     app         : app,
-                    releaseType : releaseType,
-                    formatShow  : formatShow
+                    releaseType : releaseType
             ], view: "search")
             return
         }
@@ -85,8 +82,7 @@ class SearchController {
                         versionCount: versions.size(),
                         app         : app,
                         releaseType : releaseType,
-                        version     : version,
-                        formatShow  : formatShow
+                        version     : version
                 ], view: "search")
                 return
             }
@@ -94,13 +90,11 @@ class SearchController {
             respond([
                     versions    : versions,
                     versionCount: versions.size(),
-                    dnText      : resp.text,
-                    packageCount: resp.json.NDL_pour_rundeck.packages.size(),
-                    packages    : resp.json.NDL_pour_rundeck.packages,
+                    dnRaw      : resp.text,
+                    dnJson      : resp.json,
                     app         : app,
                     releaseType : releaseType,
-                    version     : version,
-                    formatShow  : formatShow
+                    version     : version
             ], view: "search")
         }
     }

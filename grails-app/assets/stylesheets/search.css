@@ -13,26 +13,45 @@
     overflow: scroll;
 }
 
-#blockDn {
+#content {
    max-height: 49rem;
    overflow: scroll;
    padding:1rem;
 }
 
-.collapse.show {
+/*.collapse.show {*/
+    /*visibility: visible;*/
+    /*display: block;*/
+/*}*/
+
+/*.collapsing.width {*/
+    /*position: relative;*/
+    /*width: 0;*/
+    /*height: auto;*/
+    /*overflow: hidden;*/
+    /*-webkit-transition-property: width, visibility;*/
+    /*transition-property: width, visibility;*/
+    /*-webkit-transition-duration: 0.1s;*/
+    /*transition-duration: 0.1s;*/
+    /*-webkit-transition-timing-function: ease;*/
+    /*transition-timing-function: ease;*/
+/*}*/
+
+.sidebar.collapse.show {
     visibility: visible;
     display: block;
+    margin-left: 0;
 }
 
-.collapsing.width {
-    position: relative;
-    width: 0;
+.sidebar.collapse {
+    display: block;
+    margin-left: -25%; /* same width as sidebar */
+}
+
+#sidebar {
     height: auto;
-    overflow: hidden;
-    -webkit-transition-property: width, visibility;
-    transition-property: width, visibility;
-    -webkit-transition-duration: 0.1s;
-    transition-duration: 0.1s;
-    -webkit-transition-timing-function: ease;
-    transition-timing-function: ease;
+    -webkit-transition: margin .35s ease;
+    -moz-transition: margin .35s ease;
+    -o-transition: margin .35s ease;
+    transition: margin .35s ease;
 }

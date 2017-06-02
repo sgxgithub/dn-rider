@@ -34,16 +34,6 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-4">
-            <h5>Format</h5>
-        </div>
-
-        <div class="col-8">
-            <g:select name="formatShow" class="form-control" from='["Text", "JSON"]' value="${formatShow}"/>
-        </div>
-    </div>
-
-    <div class="form-group row">
         <div class="col-3 offset-8">
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </div>

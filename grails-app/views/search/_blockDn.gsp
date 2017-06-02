@@ -1,14 +1,6 @@
-<g:if test="${formatShow == 'JSON'}">
-    <h4>The result:</h4>
-    <h5>There are ${packageCount} packages in the dn</h5>
+<nav class="nav">
+    <a class="nav-link" href="" id="formatJson">JSON</a>
+    <a class="nav-link" href="" id="formatRaw">RAW</a>
+</nav>
 
-    <ul>
-        <li>"packages":[</li>
-        <g:render template="/components/dnPackage" collection="${packages}" var="dnPackage"/>
-        <li>]
-        </li>
-    </ul>
-</g:if>
-<g:else>
-<pre>${dnText}</pre>
-</g:else>
+<pre id="blockDn" data-dnraw="${dnRaw}" data-dnjson="${dnJson}"></pre>
