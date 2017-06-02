@@ -1,7 +1,7 @@
 <form class="my-4">
-    <h5>
+    <h4>
         <g:message code="dn.rider.validation.result.title"/>
-    </h5>
+    </h4>
     <g:if test="${isChecked && !isJsonValid}">
         <div class="alert alert-danger">
             <strong><g:message code="dn.rider.validation.msg.invalidJson"/></strong> <a id="json-error-link" href="#">line: ${line}</a>
