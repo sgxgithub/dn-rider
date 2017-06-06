@@ -31,7 +31,8 @@
             // Escape tags
             json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             if (isUrl(json))
-                html += '<a href="' + json + '" class="json-string">' + json + '</a>';
+            // html += '<a href="' + json + '" class="json-string">' + json + '</a>';
+                html += '<a href="' + json + '" class="json-string">' + 'Download' + '</a>';
             else
                 html += '<span class="json-string">"' + json + '"</span>';
         }
@@ -52,6 +53,7 @@
                     // Add toggle button if item is collapsable
                     if (isCollapsable(json[i])) {
                         html += '<a href class="json-toggle"></a>';
+                        // html += '<a href class="json-toggle"></a>';
                     }
                     html += json2html(json[i], options);
                     // Add comma if item is not last
@@ -103,7 +105,8 @@
      * @param json: a javascript object
      * @param options: an optional options hash
      */
-    $.fn.jsonBrowse = function (json, options) {
+
+    $.fn.setPopoverContent = function (json, options) {
         options = options || {};
 
         // jQuery chaining
@@ -114,12 +117,15 @@
             if (isCollapsable(json))
                 html = '<a href class="json-toggle"></a>' + html;
 
-            // Insert HTML in target DOM element
-            $(this).html(html);
+            // Insert HTML into data-content for popover usage
+            $(this).attr('data-content', `<div id="popover">${html}</div>`);
 
             // Bind click on toggle buttons
-            $(this).off('click');
-            $(this).on('click', 'a.json-toggle', function () {
+
+            $popover = $("#popover");
+            $popover.off('click');
+            $popover.on('click', 'a.json-toggle', function (event) {
+                event.preventDefault();
                 var target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
                 target.toggle();
                 if (target.is(':visible')) {
@@ -145,4 +151,5 @@
             }
         });
     };
-})(jQuery);
+})
+(jQuery);

@@ -80,7 +80,41 @@
             contentType: false
         })
             .done(function (result) {
+                //set table content
                 $("#tableComparison").html(result);
+                //enable popover
+                //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
+                let $popovers = $('[data-toggle="popover"]');
+                $popovers.click(function (e) {
+                    e.preventDefault()
+                });
+                //transfer content json to html
+                $popovers.each(function () {
+                    $(this).setPopoverContent($(this).data('content'));
+                });
+                $popovers.popover({
+                    container: 'body',
+                    html: true,
+                    animation: false,
+                    placement: 'bottom',
+                    trigger: 'manual',
+                    content: ""
+                })
+                    .on("mouseenter", function () {
+                        let _this = this;
+                        $(this).popover("show");
+                        $(".popover").on("mouseleave", function () {
+                            $(_this).popover('hide');
+                        });
+                    })
+                    .on("mouseleave", function () {
+                        let _this = this;
+                        setTimeout(function () {
+                            if (!$(".popover:hover").length) {
+                                $(_this).popover("hide");
+                            }
+                        }, 300);
+                    });
             });
     });
 

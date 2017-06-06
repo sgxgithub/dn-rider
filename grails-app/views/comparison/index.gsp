@@ -3,7 +3,11 @@
     <meta charset="utf-8"/>
     <meta name="layout" content="main"/>
     <title>Comparison</title>
-    <asset:stylesheet src="comparison.css"/></head>
+
+    <asset:stylesheet src="jquery.json-browse.css"/>
+    <asset:stylesheet src="comparison.css"/>
+
+</head>
 
 <body>
 
@@ -25,6 +29,7 @@
     </div>
 </div>
 
+<asset:javascript src="jquery.json-browse-popover.js"/>
 <asset:javascript src="comparison.js"/>
 
 </body>

@@ -1,5 +1,6 @@
 package dn.rider.comparison
 
+import grails.converters.JSON
 import grails.transaction.Transactional
 import org.grails.web.json.JSONObject
 
@@ -26,9 +27,9 @@ class ComparisonService {
                 if (!rowPackages.any() { rowPackage ->
                     if (rowPackage.key == p.key) {
                         if (p.type == 'propertiesLink') {
-                            rowPackage.put(dn.version, [name: p.name])
+                            rowPackage.put(dn.version, [name: p.name, content: p as JSON])
                         } else {
-                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p as JSON])
                         }
                         return true
                     }
@@ -36,9 +37,9 @@ class ComparisonService {
                     JSONObject rowPackage = new JSONObject()
                     rowPackage.put('key', p.key)
                     if (p.type == 'propertiesLink') {
-                        rowPackage.put(dn.version, [name: p.name])
+                        rowPackage.put(dn.version, [name: p.name, content: p as JSON])
                     } else {
-                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl])
+                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p as JSON])
                     }
                     rowPackages << rowPackage
                 }

@@ -15,7 +15,8 @@ class ComparisonController {
 
     def compare() {
         String app = params.app
-        List<String> versions = params.versions
+        List<String> versions = []
+        versions.addAll(params.versions)
 
         if (!app || !versions) {
             render text: "<div></div>"
