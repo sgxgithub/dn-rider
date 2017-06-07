@@ -70,3 +70,12 @@ footer a:hover {
   z-index: 5000;
   border-radius: 0.25rem;
 }
+
+.alert {
+  margin-bottom: 0;
+}
+
+/* Custom font family, add Microsoft Yahei*/
+body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+}

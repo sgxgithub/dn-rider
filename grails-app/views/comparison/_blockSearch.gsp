@@ -5,7 +5,8 @@
         </div>
 
         <div class="col-8">
-            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}"
+            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..."
+                         data-url="${createLink(controller: 'search', action: 'getVersionsView')}" data-apps="${apps}"
                          autocomplete="off" required="true"/>
         </div>
     </div>
@@ -22,12 +23,14 @@
     </div>
 
     <div class="row">
-        <div class="col-3">
-            <div class="btn btn-outline-primary" id="btnSearch"
-                 data-url="${createLink(controller: 'search', action: 'getVersionsView')}">Search</div>
+        <div class="col-md-7">
+            <div id="spinner" class="spinner" style="display:none;">
+                <asset:image src="spinner.gif"/>
+                <g:message code="spinner.alt"/>
+            </div>
         </div>
 
-        <div class="col-3 offset-5">
+        <div class="col-md-3">
             <button class="btn btn-outline-primary" id="btnCompare">Compare</button>
         </div>
     </div>

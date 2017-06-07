@@ -1,5 +1,5 @@
 (function ($) {
-    $(document).ready(function(){
+    $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-search").addClass("active");
     });
@@ -27,4 +27,36 @@
                 });
         }
     });
+
+    //sidebar collapse
+    $('#sidebar')
+        .on('show.bs.collapse', function () {
+            $("#content").toggleClass("col-9 col-12");
+        })
+        .on('hidden.bs.collapse', function () {
+            setTimeout(
+                function () {
+                    $("#content").toggleClass("col-9 col-12");
+                }, 350);
+        });
+
+    //json format
+    //plugin found in jqueryscript.net
+    //ref : http://www.jqueryscript.net/demo/Tiny-jQuery-Plugin-For-Pretty-JSON-Print-JSON-Browse/
+    let $blockDn = $("#blockDn");
+    let dnJson = $blockDn.data('dnjson');
+    let dnRaw = $blockDn.data('dnraw');
+    if (dnJson) {
+        $blockDn.jsonBrowse(dnJson);
+    }
+
+    $("#formatJson").click(function (e) {
+        e.preventDefault();
+        $blockDn.jsonBrowse(dnJson);
+    });
+    $("#formatRaw").click(function (e) {
+        e.preventDefault();
+        $blockDn.html(dnRaw);
+    });
+
 }(jQuery));

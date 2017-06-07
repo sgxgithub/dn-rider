@@ -1,12 +1,8 @@
 #versions {
     padding: 0.5rem 2rem;
     margin: 0 0;
-    height: 36rem;
+    height: 34rem;
     overflow: scroll;
-}
-
-#row-main {
-    overflow-x: hidden; /* necessary to hide collapsed sidebar */
 }
 
 .sidebar.collapse.show {
@@ -20,17 +16,21 @@
     margin-left: -25%; /* same width as sidebar */
 }
 
-#content {
-    -webkit-transition: width .3s ease;
-    -moz-transition: width .3s ease;
-    -o-transition: width .3s ease;
-    transition: width .3s ease;
-}
-
 #sidebar {
     height: auto;
-    -webkit-transition: margin .3s ease;
-    -moz-transition: margin .3s ease;
-    -o-transition: margin .3s ease;
-    transition: margin .3s ease;
+    -webkit-transition: margin .35s ease;
+    -moz-transition: margin .35s ease;
+    -o-transition: margin .35s ease;
+    transition: margin .35s ease;
+}
+
+/*popover */
+ul.json-dict, ol.json-array {
+    padding-left: 1em;
+    font: 12px/18px monospace;
+}
+
+.popover {
+    max-width: 400px;
+    overflow-x: hidden;
 }

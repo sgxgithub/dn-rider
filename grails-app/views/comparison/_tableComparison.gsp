@@ -33,7 +33,10 @@
                                 <g:if test="${rowPackage[version]?.tag == 'changed'}">
                                     <span class="badge badge-info">C</span>
                                 </g:if>
-                                <a href="${rowPackage[version]?.packageUrl}">${rowPackage[version]?.name}</a>
+                                <g:if test="${rowPackage[version]?.name}">
+                                    <a href data-toggle="popover"
+                                       data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
+                                </g:if>
                             </td>
                         </g:else>
                     </g:each>

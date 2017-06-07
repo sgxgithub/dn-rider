@@ -52,6 +52,8 @@
     </div>
 </nav>
 
+<g:render template="/components/notification"/>
+
 %{--jquery from cdn and local--}%
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
@@ -79,11 +81,6 @@
         <a href="#">Back to top</a>
     </p>
 </footer>
-
-<div id="spinner" class="spinner" style="display:none;">
-    <asset:image src="spinner.gif"/>
-    <g:message code="spinner.alt"/>
-</div>
 
 </body>
 
