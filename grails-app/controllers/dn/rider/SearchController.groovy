@@ -25,12 +25,13 @@ class SearchController {
     def getVersionsView() {
         String app = params.app
         String releaseType = params.releaseType
+        String template = params.template
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
 
-        render template: "/comparison/listVersions", model: [versions: versions]
+        render template: template, model: [versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType]
     }
 
     def search(SearchCommand cmd) {
@@ -90,7 +91,7 @@ class SearchController {
             respond([
                     versions    : versions,
                     versionCount: versions.size(),
-                    dnRaw      : resp.text,
+                    dnRaw       : resp.text,
                     dnJson      : resp.json,
                     app         : app,
                     releaseType : releaseType,

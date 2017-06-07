@@ -17,10 +17,6 @@
             <div id="blockSearch">
                 <g:render template="blockSearch"/>
             </div>
-
-            <div id="blockVersions">
-                <g:render template="blockVersions"/>
-            </div>
         </div>
 
         <div class="col-9" id="content">

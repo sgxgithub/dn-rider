@@ -32,7 +32,6 @@
     let $app = $("#app");
 
     let setVersions = function () {
-        // $("#btnSearch").click(function () {
         let app = $app.val();
         //fired only if the length >= 3
         if (app.length < 3) return;
@@ -41,7 +40,7 @@
 
         $.ajax({
             method: "GET",
-            url: $app.data('url') + '?app=' + app + '&releaseType=' + releaseType
+            url: $app.data('url') + '?app=' + app + '&releaseType=' + releaseType + '&template=' + '/comparison/listVersions'
         })
             .done(function (result) {
                 $("#versions").html(result);
