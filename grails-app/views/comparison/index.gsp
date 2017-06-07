@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <div class="row" id="row-main">
         <div class="col-3 py-3 bg-faded sidebar collapse show" id="sidebar">
-            <g:render template="blockSearch"/>
+            <g:render template="sidebar"/>
         </div>
 
         <div class="col-9" id="content">

@@ -15,7 +15,7 @@
     <div class="row">
         <div class="col-3 py-3 bg-faded sidebar collapse show width" id="sidebar">
             <div id="blockSearch">
-                <g:render template="blockSearch"/>
+                <g:render template="sidebar"/>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
             <a data-toggle="collapse" href="#sidebar">
                 <i class="fa fa-navicon fa-lg"></i>
             </a>
-            <g:render template="blockDn"/>
+            <g:render template="content"/>
         </div>
     </div>
 </div>

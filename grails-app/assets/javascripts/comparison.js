@@ -81,6 +81,7 @@
             .done(function (result) {
                 //set table content
                 $("#tableComparison").html(result);
+                let timer;
                 //enable popover
                 //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
                 let $popovers = $('[data-toggle="popover"]');
@@ -101,12 +102,15 @@
                 })
                     .on("mouseenter", function () {
                         let _this = this;
-                        $(this).popover("show");
-                        $(".popover").on("mouseleave", function () {
-                            $(_this).popover('hide');
-                        });
+                        timer = setTimeout(function () {
+                            $(_this).popover("show");
+                            $(".popover").on("mouseleave", function () {
+                                $(_this).popover('hide');
+                            });
+                        }, 300);
                     })
                     .on("mouseleave", function () {
+                        clearTimeout(timer);
                         let _this = this;
                         setTimeout(function () {
                             if (!$(".popover:hover").length) {

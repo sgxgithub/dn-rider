@@ -13,7 +13,7 @@
     <div class="row">
         <div class="col-3 py-3 bg-faded"  id="sidebar">
             <div>
-                <g:render template="blockSearch"/>
+                <g:render template="sidebar"/>
             </div>
         </div>
     </div>
