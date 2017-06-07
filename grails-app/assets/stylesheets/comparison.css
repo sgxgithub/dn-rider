@@ -31,6 +31,5 @@ ul.json-dict, ol.json-array {
 }
 
 .popover {
-    max-width: 400px;
-    overflow-x: hidden;
+    max-width: 350px;
 }

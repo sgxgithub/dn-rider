@@ -95,8 +95,9 @@
                 $popovers.popover({
                     container: 'body',
                     html: true,
+                    template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
                     animation: false,
-                    placement: 'bottom',
+                    placement: 'right',
                     trigger: 'manual',
                     content: ""
                 })
@@ -117,6 +118,27 @@
                                 $(_this).popover("hide");
                             }
                         }, 300);
+                    })
+                    .on('shown.bs.popover', function () {
+                        $("a.json-toggle").click(function (event) {
+                            let _this = this;
+                            event.preventDefault();
+                            let target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
+                            target.toggle();
+                            if (target.is(':visible')) {
+                                target.siblings('.json-placeholder').remove();
+                            }
+                            else {
+                                let count = target.children('li').length;
+                                let placeholder = count + (count > 1 ? ' items' : ' item');
+                                target.after('<a href class="json-placeholder">' + placeholder + '</a>');
+                                // Simulate click on toggle button when placeholder is clicked
+                                $("a.json-placeholder").click(function (event) {
+                                    event.preventDefault();
+                                    $(_this).click();
+                                });
+                            }
+                        });
                     });
             });
     });

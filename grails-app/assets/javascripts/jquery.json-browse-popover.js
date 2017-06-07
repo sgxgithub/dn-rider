@@ -111,44 +111,13 @@
 
         // jQuery chaining
         return this.each(function () {
-
             // Transform to HTML
-            var html = json2html(json, options);
+            let html = json2html(json, options);
             if (isCollapsable(json))
                 html = '<a href class="json-toggle"></a>' + html;
 
             // Insert HTML into data-content for popover usage
-            $(this).attr('data-content', `<div id="popover">${html}</div>`);
-
-            // Bind click on toggle buttons
-
-            $popover = $("#popover");
-            $popover.off('click');
-            $popover.on('click', 'a.json-toggle', function (event) {
-                event.preventDefault();
-                var target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
-                target.toggle();
-                if (target.is(':visible')) {
-                    target.siblings('.json-placeholder').remove();
-                }
-                else {
-                    var count = target.children('li').length;
-                    var placeholder = count + (count > 1 ? ' items' : ' item');
-                    target.after('<a href class="json-placeholder">' + placeholder + '</a>');
-                }
-                return false;
-            });
-
-            // Simulate click on toggle button when placeholder is clicked
-            $(this).on('click', 'a.json-placeholder', function () {
-                $(this).siblings('a.json-toggle').click();
-                return false;
-            });
-
-            if (options.collapsed == true) {
-                // Trigger click to collapse all nodes
-                $(this).find('a.json-toggle').click();
-            }
+            $(this).attr('data-content', html);
         });
     };
 })
