@@ -35,7 +35,8 @@
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.name}">
                                     <a href data-toggle="popover"
-                                       data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
+                                        data-title="${rowPackage[version]?.name}"
+                                        data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                 </g:if>
                             </td>
                         </g:else>

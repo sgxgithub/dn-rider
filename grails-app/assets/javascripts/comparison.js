@@ -97,7 +97,7 @@
                     html: true,
                     template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
                     animation: false,
-                    placement: 'right',
+                    placement: 'left',
                     trigger: 'manual',
                     content: ""
                 })
