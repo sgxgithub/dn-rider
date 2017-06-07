@@ -8,10 +8,10 @@ class DeliveryNotesController {
 
     def show() {
         String app = params.app
-        //def releaseType = 'all'
+        String releaseType = params.releaseType
 
-        log.info "searching for the list of delivery-notes with app=${app}"//, releaseType=${releaseType}..."
-        def versions = nexusConsumerService.getVersions(app)
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
 
         render versions as JSON

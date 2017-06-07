@@ -10,7 +10,7 @@ class UrlMappings {
             }
         }
 
-        get "/api/deliveryNotes/app/${app}/version/${version}"(controller:"deliveryNotes", action:"show")
+        get "/api/deliveryNotes/app/${app}/releaseType/${releaseType}"(controller:"deliveryNotes", action:"show")
 
         "/deliveryNotes/search"(controller:"searchDn")
 
