@@ -27,7 +27,7 @@ class NexusConsumerService {
     }
 
     @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
-    def getVersions(String app, String releaseType) {
+    def getVersions(String app, String releaseType = 'all') {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
         app = app.toLowerCase()

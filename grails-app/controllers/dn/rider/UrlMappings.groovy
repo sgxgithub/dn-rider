@@ -10,10 +10,13 @@ class UrlMappings {
             }
         }
 
+        get "/api/deliveryNotes/app/${app}/version/${version}"(controller:"deliveryNotes", action:"show")
+
         "/deliveryNotes/search"(controller:"searchDn")
 
         "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')
+
     }
 }
