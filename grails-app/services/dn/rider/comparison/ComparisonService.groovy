@@ -22,24 +22,24 @@ class ComparisonService {
         dns.eachWithIndex { dn, i ->
             def packages = dn.packages
             packages.each { p ->
-                p.key = [module: p.module, name: p.name.toString() - ('-' + p.version.toString())]
+                JSONObject key = [module: p.module, name: p.name.toString() - ('-' + p.version.toString())]
                 //if the package exist, add the version to the JSONObject rowPackage
                 if (!rowPackages.any() { rowPackage ->
-                    if (rowPackage.key == p.key) {
+                    if (rowPackage.key == key) {
                         if (p.type == 'propertiesLink') {
-                            rowPackage.put(dn.version, [name: p.name, content: p as JSON])
+                            rowPackage.put(dn.version, [name: p.name, content: p])
                         } else {
-                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p as JSON])
+                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p])
                         }
                         return true
                     }
                 }) { // when the package is new, create a new JSONObject rowPackage
                     JSONObject rowPackage = new JSONObject()
-                    rowPackage.put('key', p.key)
+                    rowPackage.put('key', key)
                     if (p.type == 'propertiesLink') {
-                        rowPackage.put(dn.version, [name: p.name, content: p as JSON])
+                        rowPackage.put(dn.version, [name: p.name, content: p])
                     } else {
-                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p as JSON])
+                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p])
                     }
                     rowPackages << rowPackage
                 }

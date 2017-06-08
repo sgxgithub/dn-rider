@@ -46,11 +46,11 @@ class NexusConsumerService {
         //add the version to list according to releaseType
         for (int i = 0; i < listOfVersions.size(); i++) {
             String version = listOfVersions[i].toString()
-            if (releaseType == "Snapshots") {
+            if (releaseType.toUpperCase() == "SNAPSHOTS") {
                 if (version.toUpperCase().contains("SNAPSHOT")) {
                     list.add(version)
                 }
-            } else if (releaseType == "Releases") {
+            } else if (releaseType.toUpperCase() == "RELEASES") {
                 if (!version.toUpperCase().contains("SNAPSHOT")) {
                     list.add(version)
                 }

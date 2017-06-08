@@ -1,12 +1,12 @@
 #sidebar{
-    min-height: 48rem;
+    min-height: 45rem;
 }
 
 #blockVersions{
     margin: 0 0;
 }
 
-#blockVersions ul{
+#versions ul{
     padding: 0.5rem 2rem;
     margin:0 0;
     max-height: 27rem;
@@ -14,7 +14,7 @@
 }
 
 #content {
-   max-height: 49rem;
+   max-height: 45rem;
    overflow: scroll;
    padding:1rem;
 }

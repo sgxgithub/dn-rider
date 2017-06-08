@@ -22,19 +22,26 @@
                     <g:each var="version" in="${rowVersions.name}">
                         <g:if test="${rowPackage[version]?.tag == 'deleted'}">
                             <td>
-                                <span class="badge badge-danger">Deleted</span>
+                                <span class="badge badge-danger">
+                                    <span class="fa fa-close" aria-hidden="true"></span>
+                                </span>
                             </td>
                         </g:if>
                         <g:else>
                             <td>
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
-                                    <span class="badge badge-success">N</span>
+                                    <span class="badge badge-success">
+                                        <span class="fa fa-plus" aria-hidden="true"></span>
+                                    </span>
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.tag == 'changed'}">
-                                    <span class="badge badge-info">C</span>
+                                    <span class="badge badge-info">
+                                        <span class="fa fa-repeat" aria-hidden="true"></span>
+                                    </span>
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.name}">
-                                    <a href data-toggle="popover"
+                                    <a href="${rowPackage[version]?.packageUrl}" target="_blank" data-toggle="popover"
+                                       data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
                                        data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                 </g:if>
                             </td>

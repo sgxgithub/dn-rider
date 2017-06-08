@@ -5,7 +5,9 @@
         </div>
 
         <div class="col-8">
-            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..." data-apps="${apps}"
+            <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..."
+                         data-url="${createLink(controller: 'search', action: 'getVersionsView')}"
+                         data-apps="${apps}"
                          autocomplete="off" required="true"/>
         </div>
     </div>
@@ -37,5 +39,9 @@
         <div class="col-3 offset-8">
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </div>
+    </div>
+
+    <div id="versions">
+        <g:render template="listVersions"/>
     </div>
 </g:form>
