@@ -2,16 +2,16 @@ package dn.rider
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import grails.io.IOUtils
 
 class ValidationController {
 
     def JsonSchemaValidationService
 
     //function to get schema string from a local file
-    def getSchemaText(){
-        def schemaPath= this.class.classLoader.getResource('NDL_katana_schema.json').path
-        log.info 'Path of schema:' + schemaPath
-        String schemaText = new File(schemaPath)?.getText()
+    def getSchemaText() {
+        def schemaStream = this.class.classLoader.getResourceAsStream('NDL_katana_schema.json')
+        String schemaText = IOUtils.toString(schemaStream)
         return schemaText
     }
 
