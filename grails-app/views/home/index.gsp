@@ -32,7 +32,7 @@
 
             <div class="d-flex justify-content-around mt-5">
                 <g:each var="appQuickAccess" in="${appsQuickAccessArray}">
-                    <g:link class="btn btn-outline-primary btn-lg" controller="home" action="search"
+                    <g:link class="btn btn-outline-primary btn-lg" controller="search" action="search"
                             params="[app:appQuickAccess]">
                         ${appQuickAccess}
                     </g:link>
