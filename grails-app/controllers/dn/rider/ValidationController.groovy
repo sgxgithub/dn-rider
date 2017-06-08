@@ -10,6 +10,7 @@ class ValidationController {
     //function to get schema string from a local file
     def getSchemaText(){
         String schemaText = new File("src/main/resources/NDL_katana_schema.json").getText()
+        if(!schemaText) return "Ne pas pouvoir lire le schema"
         return schemaText
     }
 

@@ -37,8 +37,8 @@ class SearchController {
     def search(SearchCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
+        String releaseType = cmd.releaseType ?: 'all'
         String version = cmd.version
-        String releaseType = cmd.releaseType
 
         def apps = nexusConsumerService.getApps()
 
