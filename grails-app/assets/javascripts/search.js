@@ -6,13 +6,14 @@
 
     //autocomplete of apps
     let $app = $("#app");
+    let $releaseType = $("#releaseType");
 
     let setVersions = function () {
         let app = $app.val();
         //fired only if the length >= 3
         if (app.length < 3) return;
 
-        let releaseType = $("#releaseType").val();
+        let releaseType = $releaseType.val();
 
         $.ajax({
             method: "GET",
@@ -53,7 +54,8 @@
 
     //search the list of versions
     $app.on('input', setVersions);
-
+    $releaseType.on('change', setVersions);
+    
     //sidebar collapse
     $('#sidebar')
         .on('show.bs.collapse', function () {

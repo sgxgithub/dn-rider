@@ -40,12 +40,15 @@ class SearchController {
         String version = cmd.version
         String releaseType = cmd.releaseType
 
+        def apps = nexusConsumerService.getApps()
+
         if (cmd.hasErrors()) {
             def firstError = cmd.errors.allErrors[0]
             if (firstError.field == 'app') {
                 flash.message = "The valid size range of field app is between 3 and 15"
             }
             respond([
+                    apps       : apps as JSON,
                     app        : app,
                     releaseType: releaseType,
                     version    : version
@@ -64,6 +67,7 @@ class SearchController {
                     versionCount: versions.size(),
                     versions    : versions,
                     app         : app,
+                    apps        : apps as JSON,
                     releaseType : releaseType
             ], view: "search")
             return
@@ -74,17 +78,19 @@ class SearchController {
             def resp = nexusConsumerService.getDn(app, version)
             log.info "received the delivery-note"
 
+            String urlNexus = getNexusConsumerService().getDnUrl(app, version)
+
             //when there is no result
             if (resp.responseEntity.statusCode.toString() == '404') {
-                String dnUrl = getNexusConsumerService().getDnUrl(app, version)
-                flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+                flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${urlNexus}"
                 respond([
                         versions    : versions,
                         versionCount: versions.size(),
                         app         : app,
+                        apps        : apps as JSON,
                         releaseType : releaseType,
                         version     : version
-                ], view: "search")
+                ], view: "index")
                 return
             }
 
@@ -94,8 +100,10 @@ class SearchController {
                     dnRaw       : resp.text,
                     dnJson      : resp.json,
                     app         : app,
+                    apps        : apps as JSON,
                     releaseType : releaseType,
-                    version     : version
+                    version     : version,
+                    urlNexus    : urlNexus
             ], view: "search")
         }
     }
