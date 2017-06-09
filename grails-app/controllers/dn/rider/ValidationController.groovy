@@ -15,16 +15,10 @@ class ValidationController {
         return schemaText
     }
 
-    def index(UploadDnCommand cmd) {
+    def index() {
         boolean isChecked = false
-        String dnText = ""
 
-        if (cmd.id) {
-            Dn dn = Dn.get(cmd.id)
-            dnText = new String(dn.dnBytes)
-        }
-
-        respond([dn: dnText, isChecked: isChecked], view: 'index')
+        respond([isChecked: isChecked], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
@@ -65,14 +59,9 @@ class ValidationController {
     }
 
     def uploadDn(UploadDnCommand cmd) {
-        log.info "uploading dn file..."
+        def dnFile = cmd.deliveryNoteFile
 
-        //save Dn in hibernate
-        def dn = new Dn(dnBytes: cmd.deliveryNoteFile.bytes)
-        dn.save(flush: true)
-        log.info "Delivery note saved with id = ${dn.id}"
-
-        redirect(action: "index", params: [id: dn.id])
+        render new String(dnFile.bytes)
     }
 
     def showSchema() {

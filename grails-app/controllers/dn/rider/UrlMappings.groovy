@@ -10,14 +10,20 @@ class UrlMappings {
             }
         }
 
-//        get "/api/deliveryNotes/$app/releases"(controller: "deliveryNotes", action: "showVersions", params: [releaseType: 'releases'])
-//        get "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "showVersions", params: [releaseType: 'snapshots'])
+        "/api/deliveryNotes/$app"(controller: "deliveryNotes", action: "showVersions", method: "GET") {
+            releaseType = 'all'
+        }
 
-        get "/api/deliveryNotes/$app/versions/$version"(controller: "deliveryNotes", action: "showDn")
-        get "/api/deliveryNotes/$app/$releaseType?"(controller: "deliveryNotes", action: "showVersions")
-        get "/api/applications"(controller: "deliveryNotes", action: "showApps")
+        "/api/deliveryNotes/$app/releases"(controller: "deliveryNotes", action: "showVersions", method: "GET") {
+            releaseType = 'releases'
+        }
 
-        "/deliveryNotes/search"(controller: "searchDn")
+        "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "showVersions", method: "GET") {
+            releaseType = 'snapshots'
+        }
+
+        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "showDn", method: "GET")
+        "/api/applications"(controller: "deliveryNotes", action: "showApps", method: "GET")
 
         "/"(controller: 'home')
         "500"(view: '/error')

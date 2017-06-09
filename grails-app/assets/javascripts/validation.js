@@ -13,9 +13,27 @@ if (typeof jQuery === 'undefined') {
     //Found at: http://www.jqueryscript.net/form/jQuery-Plugin-To-Display-Line-Numbers-In-Textarea-numberedTextarea.html
     $('#textarea-dn').numberedtextarea();
 
-    //show file name
-    $('input:file').change(function (e) {
+    $("#deliveryNoteFile").change(function (e) {
+        //show file name
         $(".custom-file-control").addClass('changed').attr("data-content", e.target.files[0].name);
+        //set textarea content
+        let formData = new FormData();
+        let deliveryNoteFile = this.files[0];
+        formData.append("deliveryNoteFile", deliveryNoteFile);
+
+        $.ajax({
+            url: $('#deliveryNoteFile').data('url'),
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (res) {
+                $('#textarea-dn').val(res);
+            },
+            error: function (res) {
+                alert(res);
+            }
+        });
     });
 
     /*
