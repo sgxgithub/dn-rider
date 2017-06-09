@@ -25,10 +25,7 @@
 
     <div class="row">
         <div class="col-md-7">
-            <div id="spinner" class="spinner" style="display:none;">
-                <asset:image src="spinner.gif"/>
-                <g:message code="spinner.alt"/>
-            </div>
+            <g:render template="/components/spinner"/>
         </div>
 
         <div class="col-md-3">

@@ -6,10 +6,7 @@
         <span class="custom-file-control"></span>
     </label>
 
-    <div id="spinner" class="spinner" style="display:none;">
-        <asset:image src="spinner.gif"/>
-        <g:message code="spinner.alt"/>
-    </div>
+    <g:render template="/components/spinner"/>
 </form>
 
 <g:form action="validateSchema" method="post">

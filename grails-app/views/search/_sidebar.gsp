@@ -36,7 +36,11 @@
     </div>
 
     <div class="form-group row">
-        <div class="col-3 offset-8">
+        <div class="col-7">
+            <g:render template="/components/spinner"/>
+        </div>
+
+        <div class="col-3 offset-1">
             <button class="btn btn-outline-primary" type="submit">Search</button>
         </div>
     </div>

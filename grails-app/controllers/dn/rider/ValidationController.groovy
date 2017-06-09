@@ -43,7 +43,6 @@ class ValidationController {
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
 
-
         boolean isChecked = true  //variable to mark if there is a validation result
 
         boolean isJsonValid = true //variable to mark if the delivery-note satisfied format JSON
