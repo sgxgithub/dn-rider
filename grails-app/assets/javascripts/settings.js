@@ -29,7 +29,7 @@
              return;
      });
     //hide the div when click on the close button
-    $("button[class$='close']").click(function(){
+    $("a[class$='close']").click(function(){
             $(this).parent().hide();
     });
     //show all the divs hidden if the user cancel the change of preference

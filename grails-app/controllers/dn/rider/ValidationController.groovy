@@ -6,6 +6,7 @@ import grails.io.IOUtils
 
 class ValidationController {
 
+    def nexusConsumerService
     def JsonSchemaValidationService
 
     //function to get schema string from a local file
@@ -18,7 +19,22 @@ class ValidationController {
     def index() {
         boolean isChecked = false
 
-        respond([isChecked: isChecked], view: 'index')
+        String dn = params.dn
+        respond([dn: dn, isChecked: isChecked], view: 'index')
+    }
+
+    def validationDnFromNexus(){
+        String app = params.app
+        String version = params.version
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        String dn = resp.text
+        boolean isChecked = false
+
+        respond([dn: dn, isChecked: isChecked], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
