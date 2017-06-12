@@ -25,7 +25,7 @@ if (typeof jQuery !== 'undefined') {
                 $(this).tooltip('hide');
                 $('body,html').animate({
                     scrollTop: 0
-                }, 800);
+                }, 500);
                 return false;
             });
 

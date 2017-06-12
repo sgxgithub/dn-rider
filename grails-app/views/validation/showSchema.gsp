@@ -6,16 +6,19 @@
         Validation
     </title>
     <asset:stylesheet src="validation.css"/>
+    <asset:stylesheet src="jquery.json-browse.css"/>
 </head>
-<body>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <pre>${schema}</pre>
-        </div>
-    </div>
-</div>
+<body>
+<nav class="nav">
+    <a class="nav-link" href="" id="formatJson">JSON</a>
+    <a class="nav-link" href="" id="formatRaw">RAW</a>
+</nav>
+
+<pre id="schema" data-schemajson="${schemajson}" data-schemaraw="${schemaraw}"></pre>
+
+<asset:javascript src="jquery.json-browse.js"/>
+<asset:javascript src="show-schema.js"/>
 
 </body>
 </html>

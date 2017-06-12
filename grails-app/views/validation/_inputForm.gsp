@@ -20,7 +20,7 @@
             <button class="btn btn-outline-primary" type="submit">
                 <g:message code="dn.rider.validation.btn.checkSyntax"/>
             </button>
-            <g:link action="showSchema" class="btn btn-outline-primary mt-2">
+            <g:link action="showSchema" class="btn btn-outline-primary mt-2" target="_blank">
                 <g:message code="dn.rider.validation.btn.showSchema"/>
             </g:link>
         </div>

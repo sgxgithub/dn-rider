@@ -17,12 +17,19 @@
 }
 
 #sidebar {
+    /*position: sticky;*/
     height: auto;
     -webkit-transition: margin .35s ease;
     -moz-transition: margin .35s ease;
     -o-transition: margin .35s ease;
     transition: margin .35s ease;
 }
+
+/*#content{*/
+    /*max-width: 100%;*/
+    /*max-height: 40rem;*/
+    /*overflow-x: scroll;*/
+/*}*/
 
 /*popover */
 ul.json-dict, ol.json-array {

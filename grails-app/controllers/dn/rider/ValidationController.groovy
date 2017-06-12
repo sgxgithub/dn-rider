@@ -2,7 +2,9 @@ package dn.rider
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import grails.converters.JSON
 import grails.io.IOUtils
+import groovy.json.JsonSlurper
 
 class ValidationController {
 
@@ -80,8 +82,11 @@ class ValidationController {
     }
 
     def showSchema() {
-        String schemaText = getSchemaText()
+        String schemaraw = getSchemaText()
 
-        respond([schema: schemaText], view: 'showSchema')
+        def jsonSlurper = new JsonSlurper()
+        def schemaJson = jsonSlurper.parseText(schemaText)
+
+        respond([schemajson: schemaJson as JSON, schemaraw: schemaraw], view: 'showSchema')
     }
 }
