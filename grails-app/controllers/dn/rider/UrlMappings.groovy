@@ -10,7 +10,10 @@ class UrlMappings {
             }
         }
 
-        "/deliveryNotes/search"(controller:"searchDn")
+        "/api/$controller/$action"()
+
+
+        "/deliveryNotes/search"(controller: "searchDn")
 
         "/"(controller: 'home')
         "500"(view: '/error')

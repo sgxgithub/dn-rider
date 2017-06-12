@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="layout" content="index"/>
-    <title>DN-RIDER</title>
+    <title>DN-RIDERss</title>
 </head>
 
 
@@ -27,7 +27,7 @@
 
 
                         <input class="form-control" id="trigramme" autocomplete="off" name="app" type="text"
-                               placeholder="trigramme"/>
+                               placeholder="trigramdsdsme"/>
 
 
                         <div class="ui-widget">

@@ -4,13 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.github.fge.jackson.JacksonUtils
-import com.github.fge.jackson.JsonLoader
-import com.github.fge.jackson.JsonNodeReader
-import com.github.fge.jsonschema.core.report.ProcessingReport
-import com.github.fge.jsonschema.core.util.AsJson
-import com.github.fge.jsonschema.main.JsonSchemaFactory
-import com.github.fge.jsonschema.main.JsonValidator
+//import com.github.fge.jackson.JacksonUtils
+//import com.github.fge.jackson.JsonLoader
+//import com.github.fge.jackson.JsonNodeReader
+//import com.github.fge.jsonschema.core.report.ProcessingReport
+//import com.github.fge.jsonschema.core.util.AsJson
+//import com.github.fge.jsonschema.main.JsonSchemaFactory
+//import com.github.fge.jsonschema.main.JsonValidator
 import dn.rider.json.schema.constants.ParseError
 import grails.transaction.Transactional
 
@@ -25,33 +25,33 @@ class JsonSchemaValidationService {
     public static final String INPUT2 = "input2"
     public static final String INVALID_DN = "dn-invalid"
 
-    private static final JsonValidator VALIDATOR = JsonSchemaFactory.byDefault().getValidator()
-    private static final JsonNodeReader NODE_READER = new JsonNodeReader()
+//    private static final JsonValidator VALIDATOR = JsonSchemaFactory.byDefault().getValidator()
+//    private static final JsonNodeReader NODE_READER = new JsonNodeReader()
 
     def validateSchema(String rawSchema, String rawDn) {
-        final ObjectNode ret = JsonNodeFactory.instance.objectNode()
+//        final ObjectNode ret = JsonNodeFactory.instance.objectNode()
+//
+//        final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
+//        final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
+//
+//        if (invalidSchema || invalidData) {
+//            log.info "invalide json"
+//            return ret
+//        }
+//
+//        final JsonNode schemaNode = ret.remove(INPUT)
+//        //final JsonNode schemaNode = JsonLoader.fromResource("/NDL_katana_schema.json")
+//        final JsonNode dnNode = ret.remove(INPUT2)
+//
+//        final ProcessingReport report = VALIDATOR.validateUnchecked(schemaNode, dnNode)
+//
+//        final boolean success = report.isSuccess()
+//        ret.put(VALID, success)
+//
+//        final JsonNode node = ((AsJson) report).asJson()
+//        ret.put(RESULTS, JacksonUtils.prettyPrint(node))
 
-        final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
-        final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
-
-        if (invalidSchema || invalidData) {
-            log.info "invalide json"
-            return ret
-        }
-
-        final JsonNode schemaNode = ret.remove(INPUT)
-        //final JsonNode schemaNode = JsonLoader.fromResource("/NDL_katana_schema.json")
-        final JsonNode dnNode = ret.remove(INPUT2)
-
-        final ProcessingReport report = VALIDATOR.validateUnchecked(schemaNode, dnNode)
-
-        final boolean success = report.isSuccess()
-        ret.put(VALID, success)
-
-        final JsonNode node = ((AsJson) report).asJson()
-        ret.put(RESULTS, JacksonUtils.prettyPrint(node))
-
-        return ret
+//        return ret
     }
 
     /*
@@ -65,7 +65,7 @@ class JsonSchemaValidationService {
             final ObjectNode node, final String onSuccess, final String onFailure, final String raw)
             throws IOException {
         try {
-            node.put(onSuccess, NODE_READER.fromReader(new StringReader(raw)))
+//            node.put(onSuccess, NODE_READER.fromReader(new StringReader(raw)))
             return false
         } catch (JsonProcessingException e) {
             node.put(onFailure, ParseError.build(e, raw.contains("\r\n")))

@@ -1,7 +1,14 @@
 package dn.rider
 
 import grails.converters.JSON
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiParam
+import org.springframework.stereotype.Controller
+import org.springframework.web.bind.annotation.RequestMapping
+import springfox.documentation.annotations.ApiIgnore
 
+@ApiIgnore
 class HomeController {
 
     def nexusConsumerService
@@ -34,4 +41,5 @@ class HomeController {
         }
         redirect controller: 'searchDn', action: 'index', params: [app: app]
     }
+
 }

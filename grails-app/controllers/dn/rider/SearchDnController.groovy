@@ -1,9 +1,18 @@
 package dn.rider
 
+import io.swagger.annotations.Api
+import io.swagger.annotations.ApiOperation
+
+
+@Api(value = "/api/searchDn", description = "Endpoint for SearchDnController")
 class SearchDnController {
+
+    static allowedMethods = [index: "GET"]
+
 
     def nexusConsumerService
 
+    @ApiOperation(value = "index", nickname = "index", response = SearchDnCommand.class)
     def index(SearchDnCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
