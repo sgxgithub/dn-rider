@@ -63,14 +63,17 @@ class ComparisonService {
             } else {
                 element << [name: 'package']
             }
-        } else if (p.hesperidesModule) { //hesperides url exists
+            //hesperides url exists
+            //example for hesperidesModule: ccl/73.00.0-0 espaceclient-vhost
+            //example for hesperidesApplication: sum/1.60.0
+        } else if (p.hesperidesModule || p.hesperidesApplication) {
             def (name, hesperidesUrl) = makeHesperidesUrl(p)
             element << [name: name]
             element << [url: hesperidesUrl]
         } else { //no url
-            if (p.version) {
+            if (p.version) { //example : wdi wdiSgbdAdminStat-oraclePkg
                 element << [name: p.version]
-            } else if (p.filename) {
+            } else if (p.filename) { // example: wdi propertiesLink
                 element << [name: "file"]
             } else element << [name: "N/A"]
         }
@@ -79,9 +82,11 @@ class ComparisonService {
     }
 
     def makeHesperidesUrl(p) {
-        def hesperidesVersion = p.hesperidesVersion ?: p.version
-        def hesperidesUrl = "https://hesperides:50101/#/module/${p.hesperidesModule}/${hesperidesVersion}"
-        def name = "${p.hesperidesModule}/${hesperidesVersion}"
+        def module = p.hesperidesModule ?: p.hesperidesApplication
+        def version = p.hesperidesVersion ?: p.version
+        def name = "${module}/${version}"
+        def hesperidesUrl = "https://hesperides:50101/#/module/${module}/${version}"
+
         return [name, hesperidesUrl]
     }
 

@@ -21,14 +21,15 @@
                 <g:if test="${rowVersions}">
                     <g:each var="version" in="${rowVersions.name}">
                         <g:if test="${rowPackage[version]?.tag == 'deleted'}">
-                            <td>
+                            <td class="text-nowrap">
                                 <span class="badge badge-danger">
                                     <span class="fa fa-close" aria-hidden="true"></span>
                                 </span>
                             </td>
                         </g:if>
                         <g:else>
-                            <td>
+                            %{--add nowrap class to prevent new line in table cell--}%
+                            <td class="text-nowrap">
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
                                     <span class="badge badge-success">
                                         <span class="fa fa-plus" aria-hidden="true"></span>

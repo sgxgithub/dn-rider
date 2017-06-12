@@ -64,6 +64,10 @@
 
 <g:layoutBody/>
 
+<a id="back-to-top" href="#" class="btn btn-primary back-to-top"
+   title="Click to return on the top" data-toggle="tooltip" data-placement="left"><span
+        class="fa fa-angle-double-up"></span></a>
+
 <footer>
     <ul class="nav justify-content-center my-1">
         <li class="nav-item">
@@ -77,9 +81,6 @@
         </li>
     </ul>
 
-    <p>
-        <a href="#">Back to top</a>
-    </p>
 </footer>
 
 </body>
