@@ -26,21 +26,15 @@ class ComparisonService {
                 //if the package exist, add the version to the JSONObject rowPackage
                 if (!rowPackages.any() { rowPackage ->
                     if (rowPackage.key == key) {
-                        if (p.type == 'propertiesLink') {
-                            rowPackage.put(dn.version, [name: p.name, content: p])
-                        } else {
-                            rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p])
-                        }
+                        JSONObject element = makeElement(p)
+                        rowPackage.put(dn.version, element)
                         return true
                     }
                 }) { // when the package is new, create a new JSONObject rowPackage
                     JSONObject rowPackage = new JSONObject()
-                    rowPackage.put('key', key)
-                    if (p.type == 'propertiesLink') {
-                        rowPackage.put(dn.version, [name: p.name, content: p])
-                    } else {
-                        rowPackage.put(dn.version, [name: p.version, packageUrl: p.packageUrl, content: p])
-                    }
+                    rowPackage << [key: key]
+                    JSONObject element = makeElement(p)
+                    rowPackage.put(dn.version, element)
                     rowPackages << rowPackage
                 }
             }
@@ -55,6 +49,40 @@ class ComparisonService {
         rowPackages.sort(mc)
 
         return [rowVersions: rowVersions, rowPackages: rowPackages]
+    }
+
+    def makeElement(p) {
+        JSONObject element = new JSONObject()
+        element << [content: p]
+
+        //add url and name
+        if (p.packageUrl) { //package url exists
+            element << [url: p.packageUrl]
+            if (p.version) {
+                element << [name: p.version]
+            } else {
+                element << [name: 'package']
+            }
+        } else if (p.hesperidesModule) { //hesperides url exists
+            def (name, hesperidesUrl) = makeHesperidesUrl(p)
+            element << [name: name]
+            element << [url: hesperidesUrl]
+        } else { //no url
+            if (p.version) {
+                element << [name: p.version]
+            } else if (p.filename) {
+                element << [name: "file"]
+            } else element << [name: "N/A"]
+        }
+
+        return element
+    }
+
+    def makeHesperidesUrl(p) {
+        def hesperidesVersion = p.hesperidesVersion ?: p.version
+        def hesperidesUrl = "https://hesperides:50101/#/module/${p.hesperidesModule}/${hesperidesVersion}"
+        def name = "${p.hesperidesModule}/${hesperidesVersion}"
+        return [name, hesperidesUrl]
     }
 
     def addTags(List<JSONObject> rowPackages, versions) {
