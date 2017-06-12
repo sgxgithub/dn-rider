@@ -40,9 +40,16 @@
                                     </span>
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.name}">
-                                    <a href="${rowPackage[version]?.packageUrl}" target="_blank" data-toggle="popover"
-                                       data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
-                                       data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
+                                    <g:if test="${rowPackage[version]?.url}">
+                                        <a href="${rowPackage[version].url}" target="_blank" data-toggle="popover"
+                                           data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
+                                           data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
+                                    </g:if>
+                                    <g:else>
+                                        <a data-toggle="popover"
+                                           data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
+                                           data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
+                                    </g:else>
                                 </g:if>
                             </td>
                         </g:else>
