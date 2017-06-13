@@ -42,8 +42,9 @@
         let regex = $regex.val();
 
         $.ajax({
-            method: "GET",
-            url: $app.data('url') + '?app=' + app + '&releaseType=' + releaseType  + '&regex=' + regex+ '&template=' + '/comparison/listVersions'
+            method: "POST",
+            url: $app.data('url'),
+            data: {app: app, releaseType: releaseType, regex: regex, template:'/comparison/listVersions'}
         })
             .done(function (result) {
                 $("#versions").html(result);

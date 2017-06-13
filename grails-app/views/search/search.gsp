@@ -6,7 +6,7 @@
         Search for a liste of delivery-notes
     </title>
     <asset:stylesheet src="search.css"/>
-    <asset:stylesheet src="jquery.json-browse.css"/>
+    <asset:stylesheet src="lib/jquery.json-browse.css"/>
 </head>
 
 <body>
@@ -28,7 +28,7 @@
     </div>
 </div>
 
-<asset:javascript src="jquery.json-browse.js"/>
+<asset:javascript src="lib/jquery.json-browse.js"/>
 <asset:javascript src="search.js"/>
 
 </body>

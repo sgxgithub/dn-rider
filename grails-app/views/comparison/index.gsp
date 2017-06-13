@@ -4,7 +4,7 @@
     <meta name="layout" content="main"/>
     <title>Comparison</title>
 
-    <asset:stylesheet src="jquery.json-browse.css"/>
+    <asset:stylesheet src="lib/jquery.json-browse.css"/>
     <asset:stylesheet src="comparison.css"/>
 
 </head>
@@ -29,7 +29,7 @@
     </div>
 </div>
 
-<asset:javascript src="jquery.json-browse-popover.js"/>
+<asset:javascript src="lib/jquery.json-browse-popover.js"/>
 <asset:javascript src="comparison.js"/>
 
 </body>

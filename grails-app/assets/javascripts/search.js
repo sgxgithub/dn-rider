@@ -7,6 +7,7 @@
     //autocomplete of apps
     let $app = $("#app");
     let $releaseType = $("#releaseType");
+    let $regex = $("#regex");
 
     let setVersions = function () {
         let app = $app.val();
@@ -14,10 +15,12 @@
         if (app.length < 3) return;
 
         let releaseType = $releaseType.val();
+        let regex = $regex.val();
 
         $.ajax({
-            method: "GET",
-            url: $app.data('url') + '?app=' + app + '&releaseType=' + releaseType + '&template=' + '/search/listVersions'
+            method: "POST",
+            url: $app.data('url'),
+            data: {app: app, releaseType: releaseType, regex: regex, template:'/search/listVersions'}
         })
             .done(function (result) {
                 $("#versions").html(result);
@@ -55,6 +58,7 @@
     //search the list of versions
     $app.on('input', setVersions);
     $releaseType.on('change', setVersions);
+    $regex.on('input', setVersions);
     
     //sidebar collapse
     $('#sidebar')

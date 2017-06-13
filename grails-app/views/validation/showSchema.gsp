@@ -6,7 +6,7 @@
         Validation
     </title>
     <asset:stylesheet src="validation.css"/>
-    <asset:stylesheet src="jquery.json-browse.css"/>
+    <asset:stylesheet src="lib/jquery.json-browse.css"/>
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 
 <pre id="schema" data-schemajson="${schemajson}" data-schemaraw="${schemaraw}"></pre>
 
-<asset:javascript src="jquery.json-browse.js"/>
+<asset:javascript src="lib/jquery.json-browse.js"/>
 <asset:javascript src="show-schema.js"/>
 
 </body>

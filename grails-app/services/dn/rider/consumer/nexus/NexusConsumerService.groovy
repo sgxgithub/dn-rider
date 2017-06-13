@@ -10,15 +10,14 @@ class NexusConsumerService {
     static def getDnUrl(String app, String version) {
         String url
         app = app.toLowerCase()
-        if (app.contains("com.vsct")) {
-            url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=${app}&a=delivery-notes&v=${version}&p=json"
-        } else url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
+        app = app - 'com.vsct.'
+        url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
         return url
     }
 
     // @Cacheable(value = 'cacheDn', key = '{#app, #version}')
     def getDn(String app, String version) {
-        log.info "Searching for the delivery-note in Nexus..."
+        log.info 'Searching for the delivery-note in Nexus...'
         String url = getDnUrl(app, version)
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
@@ -31,9 +30,8 @@ class NexusConsumerService {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
         app = app.toLowerCase()
-        if (app.contains("com.vsct")) {
-            url = "http://nexus:50080/nexus/service/local/lucene/search?g=${app}&a=delivery-notes&p=json"
-        } else url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
+        app = app - 'com.vsct.'
+        url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
 
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
@@ -46,11 +44,11 @@ class NexusConsumerService {
         //add the version to list according to releaseType
         for (int i = 0; i < listOfVersions.size(); i++) {
             String version = listOfVersions[i].toString()
-            if (releaseType.toUpperCase() == "SNAPSHOTS") {
+            if (releaseType.toUpperCase() == 'SNAPSHOTS') {
                 if (version.toUpperCase().contains("SNAPSHOT")) {
                     list.add(version)
                 }
-            } else if (releaseType.toUpperCase() == "RELEASES") {
+            } else if (releaseType.toUpperCase() == 'RELEASES') {
                 if (!version.toUpperCase().contains("SNAPSHOT")) {
                     list.add(version)
                 }
@@ -67,8 +65,8 @@ class NexusConsumerService {
 
     @Cacheable(value = 'cacheListApps')
     def getApps() {
-        log.info "Searching for the apps with delivery-notes in Nexus..."
-        String url = "http://nexus:50080/nexus/service/local/lucene/search?a=delivery-notes&p=json"
+        log.info 'Searching for the apps with delivery-notes in Nexus...'
+        String url = 'http://nexus:50080/nexus/service/local/lucene/search?a=delivery-notes&p=json'
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -76,7 +74,7 @@ class NexusConsumerService {
         List<String> list = []
 
         for (int i = 0; i < artifacts.size(); i++) {
-            String groupeId = artifacts[i].groupId.toString() - "com.vsct."
+            String groupeId = artifacts[i].groupId.toString() - 'com.vsct.'
             if (!list.contains(groupeId)) {
                 list.add(groupeId)
             }
