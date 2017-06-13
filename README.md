@@ -10,43 +10,43 @@ Objectif: une application web (IHM + API REST) pour manipuler les notes de livra
 # API REST
 
 ## Récupèrer une note de livraison au format json
-GET /api/deliveryNotes/*APP*/*VERSION*
+GET /dn.rider.api/deliveryNotes/*APP*/*VERSION*
 
 ## Récupèrer la liste des note de livraison
-GET /api/deliveryNotes/*APP*
+GET /dn.rider.api/deliveryNotes/*APP*
 
-GET /api/deliveryNotes/*APP*/releases (seulement les releases)
+GET /dn.rider.api/deliveryNotes/*APP*/releases (seulement les releases)
 
-GET /api/deliveryNotes/*APP*/snapshots (seulement les snapshots)
+GET /dn.rider.api/deliveryNotes/*APP*/snapshots (seulement les snapshots)
 
 format JSON ou Textuel selon parametre
 
 ## Récupèrer la liste des applications avec note de livraison
-GET /api/applications
+GET /dn.rider.api/applications
 
 questions: comment extraire/cacher/stocker cette liste
 
 ## Stocker une note de livraison.
-POST /api/deliveryNotes/*APP*/releases?version=*VERSION* (erreur si la version cible est une release deja existante)
+POST /dn.rider.api/deliveryNotes/*APP*/releases?version=*VERSION* (erreur si la version cible est une release deja existante)
 
-POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION* (erreur si la version cible est une release deja existante)
+POST /dn.rider.api/deliveryNotes/*APP*/snapshots?version=*VERSION* (erreur si la version cible est une release deja existante)
 
-PUT /api/deliveryNotes/*APP*/*VERSION* (erreur si la version cible est une release deja existante)
+PUT /dn.rider.api/deliveryNotes/*APP*/*VERSION* (erreur si la version cible est une release deja existante)
 
 ## Supprimer une note de livraison
-DELETE /api/deliveryNotes/*APP*/*VERSION*
+DELETE /dn.rider.api/deliveryNotes/*APP*/*VERSION*
 
 Attendre avant d'implanter cet appel
 
 ## Valider une note de livraison
-POST /api/validations
+POST /dn.rider.api/validations
 
-GET /api/validations/*APP*/*VERSION* (pour une note de livraison deja stockée)
+GET /dn.rider.api/validations/*APP*/*VERSION* (pour une note de livraison deja stockée)
 
 validation selon schema http://gitlab.socrate.vsct.fr/rundep/katana/tree/dev/ndl_json-schema
 
 ## comparer 2 notes de livraison
-GET /api/deliveryNoteComparisons/*APP1*/*VERSION1*/*APP2*/*VERSION2*
+GET /dn.rider.api/deliveryNoteComparisons/*APP1*/*VERSION1*/*APP2*/*VERSION2*
 
 # Definition Of Done
 Actions à réaliser obligatoirement avant de faire git push

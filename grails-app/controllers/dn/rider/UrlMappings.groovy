@@ -10,7 +10,7 @@ class UrlMappings {
             }
         }
 
-        "/api/$controller/$action"()
+        "/dn.rider.api/$controller/$action"()
 
 
         "/deliveryNotes/search"(controller: "searchDn")

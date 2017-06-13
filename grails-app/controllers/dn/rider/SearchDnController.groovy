@@ -4,7 +4,7 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiOperation
 
 
-@Api(value = "/api/searchDn", description = "Endpoint for SearchDnController")
+@Api(value = "/dn.rider.api/searchDn", description = "Endpoint for SearchDnController")
 class SearchDnController {
 
     static allowedMethods = [index: "GET"]

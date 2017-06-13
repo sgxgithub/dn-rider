@@ -21,7 +21,7 @@ class ApiDocumentationConfiguration {
     public Docket documentation() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("dn.rider.api"))
+                .apis(RequestHandlerSelectors.basePackage("dn.rider.dn.rider.api"))
                 .paths(regex("/.*"))
                 .build().pathMapping("/")
                 .apiInfo(metadata());
