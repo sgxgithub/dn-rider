@@ -36,6 +36,16 @@
     </div>
 
     <div class="form-group row">
+        <div class="col-4">
+            <h5>Filter</h5>
+        </div>
+
+        <div class="col-8">
+            <g:textField name="regex" class="form-control" value="${regex}" placeholder="regular expression"/>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <div class="col-7">
             <g:render template="/components/spinner"/>
         </div>

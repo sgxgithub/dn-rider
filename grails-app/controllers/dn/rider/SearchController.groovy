@@ -2,6 +2,8 @@ package dn.rider
 
 import grails.converters.JSON
 
+import java.util.regex.Pattern
+
 class SearchController {
 
     def nexusConsumerService
@@ -25,11 +27,18 @@ class SearchController {
     def getVersionsView() {
         String app = params.app
         String releaseType = params.releaseType
+        String regex = params.regex ?: ''
+        Pattern p = Pattern.compile(regex)
+        log.info "regex: $regex"
         String template = params.template
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
+
+        versions = versions.findAll{it->
+            it =~ p
+        }
 
         render template: template, model: [versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType]
     }
