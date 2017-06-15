@@ -17,7 +17,7 @@
 
 <body>
 
-<nav class="navbar navbar-toggleable-md navbar-inverse" style="background-color: #4682B4;">
+<nav class="navbar navbar-toggleable-md sticky-top navbar-inverse" style="background-color: #4682B4;">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
             data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
             aria-label="Toggle navigation">

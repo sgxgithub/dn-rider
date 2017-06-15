@@ -41,7 +41,7 @@
         </div>
 
         <div class="col-8">
-            <g:textField name="regex" class="form-control" value="${regex}" placeholder="regular expression"/>
+            <g:textField name="regex" class="form-control" value="${regex}" placeholder="regex"/>
         </div>
     </div>
 

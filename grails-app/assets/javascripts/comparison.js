@@ -1,5 +1,4 @@
 (function ($) {
-
     //ref: https://forum.jquery.com/topic/jquery-1-9-1-shift-select-range-of-same-class-checkboxes-each-residing-in-same-class-divs
     //ref: http://jsfiddle.net/jakecigar/QB9RT/3/
     $.fn.shiftClick = function () {
@@ -23,9 +22,20 @@
         });
     };
 
+    let setHeight = function () {
+        $("#sidebar").outerHeight($(window).height() - 100 - 56);
+        $("#content").outerHeight($(window).height() - 100 - 56);
+        $("#versions").outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true));
+    };
+
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-comparison").addClass("active");
+        setHeight();
+    });
+
+    $(window).resize(function () {
+        setHeight();
     });
 
     //autocomplete of apps
@@ -44,7 +54,7 @@
         $.ajax({
             method: "POST",
             url: $app.data('url'),
-            data: {app: app, releaseType: releaseType, regex: regex, template:'/comparison/listVersions'}
+            data: {app: app, releaseType: releaseType, regex: regex, template: '/comparison/listVersions'}
         })
             .done(function (result) {
                 $("#versions").html(result);
