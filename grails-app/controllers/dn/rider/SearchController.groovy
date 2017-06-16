@@ -9,6 +9,7 @@ class SearchController {
     def nexusConsumerService
 
     def index() {
+        flash.message = null
         def apps = nexusConsumerService.getApps()
         [apps: apps as JSON]
     }

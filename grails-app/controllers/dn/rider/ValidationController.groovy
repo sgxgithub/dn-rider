@@ -19,6 +19,7 @@ class ValidationController {
     }
 
     def index() {
+        flash.message = null
         boolean isChecked = false
 
         String dn = params.dn

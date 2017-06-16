@@ -9,6 +9,8 @@ class ComparisonController {
     def comparisonService
 
     def index() {
+        flash.message = null
+
         def apps = nexusConsumerService.getApps()
         [apps: apps as JSON]
     }
@@ -27,16 +29,19 @@ class ComparisonController {
         //sort the versions
         versions.sort()
 
+        flash.message = ''
+
         for (int i = 0; i < versions.size(); i++) {
             String version = versions[i]
             log.info "searching for the delivery-note with app=${app}, version=${version}..."
             def resp = nexusConsumerService.getDn(app, version)
 
             //when there is no result for this version
+            //example : app = ner, version = 1.36.1.0-SNAPSHOT
             if (resp.responseEntity.statusCode.toString() == '404') {
                 String dnUrl = getNexusConsumerService().getDnUrl(app, version)
-                log.info "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
-                flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+                log.info "No result for app=${app}, version=${version} ! Tried with url: \n${dnUrl}"
+                flash.message += "No result for app=${app}, version=${version} ! Tried with url: \n${dnUrl} \n"
             } else {
                 log.info "received the delivery-note"
                 def dn = resp.json.NDL_pour_rundeck

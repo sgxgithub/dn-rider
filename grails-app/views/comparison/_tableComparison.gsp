@@ -1,3 +1,5 @@
+<g:render template="/components/notification"/>
+
 <table class="table table-hover">
     <thead>
     <tr>
