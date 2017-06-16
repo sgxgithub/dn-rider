@@ -1,7 +1,3 @@
-#sidebar{
-    min-height: 45rem;
-}
-
 #blockVersions{
     margin: 0 0;
 }
@@ -9,14 +5,17 @@
 #versions ul{
     padding: 0.5rem 2rem;
     margin:0 0;
-    max-height: 27rem;
-    overflow: scroll;
+    /*max-height: 27rem;*/
+    overflow-y: scroll;
 }
 
 #content {
-   max-height: 45rem;
    overflow: scroll;
    padding:1rem;
+}
+
+pre{
+    overflow: visible;
 }
 
 .sidebar.collapse.show {

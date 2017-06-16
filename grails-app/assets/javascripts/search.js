@@ -2,6 +2,12 @@
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-search").addClass("active");
+
+        setHeight();
+    });
+
+    $(window).resize(function () {
+        setHeight();
     });
 
     //autocomplete of apps
@@ -20,11 +26,20 @@
         $.ajax({
             method: "POST",
             url: $app.data('url'),
-            data: {app: app, releaseType: releaseType, regex: regex, template:'/search/listVersions'}
+            data: {app: app, releaseType: releaseType, regex: regex, template: '/search/listVersions'}
         })
             .done(function (result) {
                 $("#versions").html(result);
+                setHeight();
             });
+    };
+
+    let setHeight = function () {
+        $("#row-main").outerHeight($(window).height() - 56);
+        $("#sidebar").outerHeight($(window).height() - 56);
+        $("#versions").outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true) - 16);
+        $("#versions ul").outerHeight($("#versions").outerHeight(true) - 30);
+        $("#content").outerHeight($(window).height() - 56);
     };
 
 
@@ -59,7 +74,7 @@
     $app.on('input', setVersions);
     $releaseType.on('change', setVersions);
     $regex.on('input', setVersions);
-    
+
     //sidebar collapse
     $('#sidebar')
         .on('show.bs.collapse', function () {
