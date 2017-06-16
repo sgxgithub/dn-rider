@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta name="layout" content="main"/>
     <title>DN-RIDER</title>
-    <asset:stylesheet src="home.css"/>
+    <asset:stylesheet src="home.scss"/>
 </head>
 
 <body>
@@ -42,6 +42,20 @@
         </div>
     </div>
 </div>
+
+<footer>
+    <ul class="nav justify-content-center my-1">
+        <li class="nav-item">
+            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="http://swagger.io/">Swagger</a>
+        </li>
+    </ul>
+</footer>
 
 <asset:javascript src="home.js"/>
 <asset:javascript src="settings.js"/>

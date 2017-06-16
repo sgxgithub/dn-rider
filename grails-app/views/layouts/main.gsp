@@ -66,22 +66,8 @@
 
 <a id="back-to-top" href="#" class="btn btn-primary back-to-top"
    title="Click to return on the top" data-toggle="tooltip" data-placement="left"><span
-        class="fa fa-angle-double-up"></span></a>
-
-<footer>
-    <ul class="nav justify-content-center my-1">
-        <li class="nav-item">
-            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://swagger.io/">Swagger</a>
-        </li>
-    </ul>
-
-</footer>
+        class="fa fa-angle-double-up"></span>
+</a>
 
 </body>
 

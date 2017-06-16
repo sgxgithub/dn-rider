@@ -12,12 +12,7 @@ $color-primary: #4682B4;
 -------------------------------------------------- */
 html {
   position: relative;
-  min-height: 100%;
-}
-
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 100px;
+  height: 100%;
 }
 
 .navbar .dropdown-menu {
@@ -39,26 +34,6 @@ body {
   display: none;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 100px;
-  background-color: $color-primary;
-  border-top: .05rem solid orange;
-  color: #999;
-  text-align: center;
-}
-
-footer a {
-  color: rgba(255, 255, 255, 0.5);
-}
-
-footer a:hover {
-  color: rgba(255, 255, 255, 0.75);
-}
-
 /* Custom page CSS
 -------------------------------------------------- */
 
@@ -72,8 +47,12 @@ footer a:hover {
 }
 
 /* Custom font family, add Microsoft Yahei*/
-body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
+body {
   font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+}
+
+button, input, optgroup, select, textarea {
+  font-family: "Microsoft YaHei", sans-serif;
 }
 
 .back-to-top {
@@ -81,5 +60,5 @@ body, button, input, select, textarea, h1, h2, h3, h4, h5, h6 {
   position: fixed;
   bottom: 120px;
   right: 20px;
-  display:none;
+  display: none;
 }
