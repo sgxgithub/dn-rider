@@ -121,10 +121,7 @@
                 let timer;
                 //enable popover
                 //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
-                let $popovers = $('[data-toggle="popover"]');
-                // $popovers.click(function (e) {
-                //     e.preventDefault()
-                // });
+                let $popovers = $("[data-toggle='popover']");
                 //transfer content json to html
                 $popovers.each(function () {
                     $(this).setPopoverContent($(this).data('content'));

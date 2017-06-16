@@ -6,7 +6,7 @@
             <th>name</th>
             <g:each var="rowVersion" in="${rowVersions}">
                 <th>
-                    <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
+                    <a href="${rowVersion.url}" target="_blank" data-toggle="popover" data-content="${rowVersion.date}">${rowVersion.name}</a>
                 </th>
             </g:each>
         </g:if>

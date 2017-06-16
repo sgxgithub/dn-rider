@@ -41,6 +41,7 @@ class ComparisonController {
                 log.info "received the delivery-note"
                 def dn = resp.json.NDL_pour_rundeck
                 dn.put('version', version)
+                dn.put('date', resp.headers['Last-Modified'])
                 dns << dn
             }
         }

@@ -10,10 +10,12 @@ class ComparisonService {
     def sortPackages(app, dns, versions) {
         //the table head
         List<JSONObject> rowVersions = []
-        versions.each { version ->
+
+        dns.each{ dn ->
             JSONObject rowVersion = new JSONObject()
-            rowVersion.put('name', version)
-            rowVersion.put('url', "/deliveryNotes/search/search?app=${app}&version=${version}")
+            rowVersion.put('name', dn.version)
+            rowVersion.put('date', dn.date)
+            rowVersion.put('url', "/deliveryNotes/search/search?app=${app}&version=${dn.version}")
             rowVersions << rowVersion
         }
 
