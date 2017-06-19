@@ -1,6 +1,6 @@
 <g:render template="/components/notification"/>
 
-<table class="table table-hover">
+<table class="table table-hover text-nowrap">
     <thead>
     <tr>
         <g:if test="${rowVersions}">
@@ -23,7 +23,7 @@
                 <g:if test="${rowVersions}">
                     <g:each var="version" in="${rowVersions.name}">
                         <g:if test="${rowPackage[version]?.tag == 'deleted'}">
-                            <td class="text-nowrap">
+                            <td>
                                 <span class="badge badge-danger">
                                     <span class="fa fa-close" aria-hidden="true"></span>
                                 </span>
@@ -31,7 +31,7 @@
                         </g:if>
                         <g:else>
                             %{--add nowrap class to prevent new line in table cell--}%
-                            <td class="text-nowrap">
+                            <td>
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
                                     <span class="badge badge-success">
                                         <span class="fa fa-plus" aria-hidden="true"></span>

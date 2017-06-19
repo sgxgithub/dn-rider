@@ -31,8 +31,7 @@ class ComparisonController {
 
         flash.message = ''
 
-        for (int i = 0; i < versions.size(); i++) {
-            String version = versions[i]
+        versions.each{ String version ->
             log.info "searching for the delivery-note with app=${app}, version=${version}..."
             def resp = nexusConsumerService.getDn(app, version)
 
@@ -51,7 +50,7 @@ class ComparisonController {
             }
         }
 
-        def table = comparisonService.sortPackages(app, dns, versions)
+        def table = comparisonService.sortPackages(app, dns)
 
         render template: "tableComparison", model: [rowVersions: table.rowVersions, rowPackages: table.rowPackages]
     }

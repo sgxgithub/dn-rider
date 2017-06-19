@@ -1,13 +1,13 @@
 package dn.rider.comparison
 
-import grails.converters.JSON
 import grails.transaction.Transactional
 import org.grails.web.json.JSONObject
 
 @Transactional
 class ComparisonService {
 
-    def sortPackages(app, dns, versions) {
+    def sortPackages(app, dns) {
+        List<String> versions = dns.version
         //the table head
         List<JSONObject> rowVersions = []
 
