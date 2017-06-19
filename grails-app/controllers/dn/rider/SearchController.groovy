@@ -37,7 +37,7 @@ class SearchController {
         def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
 
-        versions = versions.findAll{it->
+        versions = versions.findAll { it ->
             it =~ p
         }
 
@@ -49,6 +49,7 @@ class SearchController {
         String app = cmd.app
         String releaseType = cmd.releaseType ?: 'all'
         String version = cmd.version
+        String regex = params.regex ?: ''
 
         def apps = nexusConsumerService.getApps()
 
@@ -61,7 +62,8 @@ class SearchController {
                     apps       : apps as JSON,
                     app        : app,
                     releaseType: releaseType,
-                    version    : version
+                    version    : version,
+                    regex      : regex
             ], view: 'search')
             return
         }
@@ -78,7 +80,8 @@ class SearchController {
                     versions    : versions,
                     app         : app,
                     apps        : apps as JSON,
-                    releaseType : releaseType
+                    releaseType : releaseType,
+                    regex       : regex
             ], view: "search")
             return
         }
@@ -99,7 +102,8 @@ class SearchController {
                         app         : app,
                         apps        : apps as JSON,
                         releaseType : releaseType,
-                        version     : version
+                        version     : version,
+                        regex       : regex
                 ], view: "index")
                 return
             }
@@ -113,6 +117,7 @@ class SearchController {
                     apps        : apps as JSON,
                     releaseType : releaseType,
                     version     : version,
+                    regex       : regex,
                     urlNexus    : urlNexus
             ], view: "search")
         }

@@ -64,6 +64,10 @@
     let $releaseType = $("#releaseType");
     let $regex = $("#regex");
 
+    const cleanForm = function () {
+        $regex.val('');
+    };
+
     let setVersions = function () {
         let app = $app.val();
         //fired only if the length >= 3
@@ -98,7 +102,10 @@
     });
 
     //search the list of versions
-    $app.on('input', setVersions);
+    $app.on('input', function () {
+        setVersions();
+        cleanForm();
+    });
     $releaseType.on('change', setVersions);
     $regex.on('input', setVersions);
 

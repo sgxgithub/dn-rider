@@ -1,4 +1,12 @@
 (function ($) {
+
+    //autocomplete of apps
+    let $app = $("#app");
+    let $releaseType = $("#releaseType");
+    let $version = $("#version");
+    let $regex = $("#regex");
+    let $versions = $("#versions");
+
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-search").addClass("active");
@@ -9,11 +17,6 @@
     $(window).resize(function () {
         setHeight();
     });
-
-    //autocomplete of apps
-    let $app = $("#app");
-    let $releaseType = $("#releaseType");
-    let $regex = $("#regex");
 
     let setVersions = function () {
         let app = $app.val();
@@ -29,16 +32,21 @@
             data: {app: app, releaseType: releaseType, regex: regex, template: '/search/listVersions'}
         })
             .done(function (result) {
-                $("#versions").html(result);
+                $versions.html(result);
                 setHeight();
             });
+    };
+
+    const cleanForm = function () {
+        $version.val('');
+        $regex.val('');
     };
 
     let setHeight = function () {
         $("#row-main").outerHeight($(window).height() - 56);
         $("#sidebar").outerHeight($(window).height() - 56);
-        $("#versions").outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true) - 16);
-        $("#versions ul").outerHeight($("#versions").outerHeight(true) - 30);
+        $versions.outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true) - 16);
+        $("#versions ul").outerHeight($versions.outerHeight(true) - 30);
         $("#content").outerHeight($(window).height() - 56);
     };
 
@@ -57,10 +65,10 @@
             // add data-versions when select a version
             $.ajax({
                 method: "GET",
-                url: $('#version').data('url') + '&app=' + ui.item.value
+                url: $version.data('url') + '&app=' + ui.item.value
             })
                 .done(function (versions) {
-                    $('#version').autocomplete({
+                    $version.autocomplete({
                         source: function (request, response) {
                             let results = $.ui.autocomplete.filter(versions, request.term);
                             response(results.slice(0, 10));
@@ -71,7 +79,11 @@
     });
 
     //search the list of versions
-    $app.on('input', setVersions);
+    // $app.on('input', setVersions);
+    $app.on('input', function () {
+        setVersions();
+        cleanForm();
+    });
     $releaseType.on('change', setVersions);
     $regex.on('input', setVersions);
 
