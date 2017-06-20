@@ -4,11 +4,12 @@
     <thead>
     <tr>
         <g:if test="${rowVersions}">
-            <th>module</th>
-            <th>name</th>
+            <th>Module</th>
+            <th>Name</th>
             <g:each var="rowVersion" in="${rowVersions}">
                 <th>
-                    <a href="${rowVersion.url}" target="_blank" data-toggle="popover" data-content="${rowVersion.date}">${rowVersion.name}</a>
+                    <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
+                    <p class="text-muted m-0 dn-date"><g:formatDate format="yyyy-MM-dd" date="${rowVersion.date}"/></p>
                 </th>
             </g:each>
         </g:if>
@@ -30,7 +31,7 @@
                             </td>
                         </g:if>
                         <g:else>
-                            %{--add nowrap class to prevent new line in table cell--}%
+                        %{--add nowrap class to prevent new line in table cell--}%
                             <td>
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
                                     <span class="badge badge-success">

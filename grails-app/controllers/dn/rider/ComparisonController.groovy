@@ -3,6 +3,8 @@ package dn.rider
 import grails.converters.JSON
 import org.grails.web.json.JSONObject
 
+import java.text.SimpleDateFormat
+
 class ComparisonController {
 
     def nexusConsumerService
@@ -26,9 +28,6 @@ class ComparisonController {
         }
 
         List<JSONObject> dns = []
-        //sort the versions
-        versions.sort()
-
         flash.message = ''
 
         versions.each{ String version ->
@@ -44,8 +43,10 @@ class ComparisonController {
             } else {
                 log.info "received the delivery-note"
                 def dn = resp.json.NDL_pour_rundeck
+                def sdf = new SimpleDateFormat('EEE, d MMM yyyy HH:mm:ss z', Locale.ENGLISH)
+                def date = sdf.parse(resp.headers['Last-Modified'][0])
                 dn.put('version', version)
-                dn.put('date', resp.headers['Last-Modified'])
+                dn.put('date', date)
                 dns << dn
             }
         }

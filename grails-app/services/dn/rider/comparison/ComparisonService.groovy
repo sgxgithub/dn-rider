@@ -7,11 +7,16 @@ import org.grails.web.json.JSONObject
 class ComparisonService {
 
     def sortPackages(app, dns) {
+        //sort the dns by date
+        dns.sort { a, b ->
+            a.date <=> b.date
+        }
+
         List<String> versions = dns.version
         //the table head
         List<JSONObject> rowVersions = []
 
-        dns.each{ dn ->
+        dns.each { dn ->
             JSONObject rowVersion = new JSONObject()
             rowVersion.put('name', dn.version)
             rowVersion.put('date', dn.date)
