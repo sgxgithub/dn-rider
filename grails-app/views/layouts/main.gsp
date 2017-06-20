@@ -10,7 +10,6 @@
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <asset:stylesheet src="dnrider.css"/>
-    <asset:stylesheet src="settings.css"/>
 
     <g:layoutHead/>
 </head>
@@ -24,6 +23,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/#">DN-RIDER</a>
+    <span class="text-white">v<g:meta name="info.app.version"/></span>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
@@ -31,12 +31,13 @@
             <li class="nav-item" id="nav-item-search">
                 <g:link class="nav-link" controller="search" action="index">Search</g:link>
             </li>
-            <li class="nav-item" id="nav-item-validation">
-                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
-            </li>
             <li class="nav-item" id="nav-item-comparison">
                 <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
             </li>
+            <li class="nav-item" id="nav-item-validation">
+                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+            </li>
+
             <li class="nav-item dropdown mr-2">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <span class="fa fa-language fa-lg"></span>
@@ -63,11 +64,6 @@
 <asset:javascript src="application.js"/>
 
 <g:layoutBody/>
-
-<a id="back-to-top" href="#" class="btn btn-primary back-to-top"
-   title="Click to return on the top" data-toggle="tooltip" data-placement="left"><span
-        class="fa fa-angle-double-up"></span>
-</a>
 
 </body>
 

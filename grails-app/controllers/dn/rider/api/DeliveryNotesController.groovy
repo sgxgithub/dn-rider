@@ -26,7 +26,7 @@ class DeliveryNotesController {
         log.info "received the list of delivery-notes"
 
         if (format.toUpperCase() == 'TEXT')
-            render versions
+            render versions.join(' ')
         else render versions as JSON
     }
 

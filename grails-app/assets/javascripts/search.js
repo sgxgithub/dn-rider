@@ -88,16 +88,7 @@
     $regex.on('input', setVersions);
 
     //sidebar collapse
-    $('#sidebar')
-        .on('show.bs.collapse', function () {
-            $("#content").toggleClass("col-9 col-12");
-        })
-        .on('hidden.bs.collapse', function () {
-            setTimeout(
-                function () {
-                    $("#content").toggleClass("col-9 col-12");
-                }, 350);
-        });
+    $('#sidebar').sidebarCollapse();
 
     //json format
     //plugin found in jqueryscript.net

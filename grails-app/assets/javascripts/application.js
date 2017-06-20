@@ -11,27 +11,5 @@ if (typeof jQuery !== 'undefined') {
             $('#spinner').fadeOut();
         });
 
-        // $(document).ready(function () {
-        //     let $btt = $('#back-to-top');
-        //     $(window).scroll(function () {
-        //         if ($(this).scrollTop() > 50) {
-        //             $btt.fadeIn();
-        //         } else {
-        //             $btt.fadeOut();
-        //         }
-        //     });
-        //     // scroll body to 0px on click
-        //     $btt.click(function () {
-        //         $(this).tooltip('hide');
-        //         $('body,html').animate({
-        //             scrollTop: 0
-        //         }, 500);
-        //         return false;
-        //     });
-        //
-        //     $btt.tooltip('show');
-        //
-        // });
-
     })(jQuery);
 }

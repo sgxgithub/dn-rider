@@ -4,7 +4,8 @@
     <meta charset="utf-8"/>
     <meta name="layout" content="main"/>
     <title>DN-RIDER</title>
-    <asset:stylesheet src="home.scss"/>
+    <asset:stylesheet src="home.css"/>
+    <asset:stylesheet src="settings.css"/>
 </head>
 
 <body>

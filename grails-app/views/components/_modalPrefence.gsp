@@ -6,7 +6,7 @@
 <!-- Modal -->
 <div class="modal fade" id="modalPreference" tabindex="-1">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content" role="document">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">User Settings</h5>
                 <button type="button" class="close" data-dismiss="modal">
