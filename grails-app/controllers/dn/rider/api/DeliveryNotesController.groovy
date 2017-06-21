@@ -1,10 +1,12 @@
 package dn.rider.api
 
 import grails.converters.JSON
+import org.grails.web.json.JSONObject
 
 class DeliveryNotesController {
 
     def nexusConsumerService
+    def JsonSchemaValidationService
 
     def showApps() {
         String format = params.format ?: 'json'
@@ -50,5 +52,38 @@ class DeliveryNotesController {
         if (format.toUpperCase() == 'TEXT')
             render resp.text
         else render resp.json
+    }
+
+    def validationStored() {
+        String app = params.app
+        String version = params.version
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        //when there is no result
+        if (resp.responseEntity.statusCode.toString() == '404') {
+            String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+            String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+            render message
+            return
+        }
+
+        String schema = JsonSchemaValidationService.getSchemaText()
+        String dn = resp.text
+
+        def res = JsonSchemaValidationService.validateSchema(schema, dn)
+
+        render new JSONObject(res._children)
+    }
+
+    def validationNoStored(){
+        String dn = params.dn ?: ''
+        String schema = JsonSchemaValidationService.getSchemaText()
+
+        def res = JsonSchemaValidationService.validateSchema(schema, dn)
+
+        render new JSONObject(res._children)
     }
 }

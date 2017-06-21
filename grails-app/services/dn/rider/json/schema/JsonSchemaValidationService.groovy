@@ -5,13 +5,13 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.fge.jackson.JacksonUtils
-import com.github.fge.jackson.JsonLoader
 import com.github.fge.jackson.JsonNodeReader
 import com.github.fge.jsonschema.core.report.ProcessingReport
 import com.github.fge.jsonschema.core.util.AsJson
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import com.github.fge.jsonschema.main.JsonValidator
 import dn.rider.json.schema.constants.ParseError
+import grails.io.IOUtils
 import grails.transaction.Transactional
 
 
@@ -28,6 +28,13 @@ class JsonSchemaValidationService {
     private static final JsonValidator VALIDATOR = JsonSchemaFactory.byDefault().getValidator()
     private static final JsonNodeReader NODE_READER = new JsonNodeReader()
 
+    //function to get schema string from a local file
+    def getSchemaText() {
+        def schemaStream = this.class.classLoader.getResourceAsStream('NDL_katana_schema.json')
+        String schemaText = IOUtils.toString(schemaStream)
+        return schemaText
+    }
+
     def validateSchema(String rawSchema, String rawDn) {
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
 
@@ -40,7 +47,6 @@ class JsonSchemaValidationService {
         }
 
         final JsonNode schemaNode = ret.remove(INPUT)
-        //final JsonNode schemaNode = JsonLoader.fromResource("/NDL_katana_schema.json")
         final JsonNode dnNode = ret.remove(INPUT2)
 
         final ProcessingReport report = VALIDATOR.validateUnchecked(schemaNode, dnNode)

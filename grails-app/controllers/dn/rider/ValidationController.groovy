@@ -3,20 +3,12 @@ package dn.rider
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import grails.converters.JSON
-import grails.io.IOUtils
 import groovy.json.JsonSlurper
 
 class ValidationController {
 
     def nexusConsumerService
     def JsonSchemaValidationService
-
-    //function to get schema string from a local file
-    def getSchemaText() {
-        def schemaStream = this.class.classLoader.getResourceAsStream('NDL_katana_schema.json')
-        String schemaText = IOUtils.toString(schemaStream)
-        return schemaText
-    }
 
     def index() {
         flash.message = null
@@ -41,7 +33,7 @@ class ValidationController {
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
-        String schema = getSchemaText()
+        String schema = JsonSchemaValidationService.getSchemaText()
         String dn = cmd.dn
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
@@ -83,10 +75,10 @@ class ValidationController {
     }
 
     def showSchema() {
-        String schemaraw = getSchemaText()
+        String schemaraw = JsonSchemaValidationService.getSchemaText()
 
         def jsonSlurper = new JsonSlurper()
-        def schemaJson = jsonSlurper.parseText(schemaText)
+        def schemaJson = jsonSlurper.parseText(schemaraw)
 
         respond([schemajson: schemaJson as JSON, schemaraw: schemaraw], view: 'showSchema')
     }
