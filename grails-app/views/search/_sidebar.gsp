@@ -2,7 +2,9 @@
     <div id="fixForm">
         <div class="form-group row">
             <div class="col-4">
-                <h5>APP</h5>
+                <h5>
+                    <g:message code="dn.rider.sidebar.app"/>
+                </h5>
             </div>
 
             <div class="col-8">
@@ -15,7 +17,9 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <h5>ReleaseType</h5>
+                <h5>
+                    <g:message code="dn.rider.sidebar.releaseType"/>
+                </h5>
             </div>
 
             <div class="col-8">
@@ -26,7 +30,9 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <h5>Version</h5>
+                <h5>
+                    <g:message code="dn.rider.sidebar.version"/>
+                </h5>
             </div>
 
             <div class="col-8">
@@ -38,7 +44,9 @@
 
         <div class="form-group row">
             <div class="col-4">
-                <h5>Filter</h5>
+                <h5>
+                    <g:message code="dn.rider.sidebar.filter"/>
+                </h5>
             </div>
 
             <div class="col-8">
@@ -52,7 +60,9 @@
             </div>
 
             <div class="col-3 offset-1">
-                <button class="btn btn-outline-primary" type="submit">Search</button>
+                <button class="btn btn-outline-primary" type="submit">
+                    <g:message code="dn.rider.btn.search"/>
+                </button>
             </div>
         </div>
     </div>

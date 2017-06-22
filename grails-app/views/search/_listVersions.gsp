@@ -1,5 +1,7 @@
 <g:if test="${versionCount}">
-    <h5>${versionCount} delivery-notes:</h5>
+    <h5>${versionCount}
+    <g:message code="dn.rider.sidebar.results"/>
+    </h5>
     <ul>
         <g:each var="version" in="${versions}">
             <g:link action="search" controller="search"

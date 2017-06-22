@@ -13,6 +13,7 @@ import com.github.fge.jsonschema.main.JsonValidator
 import dn.rider.json.schema.constants.ParseError
 import grails.io.IOUtils
 import grails.transaction.Transactional
+import org.grails.web.json.JSONObject
 
 
 @Transactional
@@ -37,6 +38,7 @@ class JsonSchemaValidationService {
 
     def validateSchema(String rawSchema, String rawDn) {
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
+        def resJson = new JSONObject()
 
         final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
         final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
@@ -53,11 +55,15 @@ class JsonSchemaValidationService {
 
         final boolean success = report.isSuccess()
         ret.put(VALID, success)
+        resJson.put(VALID, success)
 
-        final JsonNode node = ((AsJson) report).asJson()
+        final JsonNode node = report[0].asJson()
         ret.put(RESULTS, JacksonUtils.prettyPrint(node))
+//        ret.put(RESULTS, node)
+        resJson.put(RESULTS, new JSONObject(node._children))
 
         return ret
+//        return resJson
     }
 
     /*

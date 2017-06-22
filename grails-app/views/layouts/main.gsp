@@ -29,13 +29,19 @@
         <ul class="navbar-nav  ml-auto">
             <g:pageProperty name="page.nav"/>
             <li class="nav-item" id="nav-item-search">
-                <g:link class="nav-link" controller="search" action="index">Search</g:link>
+                <g:link class="nav-link" controller="search" action="index">
+                    <g:message code="dn.rider.nav.search"/>
+                </g:link>
             </li>
             <li class="nav-item" id="nav-item-comparison">
-                <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
+                <g:link class="nav-link" controller="comparison" action="index">
+                    <g:message code="dn.rider.nav.comparison"/>
+                </g:link>
             </li>
             <li class="nav-item" id="nav-item-validation">
-                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+                <g:link class="nav-link" controller="validation" action="index">
+                    <g:message code="dn.rider.nav.validation"/>
+                </g:link>
             </li>
 
             <li class="nav-item dropdown mr-2">

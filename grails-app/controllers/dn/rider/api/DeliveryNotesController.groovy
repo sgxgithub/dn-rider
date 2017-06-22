@@ -70,12 +70,13 @@ class DeliveryNotesController {
             return
         }
 
-        String schema = JsonSchemaValidationService.getSchemaText()
         String dn = resp.text
+        String schema = JsonSchemaValidationService.getSchemaText()
 
-        def res = JsonSchemaValidationService.validateSchema(schema, dn)
+        def resValidation = JsonSchemaValidationService.validateSchema(schema, dn)
 
-        render new JSONObject(res._children)
+        def res = new JSONObject(resValidation._children)
+        render res
     }
 
     def validationNoStored(){
