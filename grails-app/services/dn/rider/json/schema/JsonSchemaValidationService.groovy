@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.fge.jackson.JacksonUtils
-import com.github.fge.jackson.JsonLoader
 import com.github.fge.jackson.JsonNodeReader
 import com.github.fge.jsonschema.core.report.ProcessingReport
 import com.github.fge.jsonschema.core.util.AsJson
@@ -40,7 +39,6 @@ class JsonSchemaValidationService {
         }
 
         final JsonNode schemaNode = ret.remove(INPUT)
-        //final JsonNode schemaNode = JsonLoader.fromResource("/NDL_katana_schema.json")
         final JsonNode dnNode = ret.remove(INPUT2)
 
         final ProcessingReport report = VALIDATOR.validateUnchecked(schemaNode, dnNode)

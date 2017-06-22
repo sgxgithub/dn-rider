@@ -25,9 +25,11 @@ class UrlMappings {
         "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "showDn", method: "GET")
         "/api/applications"(controller: "deliveryNotes", action: "showApps", method: "GET")
 
+        "/toto/dopost"(controller: 'toto', action: 'doPost')
+        "/toto/doget/$name?"(controller: 'toto', action: 'doGet')
+
         "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')
-
     }
 }
