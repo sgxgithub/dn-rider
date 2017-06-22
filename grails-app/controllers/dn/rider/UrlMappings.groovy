@@ -10,10 +10,14 @@ class UrlMappings {
             }
         }
 
-        "/dn.rider.api/$controller/$action"()
+        "/api/$controller/$action"()
 
+        "/$controller/$action?"()
 
         "/deliveryNotes/search"(controller: "searchDn")
+
+        "/toto/dopost"(controller: 'toto', action: 'doPost')
+        "/toto/doget/$name?"(controller: 'toto', action: 'doGet')
 
         "/"(controller: 'home')
         "500"(view: '/error')
