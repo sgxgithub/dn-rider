@@ -14,15 +14,15 @@ class TotoController {
 
     static allowedMethods = [doGet: "GET", doPost: "POST"]
 
-    @Path("/doget/{name}")
+    @Path("/doget/{app}")
     @ApiOperation(value = "do a get")
     @ApiImplicitParams([
-            @ApiImplicitParam(name = 'name', paramType = 'path', required = true, dataType = 'string'),
+            @ApiImplicitParam(name = 'name', paramType = 'query', required = true, dataType = 'string'),
             @ApiImplicitParam(name = 'app', paramType = 'query', required = true, dataType = 'string'),
 
     ])
-    def doGet(String name) {
-        render "hey ${params.app} ${params.name} / $name"
+    def doGet() {
+        render "hey ${params.app} ${params.name}"
     }
 
     @ApiOperation(value = "do a post")

@@ -10,6 +10,8 @@ class UrlMappings {
             }
         }
 
+//        "/api/$controller/$action"()
+
         "/api/deliveryNotes/$app"(controller: "deliveryNotes", action: "showVersions", method: "GET") {
             releaseType = 'all'
         }

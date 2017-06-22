@@ -1,7 +1,9 @@
 package dn.rider.api
 
 import grails.converters.JSON
+import io.swagger.annotations.Api
 
+@Api(value = "DeliveryNotesController")
 class DeliveryNotesController {
 
     def nexusConsumerService

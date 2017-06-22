@@ -13,9 +13,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 import static springfox.documentation.builders.PathSelectors.regex
 
-@EnableSwagger2
-@Import([springfox.documentation.grails.SpringfoxGrailsIntegrationConfiguration])
-
+//@EnableSwagger2
+//@Import([springfox.documentation.grails.SpringfoxGrailsIntegrationConfiguration])
 class Application extends GrailsAutoConfiguration {
     static void main(String[] args) {
         GrailsApp.run(Application, args)
