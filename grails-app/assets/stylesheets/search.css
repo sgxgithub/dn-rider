@@ -1,23 +1,8 @@
-body{
+body {
     overflow: hidden;
 }
 
-#blockVersions{
-    margin: 0 0;
-}
-
-#versions ul{
-    padding: 0.5rem 2rem;
-    margin:0 0;
-    overflow-y: scroll;
-}
-
-#content {
-   overflow: scroll;
-   padding:1rem;
-}
-
-pre{
+pre {
     overflow: visible;
 }
 
@@ -33,9 +18,36 @@ pre{
 }
 
 #sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
     height: auto;
     -webkit-transition: margin .35s ease;
     -moz-transition: margin .35s ease;
     -o-transition: margin .35s ease;
     transition: margin .35s ease;
+}
+
+#content {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    right: 0;
+    overflow: scroll;
+    -webkit-transition: max-width .35s ease;
+    -moz-transition: max-width .35s ease;
+    -o-transition: max-width .35s ease;
+    transition: max-width .35s ease;
+    padding: 1rem;
+}
+
+.li-group {
+    position: absolute;
+    top: 270px;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    overflow-y: scroll;
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0;
 }

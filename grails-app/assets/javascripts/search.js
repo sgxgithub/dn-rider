@@ -10,12 +10,6 @@
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-search").addClass("active");
-
-        setHeight();
-    });
-
-    $(window).resize(function () {
-        setHeight();
     });
 
     let setVersions = function () {
@@ -33,7 +27,6 @@
         })
             .done(function (result) {
                 $versions.html(result);
-                setHeight();
             });
     };
 
@@ -41,15 +34,6 @@
         $version.val('');
         $regex.val('');
     };
-
-    let setHeight = function () {
-        $("#row-main").outerHeight($(window).height() - 56);
-        $("#sidebar").outerHeight($(window).height() - 56);
-        $versions.outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true) - 16);
-        $("#versions ul").outerHeight($versions.outerHeight(true) - 30);
-        $("#content").outerHeight($(window).height() - 56);
-    };
-
 
     let apps = $app.data('apps');
     $app.autocomplete({

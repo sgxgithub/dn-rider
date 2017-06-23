@@ -1,12 +1,5 @@
-body{
-    overflow: hidden;
-}
-
-#versions .cb-group {
-    padding: 0.5rem 2rem;
-    margin: 0 0;
-    max-height: 95%;
-    overflow-y: scroll;
+body {
+    overflow-y: hidden;
 }
 
 .sidebar.collapse.show {
@@ -21,6 +14,9 @@ body{
 }
 
 #sidebar {
+    position: fixed;
+    top: 56px;
+    bottom: 0;
     height: auto;
     -webkit-transition: margin .35s ease;
     -moz-transition: margin .35s ease;
@@ -29,18 +25,30 @@ body{
 }
 
 #content {
-    max-width: 100%;
-    height: auto;
+    position: fixed;
+    top: 56px;
+    bottom: 0;
+    right: 0;
     overflow: scroll;
+    -webkit-transition:max-width .35s ease;
+    -moz-transition: max-width .35s ease;
+    -o-transition: max-width .35s ease;
+    transition: max-width .35s ease;
+}
+
+.cb-group {
+    position: absolute;
+    top: 216px;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    overflow-y: scroll;
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0;
 }
 
 .table > thead > tr > th {
     vertical-align: middle;
-}
-
-.dn-date{
-    font-weight: lighter;
-    font-size: 0.8rem;
 }
 
 /*popover */

@@ -22,17 +22,9 @@
         });
     };
 
-    let setHeight = function () {
-        $("#row-main").outerHeight($(window).height() - 56);
-        $("#sidebar").outerHeight($(window).height() - 56);
-        $("#content").outerHeight($(window).height() - 56);
-        $("#versions").outerHeight($("#sidebar").outerHeight(true) - $("#fixForm").outerHeight(true));
-    };
-
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-comparison").addClass("active");
-        setHeight();
 
         //button back to top
         let $btt = $('#back-to-top');
@@ -53,10 +45,6 @@
         });
 
         $btt.tooltip('show');
-    });
-
-    $(window).resize(function () {
-        setHeight();
     });
 
     //autocomplete of apps

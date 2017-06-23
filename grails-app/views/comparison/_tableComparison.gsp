@@ -9,7 +9,7 @@
             <g:each var="rowVersion" in="${rowVersions}">
                 <th>
                     <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
-                    <p class="text-muted m-0 dn-date"><g:formatDate format="yyyy-MM-dd" date="${rowVersion.date}"/></p>
+                    <p class="text-muted m-0 small"><g:formatDate style="SHORT" date="${rowVersion.date}"/></p>
                 </th>
             </g:each>
         </g:if>
