@@ -55,15 +55,15 @@ class JsonSchemaValidationService {
 
         final boolean success = report.isSuccess()
         ret.put(VALID, success)
-        resJson.put(VALID, success)
+//        /resJson.put(VALID, success)
 
-        final JsonNode node = report[0].asJson()
+        final JsonNode node = report.asJson()
         ret.put(RESULTS, JacksonUtils.prettyPrint(node))
 //        ret.put(RESULTS, node)
-        resJson.put(RESULTS, new JSONObject(node._children))
+//        /resJson.put(RESULTS, new JSONObject(node._children))
 
         return ret
-//        return resJson
+//       return resJson
     }
 
     /*
