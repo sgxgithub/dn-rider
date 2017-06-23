@@ -1,3 +1,8 @@
+/*
+*= require lib/collapseSidebar
+*= require_self
+*/
+
 body {
     overflow: hidden;
 }
@@ -6,38 +11,7 @@ pre {
     overflow: visible;
 }
 
-.sidebar.collapse.show {
-    visibility: visible;
-    display: block;
-    margin-left: 0;
-}
-
-.sidebar.collapse {
-    display: block;
-    margin-left: -25%; /* same width as sidebar */
-}
-
-#sidebar {
-    position: fixed;
-    top: 56px;
-    bottom: 0;
-    height: auto;
-    -webkit-transition: margin .35s ease;
-    -moz-transition: margin .35s ease;
-    -o-transition: margin .35s ease;
-    transition: margin .35s ease;
-}
-
 #content {
-    position: fixed;
-    top: 56px;
-    bottom: 0;
-    right: 0;
-    overflow: scroll;
-    -webkit-transition: max-width .35s ease;
-    -moz-transition: max-width .35s ease;
-    -o-transition: max-width .35s ease;
-    transition: max-width .35s ease;
     padding: 1rem;
 }
 
