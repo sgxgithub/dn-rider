@@ -8,8 +8,9 @@
             <th>Name</th>
             <g:each var="rowVersion" in="${rowVersions}">
                 <th>
-                    <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
-                    <p class="text-muted m-0 small"><g:formatDate style="SHORT" date="${rowVersion.date}"/></p>
+                    <a class="popover-head" href="${rowVersion.url}" target="_blank" data-toggle="popover"
+                       data-content="<g:formatDate date="${rowVersion.date}" type="datetime"
+                                                   style="SHORT"/>">${rowVersion.name}</a>
                 </th>
             </g:each>
         </g:if>
@@ -45,12 +46,13 @@
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.name}">
                                     <g:if test="${rowPackage[version]?.url}">
-                                        <a href="${rowPackage[version].url}" target="_blank" data-toggle="popover"
+                                        <a class="popover-body" href="${rowPackage[version].url}" target="_blank"
+                                           data-toggle="popover"
                                            data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
                                            data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                     </g:if>
                                     <g:else>
-                                        <a data-toggle="popover"
+                                        <a class="popover-body" data-toggle="popover"
                                            data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
                                            data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                     </g:else>

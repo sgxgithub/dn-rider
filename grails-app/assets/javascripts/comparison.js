@@ -97,7 +97,7 @@
                 //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
                 let $popovers = $("[data-toggle='popover']");
                 //transfer content json to html
-                $popovers.each(function () {
+                $(".popover-body").each(function () {
                     $(this).setPopoverContent($(this).data('content'));
                 });
                 $popovers.popover({
