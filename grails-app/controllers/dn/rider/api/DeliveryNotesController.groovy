@@ -1,5 +1,7 @@
 package dn.rider.api
 
+import com.fasterxml.jackson.databind.node.ObjectNode
+import com.github.fge.jackson.JacksonUtils
 import grails.converters.JSON
 import io.swagger.annotations.Api
 import org.grails.web.json.JSONObject
@@ -67,6 +69,7 @@ class DeliveryNotesController {
         //when there is no result
         if (resp.responseEntity.statusCode.toString() == '404') {
             String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+            response.status = 404
             String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
             render message
             return
@@ -75,18 +78,27 @@ class DeliveryNotesController {
         String dn = resp.text
         String schema = JsonSchemaValidationService.getSchemaText()
 
-        def resValidation = JsonSchemaValidationService.validateSchema(schema, dn)
+        ObjectNode resValidation = JsonSchemaValidationService.validateSchema(schema, dn)
 
-        def res = new JSONObject(resValidation._children)
-        render res
+        setStatus(resValidation)
+        render text: resValidation.toString(), contentType: 'application/json'
     }
 
-    def validationNoStored(){
+    def validationNoStored() {
         String dn = params.dn ?: ''
         String schema = JsonSchemaValidationService.getSchemaText()
 
-        def res = JsonSchemaValidationService.validateSchema(schema, dn)
+        ObjectNode res = JsonSchemaValidationService.validateSchema(schema, dn)
 
-        render new JSONObject(res._children)
+        setStatus(res)
+        render text: res.toString(), contentType: 'application/json'
+    }
+
+    def setStatus(res) {
+        if (res['valid']) response.status = 200
+        else {
+            if (!res['valid']) response.status = 422
+            else response.status = 500
+        }
     }
 }
