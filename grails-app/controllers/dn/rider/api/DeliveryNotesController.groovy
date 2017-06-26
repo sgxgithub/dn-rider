@@ -2,11 +2,13 @@ package dn.rider.api
 
 import grails.converters.JSON
 import io.swagger.annotations.Api
+import org.grails.web.json.JSONObject
 
 @Api(value = "DeliveryNotesController")
 class DeliveryNotesController {
 
     def nexusConsumerService
+    def JsonSchemaValidationService
 
     def showApps() {
         String format = params.format ?: 'json'
@@ -28,7 +30,7 @@ class DeliveryNotesController {
         log.info "received the list of delivery-notes"
 
         if (format.toUpperCase() == 'TEXT')
-            render versions
+            render versions.join(' ')
         else render versions as JSON
     }
 
@@ -52,5 +54,39 @@ class DeliveryNotesController {
         if (format.toUpperCase() == 'TEXT')
             render resp.text
         else render resp.json
+    }
+
+    def validationStored() {
+        String app = params.app
+        String version = params.version
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        //when there is no result
+        if (resp.responseEntity.statusCode.toString() == '404') {
+            String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+            String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+            render message
+            return
+        }
+
+        String dn = resp.text
+        String schema = JsonSchemaValidationService.getSchemaText()
+
+        def resValidation = JsonSchemaValidationService.validateSchema(schema, dn)
+
+        def res = new JSONObject(resValidation._children)
+        render res
+    }
+
+    def validationNoStored(){
+        String dn = params.dn ?: ''
+        String schema = JsonSchemaValidationService.getSchemaText()
+
+        def res = JsonSchemaValidationService.validateSchema(schema, dn)
+
+        render new JSONObject(res._children)
     }
 }

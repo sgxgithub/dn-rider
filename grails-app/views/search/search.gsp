@@ -12,11 +12,9 @@
 <body>
 
 <div class="container-fluid">
-    <div class="row">
+    <div class="row" id="row-main">
         <div class="col-3 py-3 bg-faded sidebar collapse show width" id="sidebar">
-            <div id="blockSearch">
                 <g:render template="sidebar"/>
-            </div>
         </div>
 
         <div class="col-9" id="content">
@@ -29,6 +27,7 @@
 </div>
 
 <asset:javascript src="lib/jquery.json-browse.js"/>
+<asset:javascript src="lib/sidebar.js"/>
 <asset:javascript src="search.js"/>
 
 </body>

@@ -1,39 +1,27 @@
-#sidebar{
-    min-height: 45rem;
+/*
+*= require lib/collapseSidebar
+*= require_self
+*/
+
+body {
+    overflow: hidden;
 }
 
-#blockVersions{
-    margin: 0 0;
-}
-
-#versions ul{
-    padding: 0.5rem 2rem;
-    margin:0 0;
-    max-height: 27rem;
-    overflow: scroll;
+pre {
+    overflow: visible;
 }
 
 #content {
-   max-height: 45rem;
-   overflow: scroll;
-   padding:1rem;
+    padding: 1rem;
 }
 
-.sidebar.collapse.show {
-    visibility: visible;
-    display: block;
-    margin-left: 0;
-}
-
-.sidebar.collapse {
-    display: block;
-    margin-left: -25%; /* same width as sidebar */
-}
-
-#sidebar {
-    height: auto;
-    -webkit-transition: margin .35s ease;
-    -moz-transition: margin .35s ease;
-    -o-transition: margin .35s ease;
-    transition: margin .35s ease;
+.li-group {
+    position: absolute;
+    top: 270px;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    overflow-y: scroll;
+    padding: 0.5rem 2rem;
+    margin: 0.5rem 0;
 }

@@ -1,13 +1,16 @@
 (function ($) {
-    $(document).ready(function () {
-        $("nav .navbar-nav .nav-item").removeClass("active");
-        $("#nav-item-search").addClass("active");
-    });
 
     //autocomplete of apps
     let $app = $("#app");
     let $releaseType = $("#releaseType");
+    let $version = $("#version");
     let $regex = $("#regex");
+    let $versions = $("#versions");
+
+    $(document).ready(function () {
+        $("nav .navbar-nav .nav-item").removeClass("active");
+        $("#nav-item-search").addClass("active");
+    });
 
     let setVersions = function () {
         let app = $app.val();
@@ -20,13 +23,17 @@
         $.ajax({
             method: "POST",
             url: $app.data('url'),
-            data: {app: app, releaseType: releaseType, regex: regex, template:'/search/listVersions'}
+            data: {app: app, releaseType: releaseType, regex: regex, template: '/search/listVersions'}
         })
             .done(function (result) {
-                $("#versions").html(result);
+                $versions.html(result);
             });
     };
 
+    const cleanForm = function () {
+        $version.val('');
+        $regex.val('');
+    };
 
     let apps = $app.data('apps');
     $app.autocomplete({
@@ -42,10 +49,10 @@
             // add data-versions when select a version
             $.ajax({
                 method: "GET",
-                url: $('#version').data('url') + '&app=' + ui.item.value
+                url: $version.data('url') + '&app=' + ui.item.value
             })
                 .done(function (versions) {
-                    $('#version').autocomplete({
+                    $version.autocomplete({
                         source: function (request, response) {
                             let results = $.ui.autocomplete.filter(versions, request.term);
                             response(results.slice(0, 10));
@@ -56,21 +63,16 @@
     });
 
     //search the list of versions
-    $app.on('input', setVersions);
+    // $app.on('input', setVersions);
+    $app.on('input', function () {
+        setVersions();
+        cleanForm();
+    });
     $releaseType.on('change', setVersions);
     $regex.on('input', setVersions);
-    
+
     //sidebar collapse
-    $('#sidebar')
-        .on('show.bs.collapse', function () {
-            $("#content").toggleClass("col-9 col-12");
-        })
-        .on('hidden.bs.collapse', function () {
-            setTimeout(
-                function () {
-                    $("#content").toggleClass("col-9 col-12");
-                }, 350);
-        });
+    $('#sidebar').sidebarCollapse();
 
     //json format
     //plugin found in jqueryscript.net

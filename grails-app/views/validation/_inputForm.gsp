@@ -13,7 +13,7 @@
     <div class="form-group row">
         <g:hiddenField name="offset" value="${offset}"/>
         <div class="col-9">
-            <textarea name='dn' id="textarea-dn" class="form-control" rows="25" cols="20">${dn}</textarea>
+            <textarea name='dn' id="textarea-dn" class="form-control" rows="35" cols="20">${dn}</textarea>
         </div>
 
         <div class="col-3">

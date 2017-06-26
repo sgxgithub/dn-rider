@@ -10,7 +10,6 @@
 
     <asset:link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <asset:stylesheet src="dnrider.css"/>
-    <asset:stylesheet src="settings.css"/>
 
     <g:layoutHead/>
 </head>
@@ -24,19 +23,27 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/#">DN-RIDER</a>
+    <span class="text-white">v<g:meta name="info.app.version"/></span>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
             <g:pageProperty name="page.nav"/>
             <li class="nav-item" id="nav-item-search">
-                <g:link class="nav-link" controller="search" action="index">Search</g:link>
-            </li>
-            <li class="nav-item" id="nav-item-validation">
-                <g:link class="nav-link" controller="validation" action="index">Validation</g:link>
+                <g:link class="nav-link" controller="search" action="index">
+                    <g:message code="dn.rider.nav.search"/>
+                </g:link>
             </li>
             <li class="nav-item" id="nav-item-comparison">
-                <g:link class="nav-link" controller="comparison" action="index">Comparison</g:link>
+                <g:link class="nav-link" controller="comparison" action="index">
+                    <g:message code="dn.rider.nav.comparison"/>
+                </g:link>
             </li>
+            <li class="nav-item" id="nav-item-validation">
+                <g:link class="nav-link" controller="validation" action="index">
+                    <g:message code="dn.rider.nav.validation"/>
+                </g:link>
+            </li>
+
             <li class="nav-item dropdown mr-2">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">
                     <span class="fa fa-language fa-lg"></span>
@@ -58,30 +65,11 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script type="text/javascript" src="/assets/jquery-3.2.1.min.js?compile=false" ><\/script>')</script>
+<script>window.jQuery || document.write('<script type="text/javascript" src="/assets/lib/jquery-3.2.1.min.js?compile=false" ><\/script>')</script>
 %{--other javascript--}%
 <asset:javascript src="application.js"/>
 
 <g:layoutBody/>
-
-<a id="back-to-top" href="#" class="btn btn-primary back-to-top"
-   title="Click to return on the top" data-toggle="tooltip" data-placement="left"><span
-        class="fa fa-angle-double-up"></span></a>
-
-<footer>
-    <ul class="nav justify-content-center my-1">
-        <li class="nav-item">
-            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="http://swagger.io/">Swagger</a>
-        </li>
-    </ul>
-
-</footer>
 
 </body>
 

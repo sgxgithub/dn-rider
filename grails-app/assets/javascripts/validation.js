@@ -1,7 +1,3 @@
-if (typeof jQuery === 'undefined') {
-    throw new Error('Validation\'s JavaScript requires jQuery')
-}
-
 (function ($) {
     $(document).ready(function () {
         //set actived nav item
@@ -44,7 +40,7 @@ if (typeof jQuery === 'undefined') {
         if ($(this).get(0).setSelectionRange) {
             $(this).get(0).setSelectionRange(pos, pos);
         } else if ($(this).get(0).createTextRange) {
-            var range = $(this).get(0).createTextRange();
+            let range = $(this).get(0).createTextRange();
             range.collapse(true);
             range.moveEnd('character', pos);
             range.moveStart('character', pos);

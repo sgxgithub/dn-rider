@@ -1,35 +1,26 @@
-#versions .cb-group{
+/*
+*= require lib/collapseSidebar
+*= require_self
+*/
+
+body {
+    overflow-y: hidden;
+}
+
+.cb-group {
+    position: absolute;
+    top: 216px;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    overflow-y: scroll;
     padding: 0.5rem 2rem;
-    margin: 0 0;
-    max-height: 32rem;
-    overflow: scroll;
+    margin: 0.5rem 0;
 }
 
-.sidebar.collapse.show {
-    visibility: visible;
-    display: block;
-    margin-left: 0;
+.table > thead > tr > th {
+    vertical-align: middle;
 }
-
-.sidebar.collapse {
-    display: block;
-    margin-left: -25%; /* same width as sidebar */
-}
-
-#sidebar {
-    /*position: sticky;*/
-    height: auto;
-    -webkit-transition: margin .35s ease;
-    -moz-transition: margin .35s ease;
-    -o-transition: margin .35s ease;
-    transition: margin .35s ease;
-}
-
-/*#content{*/
-    /*max-width: 100%;*/
-    /*max-height: 40rem;*/
-    /*overflow-x: scroll;*/
-/*}*/
 
 /*popover */
 ul.json-dict, ol.json-array {
@@ -39,4 +30,12 @@ ul.json-dict, ol.json-array {
 
 .popover {
     max-width: 350px;
+}
+
+.back-to-top {
+    cursor: pointer;
+    position: fixed;
+    bottom: 120px;
+    right: 20px;
+    display: none;
 }

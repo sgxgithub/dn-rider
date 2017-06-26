@@ -1,12 +1,16 @@
-<table class="table table-hover table-responsive">
+<g:render template="/components/notification"/>
+
+<table class="table table-hover text-nowrap">
     <thead>
     <tr>
         <g:if test="${rowVersions}">
-            <th>module</th>
-            <th>name</th>
+            <th>Module</th>
+            <th>Name</th>
             <g:each var="rowVersion" in="${rowVersions}">
                 <th>
-                    <a href="${rowVersion.url}" target="_blank">${rowVersion.name}</a>
+                    <a class="popover-head" href="${rowVersion.url}" target="_blank" data-toggle="popover"
+                       data-content="<g:formatDate date="${rowVersion.date}" type="datetime"
+                                                   style="SHORT"/>">${rowVersion.name}</a>
                 </th>
             </g:each>
         </g:if>
@@ -21,15 +25,15 @@
                 <g:if test="${rowVersions}">
                     <g:each var="version" in="${rowVersions.name}">
                         <g:if test="${rowPackage[version]?.tag == 'deleted'}">
-                            <td class="text-nowrap">
+                            <td>
                                 <span class="badge badge-danger">
                                     <span class="fa fa-close" aria-hidden="true"></span>
                                 </span>
                             </td>
                         </g:if>
                         <g:else>
-                            %{--add nowrap class to prevent new line in table cell--}%
-                            <td class="text-nowrap">
+                        %{--add nowrap class to prevent new line in table cell--}%
+                            <td>
                                 <g:if test="${rowPackage[version]?.tag == 'new'}">
                                     <span class="badge badge-success">
                                         <span class="fa fa-plus" aria-hidden="true"></span>
@@ -42,12 +46,13 @@
                                 </g:if>
                                 <g:if test="${rowPackage[version]?.name}">
                                     <g:if test="${rowPackage[version]?.url}">
-                                        <a href="${rowPackage[version].url}" target="_blank" data-toggle="popover"
+                                        <a class="popover-body" href="${rowPackage[version].url}" target="_blank"
+                                           data-toggle="popover"
                                            data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
                                            data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                     </g:if>
                                     <g:else>
-                                        <a data-toggle="popover"
+                                        <a class="popover-body" data-toggle="popover"
                                            data-title="${rowPackage.key?.name + ' / ' + rowPackage[version]?.name}"
                                            data-content="${rowPackage[version]?.content}">${rowPackage[version]?.name}</a>
                                     </g:else>

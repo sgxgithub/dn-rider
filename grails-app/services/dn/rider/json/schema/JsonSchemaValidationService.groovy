@@ -11,7 +11,9 @@ import com.github.fge.jsonschema.core.util.AsJson
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import com.github.fge.jsonschema.main.JsonValidator
 import dn.rider.json.schema.constants.ParseError
+import grails.io.IOUtils
 import grails.transaction.Transactional
+import org.grails.web.json.JSONObject
 
 
 @Transactional
@@ -27,8 +29,16 @@ class JsonSchemaValidationService {
     private static final JsonValidator VALIDATOR = JsonSchemaFactory.byDefault().getValidator()
     private static final JsonNodeReader NODE_READER = new JsonNodeReader()
 
+    //function to get schema string from a local file
+    def getSchemaText() {
+        def schemaStream = this.class.classLoader.getResourceAsStream('NDL_katana_schema.json')
+        String schemaText = IOUtils.toString(schemaStream)
+        return schemaText
+    }
+
     def validateSchema(String rawSchema, String rawDn) {
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
+        def resJson = new JSONObject()
 
         final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
         final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
@@ -45,11 +55,15 @@ class JsonSchemaValidationService {
 
         final boolean success = report.isSuccess()
         ret.put(VALID, success)
+//        /resJson.put(VALID, success)
 
-        final JsonNode node = ((AsJson) report).asJson()
+        final JsonNode node = report.asJson()
         ret.put(RESULTS, JacksonUtils.prettyPrint(node))
+//        ret.put(RESULTS, node)
+//        /resJson.put(RESULTS, new JSONObject(node._children))
 
         return ret
+//       return resJson
     }
 
     /*

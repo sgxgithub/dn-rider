@@ -24,6 +24,7 @@ class HomeController {
     }
 
     def index() {
+        flash.message = null
         //get the apps for quick access in cookie
         def appsQuickAccessArray = getAppsQuickAccessArray()
         //get the list of apps in service
