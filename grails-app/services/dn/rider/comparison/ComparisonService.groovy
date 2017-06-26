@@ -8,9 +8,9 @@ class ComparisonService {
 
     def sortPackages(app, dns) {
         //sort the dns by date
-        dns.sort { a, b ->
-            a.date <=> b.date
-        }
+//        dns.sort { a, b ->
+//            a.date <=> b.date
+//        }
 
         List<String> versions = dns.version
         //the table head
