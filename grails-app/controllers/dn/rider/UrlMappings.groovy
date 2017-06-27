@@ -33,6 +33,10 @@ class UrlMappings {
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
         "/api/validations/$app/$version"(controller: "deliveryNotes", action: "validationStored", method: "GET")
 
+//        [API] Stocker une note de livraison
+//        -  POST /api/deliveryNotes/*APP*/releases?version=*VERSION* (erreur si la version cible est une release deja existante)
+        "/api/deliveryNotes/saveDn"(controller: "deliveryNotes", action: "saveDn", method: "POST")
+
         "/toto/dopost"(controller: 'toto', action: 'doPost')
         "/toto/doget/$name?"(controller: 'toto', action: 'doGet')
 

@@ -4,14 +4,24 @@ import grails.plugin.cache.Cacheable
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import groovy.util.slurpersupport.NodeChildren
+import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class NexusConsumerService {
-    static def getDnUrl(String app, String version) {
+    @Value('${dn.rider.nexus.url}')
+    def NEXUS_URL
+
+    @Value('${dn.rider.nexus.username}')
+    def NEXUS_USERNAME
+
+    @Value('${dn.rider.nexus.password}')
+    def NEXUS_PASSWORD
+
+    def getDnUrl(String app, String version) {
         String url
         app = app.toLowerCase()
         app = app - 'com.vsct.'
-        url = "http://nexus:50080/nexus/service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
+        url = "${NEXUS_URL}service/local/artifact/maven/content?r=public&g=com.vsct.${app}&a=delivery-notes&v=${version}&p=json"
         return url
     }
 
@@ -25,7 +35,7 @@ class NexusConsumerService {
         return resp
     }
 
-    @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
+//    @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
     def getVersions(String app, String releaseType) {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
@@ -63,10 +73,10 @@ class NexusConsumerService {
         return list
     }
 
-    @Cacheable(value = 'cacheListApps')
+//    @Cacheable(value = 'cacheListApps')
     def getApps() {
         log.info 'Searching for the apps with delivery-notes in Nexus...'
-        String url = 'http://nexus:50080/nexus/service/local/lucene/search?a=delivery-notes&p=json'
+        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -83,5 +93,18 @@ class NexusConsumerService {
         list.sort()
         //return the list of apps
         return list
+    }
+
+    def saveDn() {
+
+        String content = params.content
+
+        String url = "http://nexus:50080/nexus/content/repositories/asset-releases/com/vsct/xxx/foo-1.0.json?username=jenkins_nexus&password='Bb&fX!Z9'"
+
+        def rest = new RestBuilder()
+        def resp = rest.post("${url}?username={username}&password={password}") {
+            contentType "multipart/form-data"
+            json = new File(content)
+        }
     }
 }

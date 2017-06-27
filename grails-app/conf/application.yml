@@ -132,3 +132,9 @@ environments:
             address: crisdorgasmes.socrate.vsct.fr
             port: 56000
 
+---
+dn.rider:
+    nexus:
+        url: 'http://nexus:50080/nexus/'
+        username: 'jenkins_nexus'
+        password: 'Bb&fX!Z9'
