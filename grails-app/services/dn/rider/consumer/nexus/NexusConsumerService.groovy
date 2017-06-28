@@ -107,4 +107,8 @@ class NexusConsumerService {
             json = new File(content)
         }
     }
+
+    def getRepo(String app) {
+        return 'asset-releases'
+    }
 }

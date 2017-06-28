@@ -106,6 +106,10 @@ class DeliveryNotesController {
 
     def saveDn() {
         def dn = params.dn
+        String app = params.app
+        String version = params.version
+        String repo = nexusConsumerService.getRepo(app)
+
 //        dn.transferTo(file)
 //        Resource resource = new ByteArrayResource(dn.bytes)
 
@@ -132,11 +136,11 @@ class DeliveryNotesController {
 //            a = 'delivery-notes'
 //            p = 'json'
 //            v = '20.0'
-//            json = new File('temp').append(dn.bytes)
+//            json = new File('temp').append(dn.bytes) //can not contain \n\t
 //        }
 
         def rest = new RestBuilder()
-        String url = "http://nexus:50080/nexus/content/repositories/asset-releases/com/vsct/xxx/delivery-notes/21.0/delivery-notes-21.0.json"
+        String url = "http://nexus:50080/nexus/content/repositories/${repo}/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
 
         def resp = rest.put(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'
