@@ -1,9 +1,12 @@
 package dn.rider.api
 
-import com.fasterxml.jackson.databind.node.ObjectNode
 import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import io.swagger.annotations.Api
+import org.springframework.core.io.ByteArrayResource
+import org.springframework.core.io.Resource
+import org.springframework.util.LinkedMultiValueMap
+import org.springframework.util.MultiValueMap
 
 @Api(value = "DeliveryNotesController")
 class DeliveryNotesController {
@@ -77,7 +80,7 @@ class DeliveryNotesController {
         String dn = resp.text
         String schema = jsonSchemaValidationService.getSchemaText()
 
-        ObjectNode resValidation = jsonSchemaValidationService.validateSchema(schema, dn)
+        def resValidation = jsonSchemaValidationService.validateSchema(schema, dn)
 
         setStatus(resValidation)
         render text: resValidation.toString(), contentType: 'application/json'
@@ -87,7 +90,7 @@ class DeliveryNotesController {
         String dn = params.dn ?: ''
         String schema = jsonSchemaValidationService.getSchemaText()
 
-        ObjectNode res = jsonSchemaValidationService.validateSchema(schema, dn)
+        def res = jsonSchemaValidationService.validateSchema(schema, dn)
 
         setStatus(res)
         render text: res.toString(), contentType: 'application/json'
@@ -101,18 +104,46 @@ class DeliveryNotesController {
         }
     }
 
-    def saveDn(){
+    def saveDn() {
         def dn = params.dn
-        String url = "http://nexus:50080/nexus//content/repositories/asset-releases/com/vsct/xxx/foo-2.0.json"
+//        dn.transferTo(file)
+//        Resource resource = new ByteArrayResource(dn.bytes)
+
+//        MultiValueMap<String, Object> form = new LinkedMultiValueMap<String, Object>()
+//        form.add('r', 'asset-releases')
+//        form.add('hasPom', false)
+//        form.add('e', 'json')
+//        form.add('g', 'com.vsct.xxx')
+//        form.add('a', 'delivery-notes')
+//        form.add('p', 'json')
+//        form.add('v', '12.0')
+//        form.add('file', file)
+
+//        String url = "http://nexus:50080/nexus/service/local/artifact/maven/content"
+//        def rest = new RestBuilder()
+//        def resp = rest.post(url) {
+//            auth 'jenkins_nexus', 'Bb&fX!Z9'
+//            contentType "multipart/form-data"
+////            processData = false
+//            r = 'asset-releases'
+//            hasPom = false
+//            e = 'json'
+//            g = 'com.vsct.xxx'
+//            a = 'delivery-notes'
+//            p = 'json'
+//            v = '20.0'
+//            json = new File('temp').append(dn.bytes)
+//        }
 
         def rest = new RestBuilder()
-        def resp = rest.post(url) {
+        String url = "http://nexus:50080/nexus/content/repositories/asset-releases/com/vsct/xxx/delivery-notes/21.0/delivery-notes-21.0.json"
+
+        def resp = rest.put(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'
-            contentType "multipart/form-data"
-//            json = dn
+            contentType "application/json"
+            json new String(dn.bytes)
         }
 
-        render true
-
+        render resp.text
     }
 }
