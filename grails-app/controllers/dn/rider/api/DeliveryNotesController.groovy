@@ -108,6 +108,7 @@ class DeliveryNotesController {
         def dn = params.dn
         String app = params.app
         String version = params.version
+
         String repo = nexusConsumerService.getRepo(app)
 
 //        dn.transferTo(file)
@@ -144,6 +145,7 @@ class DeliveryNotesController {
 
         def resp = rest.put(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'
+
             contentType "application/json"
             json new String(dn.bytes)
         }

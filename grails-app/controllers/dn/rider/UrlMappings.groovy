@@ -37,7 +37,7 @@ class UrlMappings {
 //        -  POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION* (erreur si la version cible est une release deja existante)
         "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "saveDn", method: "POST")
 //        -  PUT /api/deliveryNotes/*APP*/*VERSION* (erreur si la version cible est une release deja existante) //stocker dans releases
-//        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT")
+        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT")
 
         //[API] Valider une note de livraison
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
