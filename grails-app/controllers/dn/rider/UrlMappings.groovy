@@ -30,14 +30,16 @@ class UrlMappings {
         "/api/applications"(controller: "deliveryNotes", action: "showApps", method: "GET")
 
         //[API] Stocker une note de livraison
-
-        // POST /api/deliveryNotes/*APP*/releases?version=*VERSION* (erreur si la version cible est une release deja existante)
         // (pour l'instant mettre à jour si la version cible est une release deja existante)
-        "/api/deliveryNotes/$app/releases"(controller: "deliveryNotes", action: "saveDn", method: "POST")
-//        -  POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION* (erreur si la version cible est une release deja existante)
-        "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "saveDn", method: "POST")
-//        -  PUT /api/deliveryNotes/*APP*/*VERSION* (erreur si la version cible est une release deja existante) //stocker dans releases
-        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT")
+        "/api/deliveryNotes/$app/releases"(controller: "deliveryNotes", action: "saveDn", method: "POST") {
+            releaseType = 'releases'
+        }
+        "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "saveDn", method: "POST") {
+            releaseType = 'snapshots'
+        }
+        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT") {
+            releaseType = 'releases'
+        }
 
         //[API] Valider une note de livraison
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")

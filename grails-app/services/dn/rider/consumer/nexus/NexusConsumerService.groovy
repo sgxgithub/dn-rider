@@ -108,7 +108,9 @@ class NexusConsumerService {
         }
     }
 
-    def getRepo(String app) {
-        return 'asset-releases'
+    def getRepo(String app, String type) {
+        if (type == 'releases')
+            return 'asset-releases'
+        return 'asset-snapshots'
     }
 }

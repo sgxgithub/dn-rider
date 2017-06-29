@@ -3,10 +3,6 @@ package dn.rider.api
 import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import io.swagger.annotations.Api
-import org.springframework.core.io.ByteArrayResource
-import org.springframework.core.io.Resource
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap
 
 @Api(value = "DeliveryNotesController")
 class DeliveryNotesController {
@@ -108,48 +104,30 @@ class DeliveryNotesController {
         def dn = params.dn
         String app = params.app
         String version = params.version
+        String releaseType = params.releaseType
 
-        String repo = nexusConsumerService.getRepo(app)
+        String repo = nexusConsumerService.getRepo(app, releaseType)
 
-//        dn.transferTo(file)
-//        Resource resource = new ByteArrayResource(dn.bytes)
+        def f = new File('temp')
+        f.append dn.bytes
 
-//        MultiValueMap<String, Object> form = new LinkedMultiValueMap<String, Object>()
-//        form.add('r', 'asset-releases')
-//        form.add('hasPom', false)
-//        form.add('e', 'json')
-//        form.add('g', 'com.vsct.xxx')
-//        form.add('a', 'delivery-notes')
-//        form.add('p', 'json')
-//        form.add('v', '12.0')
-//        form.add('file', file)
-
-//        String url = "http://nexus:50080/nexus/service/local/artifact/maven/content"
-//        def rest = new RestBuilder()
-//        def resp = rest.post(url) {
-//            auth 'jenkins_nexus', 'Bb&fX!Z9'
-//            contentType "multipart/form-data"
-////            processData = false
-//            r = 'asset-releases'
-//            hasPom = false
-//            e = 'json'
-//            g = 'com.vsct.xxx'
-//            a = 'delivery-notes'
-//            p = 'json'
-//            v = '20.0'
-//            json = new File('temp').append(dn.bytes) //can not contain \n\t
-//        }
-
+        String url = "http://nexus:50080/nexus/service/local/artifact/maven/content"
         def rest = new RestBuilder()
-        String url = "http://nexus:50080/nexus/content/repositories/${repo}/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
-
-        def resp = rest.put(url) {
+        def resp = rest.post(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'
-
-            contentType "application/json"
-            json new String(dn.bytes)
+            contentType "multipart/form-data"
+            r = repo
+            hasPom = false
+            e = 'json'
+            g = "com.vsct." + app
+            a = 'delivery-notes'
+            p = 'json'
+            v = version
+            file = f
         }
 
-        render resp.text
+        f.delete()
+
+        render resp.json
     }
 }
