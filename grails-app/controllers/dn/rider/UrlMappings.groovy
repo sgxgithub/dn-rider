@@ -41,6 +41,9 @@ class UrlMappings {
             releaseType = 'releases'
         }
 
+        //[API] Supprimer une note de livraison (DELETE /api/deliveryNotes/*APP*/*VERSION*)
+        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "deleteDn", method: "DELETE")
+
         //[API] Valider une note de livraison
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
         "/api/validations/$app/$version"(controller: "deliveryNotes", action: "validationStored", method: "GET")

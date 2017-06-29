@@ -130,4 +130,8 @@ class DeliveryNotesController {
 
         render resp.json
     }
+
+    def deleteDn(){
+
+    }
 }

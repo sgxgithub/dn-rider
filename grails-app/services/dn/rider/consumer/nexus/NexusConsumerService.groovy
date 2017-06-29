@@ -95,19 +95,6 @@ class NexusConsumerService {
         return list
     }
 
-    def saveDn() {
-
-        String content = params.content
-
-        String url = "http://nexus:50080/nexus/content/repositories/asset-releases/com/vsct/xxx/foo-1.0.json?username=jenkins_nexus&password='Bb&fX!Z9'"
-
-        def rest = new RestBuilder()
-        def resp = rest.post("${url}?username={username}&password={password}") {
-            contentType "multipart/form-data"
-            json = new File(content)
-        }
-    }
-
     def getRepo(String app, String type) {
         if (type == 'releases')
             return 'asset-releases'
