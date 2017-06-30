@@ -100,6 +100,9 @@ class DeliveryNotesController {
         }
     }
 
+    // ref: https://support.sonatype.com/hc/en-us/articles/213465818-How-can-I-programmatically-upload-an-artifact-into-Nexus-2-
+    // authentification a utiliser pour le moment : jenkins_nexus/Bb&fX!Z9
+    // Prevoir un moyen de passer l’authentification dans l’appel REST entrant du DNrider.
     def saveDn() {
         def dn = params.dn
         String app = params.app
@@ -128,10 +131,29 @@ class DeliveryNotesController {
 
         f.delete()
 
-        render resp.json
+        //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
+        if (resp.status == 400) render status: 400, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
+        else
+            render status: 200, json: resp.json
     }
 
-    def deleteDn(){
+    // ref: https://stackoverflow.com/questions/34115434/how-to-delete-artifacts-with-classifier-from-nexus-using-rest-api
+    // ce qu'il faut supprimer comme metadata ?
+    def deleteDn() {
+        String app = params.app
+        String version = params.version
 
+        String url = "http://nexus:50080/nexus/service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
+//        String urlC = "http://nexus:50080/nexus/service/local/metadata/repositories/asset-releases/content"
+        def rest = new RestBuilder()
+        def resp = rest.delete(url) {
+            auth 'jenkins_nexus', 'Bb&fX!Z9'
+        }
+
+        if (resp.status == 204) {
+            render status: 200, text: 'Dn Deleted'
+        } else if (resp.status == 404) {
+            render status: 404, text: 'Dn Not Found'
+        } else render status: 400, text: 'Failed'
     }
 }
