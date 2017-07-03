@@ -2,6 +2,11 @@ node {
     stage 'checkout'
     checkout scm
 
+     stage 'versioning'
+     sh 'echo ${BUILD_NUMBER}'
+     sh 'sed -i -e "s/version \\"0.1*\\"/version \\"0.1-${BUILD_NUMBER}\\"/g" ./build.gradle'
+     sh 'cat ./build.gradle'
+
     stage 'build'
     env.JAVA_HOME="${tool 'JDK1.8u91'}" // JDK1.8u91 est le nom de la task jenkins
     env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
