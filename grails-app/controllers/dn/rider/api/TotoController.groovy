@@ -5,34 +5,57 @@ import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
 import io.swagger.annotations.ApiOperation
+import io.swagger.annotations.ApiResponse
+import io.swagger.annotations.ApiResponses
 
-import javax.ws.rs.Path
-
-// TODO supprimer ce controlleur. Là uniquement pour montrer l'utilisation de swagger
-@Api(value = "toto")
+@Api(value = "/api", tags = ["Toto"], description = "Toto Api's")
 class TotoController {
+    @ApiOperation(
+            value = "get app name",
+            nickname = "toto/doget/{app}",
+            produces = "application/json",
+            consumes = "application/json",
+            httpMethod = "GET"
+    )
+    @ApiResponses([
+            @ApiResponse(code = 405,
+                    message = "Method Not Allowed. Only GET is allowed"),
 
-    static allowedMethods = [doGet: "GET", doPost: "POST"]
-
-    @Path("/doget/{app}")
-    @ApiOperation(value = "do a get")
+            @ApiResponse(code = 404,
+                    message = "Method Not Found")
+    ])
     @ApiImplicitParams([
-            @ApiImplicitParam(name = 'name', paramType = 'query', required = true, dataType = 'string'),
-            @ApiImplicitParam(name = 'app', paramType = 'query', required = true, dataType = 'string'),
-
+            @ApiImplicitParam(name = "app",
+                    paramType = "path",
+                    required = true,
+                    value = "app name",
+                    dataType = "string"),
+            @ApiImplicitParam(name = "version",
+                    paramType = "query", required = true,
+                    value = "app version", dataType = "string")
     ])
     def doGet() {
-        render "hey ${params.app} ${params.name}"
+        render "hey ${params.app} de version ${params.version}"
     }
 
-    @ApiOperation(value = "do a post")
+    @ApiOperation(
+            value = "post dn",
+            nickname = "toto/dopost",
+            produces = "application/json",
+            consumes = "application/json",
+            httpMethod = "POST"
+    )
     @ApiImplicitParams([
-            @ApiImplicitParam(name = 'app', paramType = 'form', required = true, dataType = 'string'),
+            @ApiImplicitParam(name = "dn",
+                    paramType = "formData",
+                    required = true,
+                    value = "required dn content",
+                    dataType = "string")
     ])
     def doPost() {
         log.info "${params}"
         def ret = [
-                name : params.app
+                name : params.dn
         ]
         render ret as JSON
     }

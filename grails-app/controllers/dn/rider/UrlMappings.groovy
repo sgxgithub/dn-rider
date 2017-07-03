@@ -10,8 +10,6 @@ class UrlMappings {
             }
         }
 
-//        "/api/$controller/$action"()
-
         //[API] Récupèrer la liste des note de livraison
         "/api/deliveryNotes/$app"(controller: "deliveryNotes", action: "showVersions", method: "GET") {
             releaseType = 'all'
@@ -48,11 +46,14 @@ class UrlMappings {
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
         "/api/validations/$app/$version"(controller: "deliveryNotes", action: "validationStored", method: "GET")
 
-        "/toto/dopost"(controller: 'toto', action: 'doPost')
-        "/toto/doget/$name?"(controller: 'toto', action: 'doGet')
+        "/api/toto/dopost"(controller: 'toto', action: 'doPost', method: 'POST')
+        "/api/toto/doget/$app"(controller: 'toto', action: 'doGet')
 
         "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')
+
+        "/apidoc/toto/dopost"(controller: 'toto', action: 'doPost', method: "POST")
+        "/apidoc/toto/doget/$app"(controller: 'toto', action: 'doGet')
     }
 }
