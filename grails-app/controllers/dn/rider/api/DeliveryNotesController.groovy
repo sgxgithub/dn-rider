@@ -3,8 +3,11 @@ package dn.rider.api
 import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import io.swagger.annotations.Api
+import io.swagger.annotations.ApiImplicitParam
+import io.swagger.annotations.ApiImplicitParams
+import io.swagger.annotations.ApiOperation
 
-@Api(value = "DeliveryNotesController")
+@Api(value = "/api", tags = ["DeliveryNotes"], description = "Dn-Rider APIs")
 class DeliveryNotesController {
 
     def nexusConsumerService
@@ -34,6 +37,30 @@ class DeliveryNotesController {
         else render versions as JSON
     }
 
+    @ApiOperation(
+            value = "get a delivery-notes",
+            nickname = "deliveryNotes/{app}/{version}",
+            produces = "application/json",
+            consumes = "application/json",
+            httpMethod = "GET"
+    )
+    @ApiImplicitParams([
+            @ApiImplicitParam(name = "app",
+                    paramType = "path",
+                    required = true,
+                    value = "app name",
+                    dataType = "string"),
+            @ApiImplicitParam(name = "version",
+                    paramType = "path",
+                    required = true,
+                    value = "app version",
+                    dataType = "string"),
+            @ApiImplicitParam(name = "format",
+                    paramType = "query",
+                    required = false,
+                    value = "result format",
+                    dataType = "string")
+    ])
     def showDn() {
         String app = params.app
         String version = params.version
@@ -82,6 +109,20 @@ class DeliveryNotesController {
         render text: resValidation.toString(), contentType: 'application/json'
     }
 
+    @ApiOperation(
+            value = "validation of delivery-notes no stored",
+            nickname = "validations",
+            produces = "application/json",
+            consumes = "application/json",
+            httpMethod = "POST"
+    )
+    @ApiImplicitParams([
+            @ApiImplicitParam(name = "dn",
+                    paramType = "formData",
+                    required = true,
+                    value = "required dn content",
+                    dataType = "string")
+    ])
     def validationNoStored() {
         String dn = params.dn ?: ''
         String schema = jsonSchemaValidationService.getSchemaText()

@@ -46,14 +46,13 @@ class UrlMappings {
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
         "/api/validations/$app/$version"(controller: "deliveryNotes", action: "validationStored", method: "GET")
 
-        "/api/toto/dopost"(controller: 'toto', action: 'doPost', method: 'POST')
-        "/api/toto/doget/$app"(controller: 'toto', action: 'doGet')
-
         "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')
 
-        "/apidoc/toto/dopost"(controller: 'toto', action: 'doPost', method: "POST")
-        "/apidoc/toto/doget/$app"(controller: 'toto', action: 'doGet')
+        //swagger doc
+        "/apidoc/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "showDn")
+        //[API] Valider une note de livraison
+        "/apidoc/validations"(controller: "deliveryNotes", action: "validationNoStored")
     }
 }
