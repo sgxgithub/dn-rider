@@ -131,8 +131,9 @@ class DeliveryNotesController {
 
         f.delete()
 
+        //return 405 when the target is a Maven SNAPSHOT repository
         //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
-        if (resp.status == 400) render status: 400, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
+        if (resp.status == 400) render status: 405, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
         else
             render status: 200, json: resp.json
     }
@@ -144,7 +145,6 @@ class DeliveryNotesController {
         String version = params.version
 
         String url = "http://nexus:50080/nexus/service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
-//        String urlC = "http://nexus:50080/nexus/service/local/metadata/repositories/asset-releases/content"
         def rest = new RestBuilder()
         def resp = rest.delete(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'

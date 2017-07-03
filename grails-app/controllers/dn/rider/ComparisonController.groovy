@@ -21,6 +21,8 @@ class ComparisonController {
         String app = params.app
         List<String> versions = []
         versions.addAll(params.versions)
+        //from oldest to newest
+        versions.reverse(true)
 
         if (!app || !versions) {
             render text: "<div></div>"
