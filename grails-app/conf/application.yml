@@ -138,3 +138,4 @@ dn.rider:
         url: 'http://nexus:50080/nexus/'
         username: 'jenkins_nexus'
         password: 'Bb&fX!Z9'
+        repoDefault: 'dt'

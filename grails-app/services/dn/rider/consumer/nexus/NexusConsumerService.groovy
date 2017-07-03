@@ -17,6 +17,9 @@ class NexusConsumerService {
     @Value('${dn.rider.nexus.password}')
     def NEXUS_PASSWORD
 
+    @Value('${dn.rider.nexus.repoDefault}')
+    def NEXUS_REPO_DEFAULT
+
     def getDnUrl(String app, String version) {
         String url
         app = app.toLowerCase()
@@ -91,13 +94,33 @@ class NexusConsumerService {
         }
 
         list.sort()
-        //return the list of apps
         return list
     }
 
-    def getRepo(String app, String type) {
-        if (type == 'releases')
-            return 'asset-releases'
-        return 'asset-snapshots'
+    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
+    def getRepo(String app, String releaseType) {
+        log.info 'Searching for the repo in Nexus...'
+
+        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
+        def rest = new RestBuilder()
+        def resp = rest.get(url)
+
+        NodeChildren artifacts = resp.xml.data[0].artifact
+
+        // recherche un repo
+        def artifact = artifacts.find() { artifact ->
+            String groupeId = artifact.groupId.toString() - 'com.vsct.'
+            groupeId.contains(app.toLowerCase())
+        }
+
+        def repo
+
+        if (releaseType == 'releases') {
+            repo = artifact?.latestReleaseRepositoryId.toString() ?: "${NEXUS_REPO_DEFAULT}-releases"
+        } else {
+            repo = artifact?.latestSnapshotRepositoryId.toString() ?: "${NEXUS_REPO_DEFAULT}-snapshots"
+        }
+
+        return repo
     }
 }
