@@ -16,10 +16,11 @@ node {
     env.PATH="${env.GRAILS_HOME}/bin:${env.PATH}"
     env.GRAILS_OPTS="-Dhttp.proxyHost=bluelagoon -Dhttp.proxyPort=22222 -Dhttps.proxyHost=bluelagoon -Dhttps.proxyPort=22222 -Dhttp.nonProxyHosts='nexus*|localhost' -Dhttps.nonProxyHosts='nexus*|localhost'"
     sh 'grails -version'
+    sh 'grails clean'
     sh 'grails package'
 
     stage 'deploy'
-    sh 'scp build/libs/dn-rider-0.1.war wasktcu1@crisdorgasmes-bck:dn-rider/dn-rider-0.1.war'
+    sh 'scp build/libs/dn-rider-build-0.1.war wasktcu1@crisdorgasmes-bck:dn-rider/dn-rider-0.1.war'
     sh 'scp launch.sh wasktcu1@crisdorgasmes-bck:dn-rider/launch.sh'
     sh 'ssh wasktcu1@crisdorgasmes-bck chmod +x dn-rider/launch.sh'
 
