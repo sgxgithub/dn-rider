@@ -53,7 +53,7 @@
             <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider" target="_blank">Gitlab</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/apidoc/" target="_blank">Swagger</a>
+            <a class="nav-link" href="/apidoc/#/DeliveryNotes/" target="_blank">Swagger</a>
         </li>
     </ul>
 </footer>
