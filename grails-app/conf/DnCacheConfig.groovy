@@ -26,4 +26,13 @@ grails.cache.config = {
         maxElementsInMemory 1
         maxElementsToDisk 0
     }
+    cache {
+        name 'cacheListRepos'
+        eternal false
+        timeToIdleSeconds 3000
+        timeToLiveSeconds 3000
+        overflowToDisk false
+        maxElementsInMemory 1000
+        maxElementsToDisk 1000
+    }
 }

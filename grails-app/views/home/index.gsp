@@ -47,13 +47,13 @@
 <footer>
     <ul class="nav justify-content-center my-1">
         <li class="nav-item">
-            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider">Wiki</a>
+            <a class="nav-link" href="https://wiki.vsct.fr/display/KTN/DN-Rider" target="_blank">Wiki</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider">Gitlab</a>
+            <a class="nav-link" href="http://gitlab.socrate.vsct.fr/rundep/dn-rider" target="_blank">Gitlab</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="http://swagger.io/">Swagger</a>
+            <a class="nav-link" href="/apidoc/#/DeliveryNotes/" target="_blank">Swagger</a>
         </li>
     </ul>
 </footer>

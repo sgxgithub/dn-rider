@@ -44,6 +44,8 @@ html {
 
 .alert {
   margin-bottom: 0;
+  position: relative;
+  z-index: 10;
 }
 
 /* Custom font family, add Microsoft Yahei*/

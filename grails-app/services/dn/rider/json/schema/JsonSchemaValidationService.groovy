@@ -4,10 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
-import com.github.fge.jackson.JacksonUtils
 import com.github.fge.jackson.JsonNodeReader
 import com.github.fge.jsonschema.core.report.ProcessingReport
-import com.github.fge.jsonschema.core.util.AsJson
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import com.github.fge.jsonschema.main.JsonValidator
 import dn.rider.json.schema.constants.ParseError
@@ -38,7 +36,6 @@ class JsonSchemaValidationService {
 
     def validateSchema(String rawSchema, String rawDn) {
         final ObjectNode ret = JsonNodeFactory.instance.objectNode()
-        def resJson = new JSONObject()
 
         final boolean invalidSchema = fillWithData(ret, INPUT, INVALID_SCHEMA, rawSchema)
         final boolean invalidData = fillWithData(ret, INPUT2, INVALID_DN, rawDn)
@@ -55,15 +52,12 @@ class JsonSchemaValidationService {
 
         final boolean success = report.isSuccess()
         ret.put(VALID, success)
-//        /resJson.put(VALID, success)
 
-        final JsonNode node = report.asJson()
-        ret.put(RESULTS, JacksonUtils.prettyPrint(node))
-//        ret.put(RESULTS, node)
-//        /resJson.put(RESULTS, new JSONObject(node._children))
+        final JsonNode node = report.asJson()[0]
+//        ret.put(RESULTS, JacksonUtils.prettyPrint(node))
+        ret.set(RESULTS, node)
 
         return ret
-//       return resJson
     }
 
     /*
@@ -77,11 +71,28 @@ class JsonSchemaValidationService {
             final ObjectNode node, final String onSuccess, final String onFailure, final String raw)
             throws IOException {
         try {
-            node.put(onSuccess, NODE_READER.fromReader(new StringReader(raw)))
+            node.set(onSuccess, NODE_READER.fromReader(new StringReader(raw)))
             return false
         } catch (JsonProcessingException e) {
-            node.put(onFailure, ParseError.build(e, raw.contains("\r\n")))
+            node.set(onFailure, ParseError.build(e, raw.contains("\r\n")))
             return true
         }
+    }
+
+    /**
+     * funtion to parser ObjectNode to JSONObject
+     */
+    def objectNodeToJSONObject(node) {
+        if (node == null) return null
+        if (!(node instanceof ObjectNode)) return null
+
+        def json = new JSONObject(node._children)
+
+        json.each { it ->
+            def res = objectNodeToJSONObject(it.value)
+            if (res != null) json.put(it.key, res)
+        }
+
+        return json
     }
 }

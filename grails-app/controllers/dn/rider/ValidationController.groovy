@@ -1,7 +1,9 @@
 package dn.rider
 
+import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.github.fge.jackson.JacksonUtils
 import grails.converters.JSON
 import groovy.json.JsonSlurper
 
@@ -18,7 +20,7 @@ class ValidationController {
         respond([dn: dn, isChecked: isChecked], view: 'index')
     }
 
-    def validationDnFromNexus(){
+    def validationDnFromNexus() {
         String app = params.app
         String version = params.version
 
@@ -46,7 +48,7 @@ class ValidationController {
         String message = ""
 
         boolean isSchemaValid = true //variable to mark if the delivery-note satisfied the schema
-        String content
+        JsonNode content
         String cont = ""
 
         if (schema && dn) {
@@ -59,9 +61,9 @@ class ValidationController {
                 message = resp["dn-invalid"]["message"]
             } else {
                 isSchemaValid = resp["valid"]
-                //what is the type of resp["results"] ?? why not string
                 content = resp["results"]
-                cont = content.replace("\\r\\n", "&#13;&#10;").replace('\\"', '"')
+                cont = JacksonUtils.prettyPrint(content)
+//                cont = content.replace("\\r\\n", "&#13;&#10;").replace('\\"', '"')
             }
         }
 
