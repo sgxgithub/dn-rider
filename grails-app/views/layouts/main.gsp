@@ -43,6 +43,11 @@
                     <g:message code="dn.rider.nav.validation"/>
                 </g:link>
             </li>
+            <li class="nav-item" id="nav-item-edition">
+                <g:link class="nav-link" controller="edition" action="index">
+                    Edition
+                </g:link>
+            </li>
 
             <li class="nav-item dropdown mr-2">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown">
