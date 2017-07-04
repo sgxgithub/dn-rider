@@ -9,9 +9,6 @@ import org.springframework.beans.factory.annotation.Value
 import spock.lang.*
 import geb.spock.*
 
-/**
- * See http://www.gebish.org/manual/current/ for more instructions
- */
 @Integration
 @Rollback
 class DeliveryNotesControllerSpec extends Specification {
@@ -19,13 +16,7 @@ class DeliveryNotesControllerSpec extends Specification {
     @Value('${local.server.port}')
     Integer serverPort
 
-    def setup() {
-    }
-
-    def cleanup() {
-    }
-
-    void "testShowApp"() {
+    void "testShowAppNoFormat"() {
         given:
             RestBuilder rest = new RestBuilder()
 
@@ -37,9 +28,15 @@ class DeliveryNotesControllerSpec extends Specification {
             assert resp.headers["Content-Type"].any { it.contains("application/json") }
             assert resp.json
             assert resp.json.size() > 50
+    }
+
+    void "testShowAppTextFormat"() {
+
+        given:
+            RestBuilder rest = new RestBuilder()
 
         when: "we ask for applications list with format information set to text"
-            resp = rest.get("http://localhost:${serverPort}/api/applications?format=text")
+            def resp = rest.get("http://localhost:${serverPort}/api/applications?format=text")
 
         then: "we have a list of apps in text format"
             assert resp.status == 200
@@ -47,8 +44,15 @@ class DeliveryNotesControllerSpec extends Specification {
             assert resp.text
             assert resp.text.length() > 100
 
+    }
+
+    void "testShowAppJSONFormat"() {
+
+        given:
+            RestBuilder rest = new RestBuilder()
+
         when: "we ask for applications list with format information set to json"
-            resp = rest.get("http://localhost:${serverPort}/api/applications?format=json")
+            def resp = rest.get("http://localhost:${serverPort}/api/applications?format=json")
 
         then: "we have a list of apps in text format"
             assert resp.status == 200
