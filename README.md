@@ -7,13 +7,31 @@ Objectif: une application web (IHM + API REST) pour manipuler les notes de livra
  * fédérer certaines fonctionnalités (extraction d'information, identification des package a installer sur une plateforme...) par rapport aux scripts bash/groovy/perl/ruby....
  * outiller le suivi du cycle de vie des versions par rapports aux infos remontées par les outils de l'usine logicielle et Katana
 
-# Definition Of Done
-Actions à réaliser obligatoirement avant de faire git push
- * faire relire le code par un tiers
- * faire valider par un tiers que la feature développée fonctionne comme attendu
- * valider la nouvelle fonction par un ou des tests
- * exécuter grails test-app
- 
- 
+# Getting started
+
+L'application peut être exploiter avec des commandes grails ou gradle.
+
+## Lancer l'application
+``` 
+grails run-app
+```
+
+## Packager l'application
+### créer un war
+``` 
+grails war
+```
+ou
+``` 
+gradle assemble
+```
+==> /build/libs
+
+## Lancer les tests 
+```
+grails test-app
+```
+==> /build/reports/tests
+
  
  
