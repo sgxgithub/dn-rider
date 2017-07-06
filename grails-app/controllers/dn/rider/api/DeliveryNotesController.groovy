@@ -39,9 +39,13 @@ class DeliveryNotesController {
         else render apps as JSON
     }
 
+    /**
+     * TODO: param releaseType cannot be null as path
+     * @return
+     */
     @ApiOperation(
             value = "Récupèrer la liste des note de livraison",
-            nickname = "deliveryNotes/{app}/{releaseType}?",
+            nickname = "deliveryNotes/{app}/{releaseType}",
             produces = "application/json",
             consumes = "application/json",
             httpMethod = "GET"
@@ -54,8 +58,8 @@ class DeliveryNotesController {
                     dataType = "string"),
             @ApiImplicitParam(name = "releaseType",
                     paramType = "path",
-                    required = false,
-                    value = "releases/snapshots/all",
+                    required = true,
+                    value = "releases/snapshots/null",
                     dataType = "string"),
             @ApiImplicitParam(name = "format",
                     paramType = "query",
@@ -71,6 +75,11 @@ class DeliveryNotesController {
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app, releaseType)
         log.info "received the list of delivery-notes"
+
+        if (!versions) {
+            render status: 404, text: 'no result found'
+            return
+        }
 
         if (format.toUpperCase() == 'TEXT')
             render versions.join(' ')
@@ -114,7 +123,7 @@ class DeliveryNotesController {
         if (resp.responseEntity.statusCode.toString() == '404') {
             String dnUrl = getNexusConsumerService().getDnUrl(app, version)
             String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
-            render message
+            render status: 404, text:  message
             return
         }
 
