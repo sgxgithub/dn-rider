@@ -221,4 +221,45 @@ class DeliveryNotesControllerSpec extends Specification {
         assert resp.status == 404
     }
 
+    /**
+     * test for validation non stored
+     */
+    void "testValidationNoStored"() {
+        given:
+        RestBuilder rest = new RestBuilder()
+        String url = "http://localhost:${serverPort}/api/validations/"
+
+        String dnJsonNoValid = 'titi'
+        String dnSchemaNoValid = '"titi":"toto"'
+        String dnValid = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+
+        when: "we ask to validate a delivery-notes"
+        def respJsonNoValid = rest.post(url) {
+            contentType "multipart/form-data"
+            dn = dnJsonNoValid
+        }
+        def respSchemaNoValid = rest.post(url) {
+            contentType "multipart/form-data"
+            dn = dnSchemaNoValid
+        }
+        def respValid = rest.post(url) {
+            contentType "multipart/form-data"
+            dn = dnValid
+        }
+
+        then: "we have a validation result"
+        assert respJsonNoValid.status == 422
+        assert respJsonNoValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respJsonNoValid.json
+
+        assert respSchemaNoValid.status == 422
+        assert respSchemaNoValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respSchemaNoValid.json
+
+        assert respValid.status == 200
+        assert respValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respValid.json
+    }
+
+
 }
