@@ -16,7 +16,6 @@ class DeliveryNotesControllerSpec extends Specification {
     /**
      * test for show apps
      */
-
     void "testShowAppsNoParam"() {
         given:
         RestBuilder rest = new RestBuilder()
@@ -64,7 +63,6 @@ class DeliveryNotesControllerSpec extends Specification {
     /**
      * test for show versions
      */
-
     void "testShowVersionsNoParam"() {
         given:
         RestBuilder rest = new RestBuilder()
@@ -222,7 +220,7 @@ class DeliveryNotesControllerSpec extends Specification {
     }
 
     /**
-     * test for validation non stored
+     * test for validation
      */
     void "testValidationNoStored"() {
         given:
@@ -261,5 +259,25 @@ class DeliveryNotesControllerSpec extends Specification {
         assert respValid.json
     }
 
+    void "testValidationStored"() {
+        given:
+        RestBuilder rest = new RestBuilder()
+        String url = "http://localhost:${serverPort}/api/validations/"
 
+        when: "we ask to validate a delivery-notes"
+        def respJsonNotExist = rest.get("${url}/abcd/123")
+        def respSchemaNoValid = rest.get("${url}/wdi/20.0.172.0_1")
+        def respValid = rest.get("${url}/ccl/72.00.2-0")
+
+        then: "we have a validation result"
+        assert respJsonNotExist.status == 404
+
+        assert respSchemaNoValid.status == 422
+        assert respSchemaNoValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respSchemaNoValid.json
+
+        assert respValid.status == 200
+        assert respValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respValid.json
+    }
 }
