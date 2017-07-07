@@ -1,5 +1,6 @@
 package dn.rider.api
 
+import dn.rider.consumer.nexus.NexusConsumerService
 import grails.converters.JSON
 import grails.plugins.rest.client.RestBuilder
 import io.swagger.annotations.Api
@@ -123,7 +124,7 @@ class DeliveryNotesController {
         if (resp.responseEntity.statusCode.toString() == '404') {
             String dnUrl = getNexusConsumerService().getDnUrl(app, version)
             String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
-            render status: 404, text:  message
+            render status: 404, text: message
             return
         }
 
@@ -263,27 +264,7 @@ class DeliveryNotesController {
         String releaseType = params.releaseType
         String version = params.version
 
-        String repo = nexusConsumerService.getRepo(app, releaseType)
-
-        def f = new File('temp')
-        f.append dn.bytes
-
-        String url = "http://nexus:50080/nexus/service/local/artifact/maven/content"
-        def rest = new RestBuilder()
-        def resp = rest.post(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
-            contentType "multipart/form-data"
-            r = repo
-            hasPom = false
-            e = 'json'
-            g = "com.vsct." + app
-            a = 'delivery-notes'
-            p = 'json'
-            v = version
-            file = f
-        }
-
-        f.delete()
+        def resp = nexusConsumerService.saveDn(dn, app, releaseType, version)
 
         //return 405 when the target is a Maven SNAPSHOT repository
         //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
@@ -319,16 +300,12 @@ class DeliveryNotesController {
         String app = params.app
         String version = params.version
 
-        String url = "http://nexus:50080/nexus/service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
-        def rest = new RestBuilder()
-        def resp = rest.delete(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
-        }
+        def resp = nexusConsumerService.deleteDn(app, version)
 
         if (resp.status == 204) {
             render status: 200, text: 'Dn Deleted'
         } else if (resp.status == 404) {
             render status: 404, text: 'Dn Not Found'
         } else render status: 400, text: 'Failed'
-    }
+    }/**/
 }

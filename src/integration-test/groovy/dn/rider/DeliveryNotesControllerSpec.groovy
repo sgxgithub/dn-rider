@@ -280,4 +280,28 @@ class DeliveryNotesControllerSpec extends Specification {
         assert respValid.headers["Content-Type"].any { it.contains("application/json") }
         assert respValid.json
     }
+
+    /**
+     * test for save and delete
+     */
+    void "testPostAndDeletes"() {
+        given:
+        RestBuilder rest = new RestBuilder()
+        String url = "http://localhost:${serverPort}/api/deliveryNotes/"
+
+        when: "we ask to save a delivery-notess and then delete it"
+        def respPost = rest.post(url + "/xxx/releases?version=0.0") {
+            contentType "multipart/form-data"
+                dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+        }
+
+        def respDelete = rest.delete(url + "xxx/0.0")
+
+        then: "we haveis saved and the deleted"
+        assert respPost.status == 200
+        assert respPost.headers["Content-Type"].any { it.contains("application/json") }
+        assert respPost.json
+
+        assert respDelete.status == 200
+    }
 }
