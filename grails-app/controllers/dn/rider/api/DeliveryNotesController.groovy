@@ -307,5 +307,5 @@ class DeliveryNotesController {
         } else if (resp.status == 404) {
             render status: 404, text: 'Dn Not Found'
         } else render status: 400, text: 'Failed'
-    }/**/
+    }
 }

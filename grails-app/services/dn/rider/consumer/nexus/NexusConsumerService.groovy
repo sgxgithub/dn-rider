@@ -110,8 +110,17 @@ class NexusConsumerService {
         // recherche un repo
         def artifact = artifacts.find() { artifact ->
             String groupeId = artifact.groupId.toString() - 'com.vsct.'
-            groupeId.contains(app.toLowerCase())
+
+            if (groupeId.contains(app.toLowerCase()) && repoKind == 'hosted') {
+                return true
+            }
         }
+
+        def repoIds = artifact.artifactHits.artifactHit.repositoryId
+
+//        def repo = repoIds.find(){ repoId ->
+//            getRepoKind(repoId.toString(),
+//        }
 
         def repo
 
@@ -122,6 +131,16 @@ class NexusConsumerService {
         }
 
         return repo
+    }
+
+    def getRepoKind(resp, String repo) {
+        NodeChildren repos = resp.xml.repoDetails[0].'org.sonatype.nexus.rest.model.NexusNGRepositoryDetail'
+
+        def repoDetail = repos.find { it ->
+            it.repositoryId.toString() == repo
+        }
+
+        return repoDetail?.repositoryKind.toString()
     }
 
     def saveDn(dn, String app, String releaseType, String version) {
