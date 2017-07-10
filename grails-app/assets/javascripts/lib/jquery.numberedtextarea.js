@@ -1,4 +1,5 @@
 /*
+ * Found at: http://www.jqueryscript.net/form/jQuery-Plugin-To-Display-Line-Numbers-In-Textarea-numberedTextarea.html
  * NumberedTextarea - jQuery Plugin
  * Textarea with line numbering
  *

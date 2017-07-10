@@ -10,7 +10,7 @@ import groovy.json.JsonSlurper
 class ValidationController {
 
     def nexusConsumerService
-    def JsonSchemaValidationService
+    def jsonSchemaValidationService
 
     def index() {
         flash.message = null
@@ -35,7 +35,7 @@ class ValidationController {
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {
-        String schema = JsonSchemaValidationService.getSchemaText()
+        String schema = jsonSchemaValidationService.getSchemaText()
         String dn = cmd.dn
 
         ObjectNode resp = JsonNodeFactory.instance.objectNode()
@@ -52,7 +52,7 @@ class ValidationController {
         String cont = ""
 
         if (schema && dn) {
-            resp = JsonSchemaValidationService.validateSchema(schema, dn)
+            resp = jsonSchemaValidationService.validateSchema(schema, dn)
 
             if (resp["dn-invalid"] != null) {
                 isJsonValid = false
@@ -63,7 +63,6 @@ class ValidationController {
                 isSchemaValid = resp["valid"]
                 content = resp["results"]
                 cont = JacksonUtils.prettyPrint(content)
-//                cont = content.replace("\\r\\n", "&#13;&#10;").replace('\\"', '"')
             }
         }
 
@@ -77,7 +76,7 @@ class ValidationController {
     }
 
     def showSchema() {
-        String schemaraw = JsonSchemaValidationService.getSchemaText()
+        String schemaraw = jsonSchemaValidationService.getSchemaText()
 
         def jsonSlurper = new JsonSlurper()
         def schemaJson = jsonSlurper.parseText(schemaraw)

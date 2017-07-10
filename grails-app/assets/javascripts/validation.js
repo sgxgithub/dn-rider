@@ -1,3 +1,7 @@
+//= require lib/jquery.numberedtextarea
+//= require lib/setCursorPosition
+//= require_self
+
 (function ($) {
     $(document).ready(function () {
         //set actived nav item
@@ -6,7 +10,6 @@
     });
 
     //display line number in textarea
-    //Found at: http://www.jqueryscript.net/form/jQuery-Plugin-To-Display-Line-Numbers-In-Textarea-numberedTextarea.html
     $('#textarea-dn').numberedtextarea();
 
     $("#deliveryNoteFile").change(function (e) {
@@ -32,22 +35,8 @@
         });
     });
 
-    /*
-     * Function added to set the cursor position at a given offset in a text area
-     * Found at: http://stackoverflow.com/questions/499126/jquery-set-cursor-position-in-text-area
-     */
-    $.fn.setCursorPosition = function (pos) {
-        if ($(this).get(0).setSelectionRange) {
-            $(this).get(0).setSelectionRange(pos, pos);
-        } else if ($(this).get(0).createTextRange) {
-            let range = $(this).get(0).createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', pos);
-            range.moveStart('character', pos);
-            range.select();
-        }
-    };
     $("#json-error-link").click(function () {
         $("#textarea-dn").focus().setCursorPosition($('#offset').val());
     });
+
 }(jQuery));
