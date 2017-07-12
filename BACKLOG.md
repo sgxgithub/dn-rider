@@ -45,5 +45,13 @@ WEB: IHM Web
 - [ ] [API] Valider une note de livraison (POST /api/validations pour une note de livraison non stockée,  GET /api/validations/*APP*/*VERSION* pour une note de livraison deja stockée)
     -  validation selon schema http://gitlab.socrate.vsct.fr/rundep/katana/tree/dev/ndl_json-schema
 
-- [ ] [API] Autres appels pour extraire des infos des NDLS (a définir)
+- [ ] [API] Autres appels pour extraire des infos des NDLs
+    - GET /api/deliveryNotes/*APP*/*VERSION*/packages: ramene la liste des identifiants de packages de la note de livraison
+      (?format=json (default) -> tableau json OU ?format=text -> liste d'identifiant)
+      les identifiants doivent permettre de retrouver chaque package individuel: *packageName(sansNumeroDeVersion)*#*module* ou *packageName(sansNumeroDeVersion)*#*module*#*techno* (s'il y a plusieurs module/packages sur des technos séparées)
+    - GET /api/deliveryNotes/*APP*/*VERSION*/packages/*ID*: ramene les infos d'un package individuel
+      avec ID=*packageName* ou *packageName*#*module* ou *packageName*#*techno*#*techno*
+      (?format=json (default) OU ?format=text)
+      si format=json: ramener l'objet JSON complete
+      si format=text: 1 ligne par valeur (ex:MODULE=XXX pour les attributs de niveau 0 ou CHECKAFTERINSTALL_<index>_EXPECTEDHTTPCODE=200 pour les sous-elements en tableau)
 
