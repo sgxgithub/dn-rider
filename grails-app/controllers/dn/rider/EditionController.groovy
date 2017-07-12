@@ -13,7 +13,7 @@ class EditionController {
     def index() {
     }
 
-    def saveDn(){
+    def saveDn() {
         def dn = params.dn
         String app = params.app
         String releaseType = params.releaseType
@@ -23,9 +23,13 @@ class EditionController {
 
         //return 405 when the target is a Maven SNAPSHOT repository
         //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
-        if (resp.status == 400) render status: 405, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
-        else
-            render status: 200, json: resp.json
+        if (resp.status == 400) {
+            flash.error = 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
+            render view: 'index'
+        } else {
+            flash.success = "Dn Saved !" + resp.json
+            render view: 'index'
+        }
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {

@@ -8,8 +8,9 @@
                     <span>&times;</span>
                 </button>
             </div>
-            <g:form url="[action: 'saveDn', controller: 'edition']" method="post">
+            <g:form url="[action: 'saveDn', controller: 'edition']" method="post" id="form-save-dn">
                 <div class="modal-body">
+                    <g:hiddenField name='dn' id="hidden-field-dn">Dn</g:hiddenField>
                     <div class="form-group row">
                         <div class="col-4">
                             <h5>
@@ -33,7 +34,7 @@
                         </div>
 
                         <div class="col-8">
-                            <g:select name="releaseType" class="form-control" from='["All", "Snapshots", "Releases"]'
+                            <g:select name="releaseType" class="form-control" from='["Releases", "Snapshots"]'
                                       value="${releaseType}"/>
                         </div>
                     </div>

@@ -42,4 +42,8 @@
         $("#textarea-dn").focus().setCursorPosition($('#offset').val());
     });
 
+    $("#form-save-dn").submit(function () {
+        $("#hidden-field-dn").val($("#textarea-dn").val());
+    })
+
 }(jQuery));
