@@ -23,14 +23,14 @@
             </a>
 
             <g:form action="validateSchema" method="post">
-                <div class="col-12">
+                <div class="col-12 my-2">
                     <button class="btn btn-outline-primary" type="submit">
                         <g:message code="dn.rider.validation.btn.checkSyntax"/>
                     </button>
                     <g:link action="showSchema" controller="validation" class="btn btn-outline-primary" target="_blank">
                         <g:message code="dn.rider.validation.btn.showSchema"/>
                     </g:link>
-                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSave">Stocker</a>
+                    <a href class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSave">Stocker</a>
                 </div>
 
                 <div class="form-group row">
@@ -41,7 +41,7 @@
                 </div>
             </g:form>
 
-            <g:render template="/validation/resultPanel"/>
+            <g:render template="resultPanel"/>
 
         </div>
     </div>
