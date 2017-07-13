@@ -27,7 +27,8 @@
 </div>
 
 <asset:javascript src="lib/jquery.json-browse.js"/>
-<asset:javascript src="lib/sidebar.js"/>
+<asset:javascript src="jquery.sidebar.js"/>
+<asset:javascript src="lib/jquery.autocomplete-app.js"/>
 <asset:javascript src="search.js"/>
 
 </body>

@@ -4,7 +4,6 @@
     <meta name="layout" content="main"/>
     <title>Comparison</title>
 
-    <asset:stylesheet src="lib/jquery.json-browse.css"/>
     <asset:stylesheet src="comparison.css"/>
 
 </head>
@@ -34,8 +33,6 @@
         class="fa fa-angle-double-up"></span>
 </a>
 
-<asset:javascript src="lib/jquery.json-browse-popover.js"/>
-<asset:javascript src="lib/sidebar.js"/>
 <asset:javascript src="comparison.js"/>
 
 </body>

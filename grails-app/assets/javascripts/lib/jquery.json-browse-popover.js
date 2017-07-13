@@ -120,5 +120,4 @@
             $(this).attr('data-content', html);
         });
     };
-})
-(jQuery);
+})(jQuery);

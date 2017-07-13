@@ -1,6 +1,7 @@
-//= require lib/sidebar
+//= require lib/jquery.sidebar
 //= require lib/jquery.numberedtextarea
-//= require lib/setCursorPosition
+//= require lib/jquery.set-cursor-position
+//= require lib/jquery.autocomplete-app
 //= require_self
 
 (function ($) {
@@ -11,9 +12,6 @@
     });
     //sidebar collapse
     $('#sidebar').sidebarCollapse();
-
-    //display line number in textarea
-    $('#textarea-dn').numberedtextarea();
 
     $("#deliveryNoteFile").change(function (e) {
         //show file name
@@ -38,12 +36,18 @@
         });
     });
 
+    //display line number in textarea
+    $('#textarea-dn').numberedtextarea();
+
+
     $("#json-error-link").click(function () {
         $("#textarea-dn").focus().setCursorPosition($('#offset').val());
     });
 
     $("#form-save-dn").submit(function () {
         $("#hidden-field-dn").val($("#textarea-dn").val());
-    })
+    });
+
+    $("#app").autocompleteApp();
 
 }(jQuery));

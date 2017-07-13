@@ -11,6 +11,8 @@ class EditionController {
     def jsonSchemaValidationService
 
     def index() {
+        def apps = nexusConsumerService.getApps()
+        [apps: apps]
     }
 
     def saveDn() {

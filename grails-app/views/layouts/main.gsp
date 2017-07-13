@@ -70,7 +70,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
         integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script type="text/javascript" src="/assets/lib/jquery-3.2.1.min.js?compile=false" ><\/script>')</script>
+<script>window.jQuery || document.write('<script type="text/javascript" src="/assets/lib-ext/jquery-3.2.1.min.js?compile=false" ><\/script>')</script>
 %{--other javascript--}%
 <asset:javascript src="application.js"/>
 

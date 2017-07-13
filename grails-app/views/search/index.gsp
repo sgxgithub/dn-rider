@@ -12,8 +12,14 @@
 
 <div class="container-fluid">
     <div class="row" id="row-main">
-        <div class="col-3 py-3 bg-faded" id="sidebar">
+        <div class="col-3 py-3 bg-faded sidebar collapse show width" id="sidebar">
             <g:render template="sidebar"/>
+        </div>
+
+        <div class="col-9" id="content">
+            <a data-toggle="collapse" href="#sidebar">
+                <i class="fa fa-navicon fa-lg"></i>
+            </a>
         </div>
     </div>
 </div>

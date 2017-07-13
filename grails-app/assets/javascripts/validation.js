@@ -1,5 +1,5 @@
 //= require lib/jquery.numberedtextarea
-//= require lib/setCursorPosition
+//= require lib/jquery.set-cursor-position
 //= require_self
 
 (function ($) {

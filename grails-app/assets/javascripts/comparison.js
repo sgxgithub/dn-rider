@@ -1,4 +1,8 @@
-//= require lib/shiftClick
+//= require lib/jquery.sidebar
+//= require lib/jquery.shift-click
+//= require lib/jquery.autocomplete-app
+//= require lib/jquery.json-browse-popover
+//= require_self
 
 (function ($) {
     $(document).ready(function () {
@@ -22,9 +26,9 @@
             }, 500);
             return false;
         });
-
-        $btt.tooltip('show');
     });
+
+    $('#sidebar').sidebarCollapse();
 
     //autocomplete of apps
     let $app = $("#app");
@@ -55,18 +59,7 @@
             });
     };
 
-    let apps = $app.data('apps');
-    $app.autocomplete({
-        source: function (request, response) {
-            let results = $.ui.autocomplete.filter(apps, request.term);
-            response(results.slice(0, 10));
-        },
-        select: function (event, ui) {
-            //set the input value from selected item
-            $app.val(ui.item.value);
-            setVersions();
-        }
-    });
+    $app.autocompleteApp(setVersions);
 
     //search the list of versions
     $app.on('input', function () {
@@ -150,7 +143,5 @@
                     });
             });
     });
-
-    $('#sidebar').sidebarCollapse();
 
 }(jQuery));
