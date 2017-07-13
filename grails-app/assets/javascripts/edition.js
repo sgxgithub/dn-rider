@@ -39,7 +39,6 @@
     //display line number in textarea
     $('#textarea-dn').numberedtextarea();
 
-
     $("#json-error-link").click(function () {
         $("#textarea-dn").focus().setCursorPosition($('#offset').val());
     });

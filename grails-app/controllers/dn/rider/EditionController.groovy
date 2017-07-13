@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
 import com.github.fge.jackson.JacksonUtils
+import grails.converters.JSON
 
 class EditionController {
 
@@ -12,7 +13,7 @@ class EditionController {
 
     def index() {
         def apps = nexusConsumerService.getApps()
-        [apps: apps]
+        [apps: apps as JSON]
     }
 
     def saveDn() {
