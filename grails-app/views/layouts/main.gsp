@@ -23,7 +23,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="/#">DN-RIDER</a>
-    <span class="text-white">v<g:meta name="info.app.version"/></span>
+    <span style="white-space: nowrap;" class="text-white">v<g:meta name="info.app.version"/></span>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav  ml-auto">
