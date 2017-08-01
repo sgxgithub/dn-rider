@@ -69,4 +69,17 @@ class EditionController {
 
         respond([isChecked: isChecked, isJsonValid: isJsonValid, line: line, offset: offset, message: message, isSchemaValid: isSchemaValid, content: cont, schema: schema, dn: dn], view: 'index')
     }
+
+    def editDnFromNexus() {
+        String app = params.app
+        String version = params.version
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        String dn = resp.text
+
+        respond([dn: dn, isChecked: false], view: 'index')
+    }
 }
