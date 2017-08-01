@@ -6,7 +6,6 @@
         Search for a liste of delivery-notes
     </title>
     <asset:stylesheet src="search.css"/>
-    <asset:stylesheet src="lib/jquery.json-browse.css"/>
 </head>
 
 <body>
@@ -26,9 +25,11 @@
     </div>
 </div>
 
-<asset:javascript src="lib/jquery.json-browse.js"/>
-<asset:javascript src="jquery.sidebar.js"/>
-<asset:javascript src="lib/jquery.autocomplete-app.js"/>
+<a id="back-to-top" href="#" class="btn btn-primary back-to-top"
+   title="Click to return on the top" data-toggle="tooltip" data-placement="left"><span
+        class="fa fa-angle-double-up"></span>
+</a>
+
 <asset:javascript src="search.js"/>
 
 </body>

@@ -1,3 +1,6 @@
+//= require lib/jquery.json-browse
+//= require_self
+
 (function ($) {
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");

@@ -14,36 +14,6 @@ class SearchController {
         [apps: apps as JSON]
     }
 
-    def getVersionsList() {
-        String app = params.app
-        String releaseType = params.releaseType
-
-        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-        def versions = nexusConsumerService.getVersions(app, releaseType)
-        log.info "received the list of delivery-notes"
-
-        render versions as JSON
-    }
-
-    def getVersionsView() {
-        String app = params.app
-        String releaseType = params.releaseType
-        String regex = params.regex ?: ''
-        Pattern p = Pattern.compile(regex)
-        log.info "regex: $regex"
-        String template = params.template
-
-        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-        def versions = nexusConsumerService.getVersions(app, releaseType)
-        log.info "received the list of delivery-notes"
-
-        versions = versions.findAll { it ->
-            it =~ p
-        }
-
-        render template: template, model: [versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType]
-    }
-
     def search(SearchCommand cmd) {
         //take the parameters from the object command
         String app = cmd.app
@@ -121,5 +91,35 @@ class SearchController {
                     urlNexus    : urlNexus
             ], view: "search")
         }
+    }
+
+    def getVersionsList() {
+        String app = params.app
+        String releaseType = params.releaseType
+
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def versions = nexusConsumerService.getVersions(app, releaseType)
+        log.info "received the list of delivery-notes"
+
+        render versions as JSON
+    }
+
+    def getVersionsView() {
+        String app = params.app
+        String releaseType = params.releaseType
+        String regex = params.regex ?: ''
+        Pattern p = Pattern.compile(regex)
+        log.info "regex: $regex"
+        String template = params.template
+
+        log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
+        def versions = nexusConsumerService.getVersions(app, releaseType)
+        log.info "received the list of delivery-notes"
+
+        versions = versions.findAll { it ->
+            it =~ p
+        }
+
+        render template: template, model: [versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType]
     }
 }

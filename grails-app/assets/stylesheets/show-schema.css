@@ -1,0 +1,10 @@
+/*
+*= require lib/jquery.json-browse
+*= require_self
+*/
+
+#content{
+    position: absolute;
+    top: 56px;
+    bottom: 0;
+}

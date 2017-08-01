@@ -1,5 +1,7 @@
 //= require lib/jquery.sidebar
 //= require lib/jquery.autocomplete-app
+//= require lib/jquery.json-browse
+//= require lib/jquery.utils
 //= require_self
 
 (function ($) {
@@ -14,6 +16,10 @@
     $(document).ready(function () {
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-search").addClass("active");
+
+        //button back to top
+        let $btt = $('#back-to-top');
+        $btt.backToTop($("#content"));
     });
 
     let setVersions = function () {
@@ -39,7 +45,7 @@
         $regex.val('');
     };
 
-    $app.autocompleteAppAndVersion($version, setVersions);
+    $app.autocompleteApp(setVersions, $version);
 
     //search the list of versions
     // $app.on('input', setVersions);
