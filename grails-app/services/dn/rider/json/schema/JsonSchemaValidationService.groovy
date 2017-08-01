@@ -12,10 +12,14 @@ import dn.rider.json.schema.constants.ParseError
 import grails.io.IOUtils
 import grails.transaction.Transactional
 import org.grails.web.json.JSONObject
+import org.springframework.beans.factory.annotation.Value
 
 
 @Transactional
 class JsonSchemaValidationService {
+
+    @Value('${dn.rider.schema.name}')
+    def SCHEMA_NAME
 
     public static final String RESULTS = "results"
     public static final String VALID = "valid"
@@ -29,7 +33,7 @@ class JsonSchemaValidationService {
 
     //function to get schema string from a local file
     def getSchemaText() {
-        def schemaStream = this.class.classLoader.getResourceAsStream('NDL_katana_schema.json')
+        def schemaStream = this.class.classLoader.getResourceAsStream(SCHEMA_NAME)
         String schemaText = IOUtils.toString(schemaStream)
         return schemaText
     }

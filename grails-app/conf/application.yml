@@ -139,3 +139,7 @@ dn.rider:
         username: 'jenkins_nexus'
         password: 'Bb&fX!Z9'
         repoDefault: 'dt'
+    hesperides:
+        url: 'https://hesperides:50101/#/module/'
+    schema:
+        name: 'NDL_katana_schema.json'

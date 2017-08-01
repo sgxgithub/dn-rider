@@ -6,16 +6,6 @@ class HomeController {
 
     def nexusConsumerService
 
-    def getAppsQuickAccessArray(){
-        def appsQuickAccess = request.cookies.find { it.name == 'appsQuickAccess' }?.value
-
-        if(appsQuickAccess){
-            log.info "appsQuickAccess cookie found:" + appsQuickAccess
-        }
-
-       return appsQuickAccess?.tokenize('_')
-    }
-
     def index() {
         flash.message = null
         //get the apps for quick access in cookie
@@ -24,6 +14,17 @@ class HomeController {
         def apps = nexusConsumerService.getApps()
 
         [apps: apps as JSON, appsQuickAccessArray:appsQuickAccessArray]
+    }
+
+    //get the apps for quick access from cookies
+    def getAppsQuickAccessArray(){
+        def appsQuickAccess = request.cookies.find { it.name == 'appsQuickAccess' }?.value
+
+        if(appsQuickAccess){
+            log.info "appsQuickAccess cookie found:" + appsQuickAccess
+        }
+
+       return appsQuickAccess?.tokenize('_')
     }
 
     def search(SearchCommand cmd) {

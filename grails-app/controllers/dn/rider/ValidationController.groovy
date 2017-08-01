@@ -29,9 +29,8 @@ class ValidationController {
         log.info "received the delivery-note"
 
         String dn = resp.text
-        boolean isChecked = false
 
-        respond([dn: dn, isChecked: isChecked], view: 'index')
+        respond([dn: dn, isChecked: false], view: 'index')
     }
 
     def validateSchema(ValidateSchemaCommand cmd) {

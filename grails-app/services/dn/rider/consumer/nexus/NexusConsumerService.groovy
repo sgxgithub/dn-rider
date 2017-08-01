@@ -44,7 +44,7 @@ class NexusConsumerService {
         String url
         app = app.toLowerCase()
         app = app - 'com.vsct.'
-        url = "http://nexus:50080/nexus/service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
+        url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
 
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
@@ -150,7 +150,7 @@ class NexusConsumerService {
         def f = new File('temp')
         f.append dn.bytes
 
-        String url = "http://nexus:50080/nexus/service/local/artifact/maven/content"
+        String url = "${NEXUS_URL}service/local/artifact/maven/content"
         def rest = new RestBuilder()
         def resp = rest.post(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'
@@ -171,7 +171,7 @@ class NexusConsumerService {
     }
 
     def deleteDn(String app, String version) {
-        String url = "http://nexus:50080/nexus/service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
+        String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
         def rest = new RestBuilder()
         def resp = rest.delete(url) {
             auth 'jenkins_nexus', 'Bb&fX!Z9'

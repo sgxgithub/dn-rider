@@ -50,9 +50,12 @@ class UrlMappings {
         "500"(view: '/error')
         "404"(view: '/notFound')
 
-        /**
-         * swagger doc
-         */
+
+        /*****************************************************************
+         * SWAGGER DOC
+         *****************************************************************/
+
+
         //[API] Récupèrer la liste des applications avec note de livraison
         "/apidoc/applications"(controller: "deliveryNotes", action: "showApps")
 

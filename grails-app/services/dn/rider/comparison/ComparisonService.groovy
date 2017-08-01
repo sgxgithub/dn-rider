@@ -2,15 +2,20 @@ package dn.rider.comparison
 
 import grails.transaction.Transactional
 import org.grails.web.json.JSONObject
+import org.springframework.beans.factory.annotation.Value
 
 @Transactional
 class ComparisonService {
 
+    @Value('${dn.rider.hesperides.url}')
+    def HESPERIDES_URL
+
+    /**
+     * generate the table of comparison
+     * rowVersions correspond to the table head
+     * rowPackages correspond to the table content
+     */
     def sortPackages(app, dns) {
-        //sort the dns by date
-//        dns.sort { a, b ->
-//            a.date <=> b.date
-//        }
 
         List<String> versions = dns.version
         //the table head
@@ -58,6 +63,9 @@ class ComparisonService {
         return [rowVersions: rowVersions, rowPackages: rowPackages]
     }
 
+    /**
+     * make a cellule of table content
+     */
     def makeElement(p) {
         JSONObject element = new JSONObject()
         element << [content: p]
@@ -92,13 +100,15 @@ class ComparisonService {
         def module = p.hesperidesModule ?: p.hesperidesApplication
         def version = p.hesperidesVersion ?: p.version
         def name = "${module}/${version}"
-        def hesperidesUrl = "https://hesperides:50101/#/module/${module}/${version}"
+        def hesperidesUrl = "${HESPERIDES_URL}${module}/${version}"
 
         return [name, hesperidesUrl]
     }
 
+    /**
+     * add  tag 'deleted', 'new', 'changed'
+     */
     def addTags(List<JSONObject> rowPackages, versions) {
-        //add  tag 'deleted', 'new', 'changed'
         rowPackages.each { rowPackage ->
             versions.eachWithIndex { version, i ->
                 if (i > 0) {
