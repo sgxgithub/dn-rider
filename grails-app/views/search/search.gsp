@@ -17,9 +17,7 @@
         </div>
 
         <div class="col-9" id="content">
-            <a data-toggle="collapse" href="#sidebar">
-                <i class="fa fa-navicon fa-lg"></i>
-            </a>
+            <div id="validationResult"></div>
             <g:render template="content"/>
         </div>
     </div>

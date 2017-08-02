@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.node.JsonNodeFactory
 import com.fasterxml.jackson.databind.node.ObjectNode
+import com.github.fge.jackson.JacksonUtils
 import com.github.fge.jackson.JsonNodeReader
 import com.github.fge.jsonschema.core.report.ProcessingReport
 import com.github.fge.jsonschema.main.JsonSchemaFactory
@@ -46,7 +47,7 @@ class JsonSchemaValidationService {
 
         if (invalidSchema || invalidData) {
             log.info "invalide json"
-            return ret
+            return  makeResult(ret)
         }
 
         final JsonNode schemaNode = ret.remove(INPUT)
@@ -58,10 +59,45 @@ class JsonSchemaValidationService {
         ret.put(VALID, success)
 
         final JsonNode node = report.asJson()[0]
-//        ret.put(RESULTS, JacksonUtils.prettyPrint(node))
         ret.set(RESULTS, node)
 
-        return ret
+        return makeResult(ret)
+    }
+
+    /**
+     * function to make a result in format JSONObject
+     */
+
+    def makeResult(resp){
+        boolean isJsonValid = true //variable to mark if the delivery-note satisfied format JSON
+        String line = ""
+        String offset = ""
+        String message = ""
+
+        boolean isSchemaValid = true //variable to mark if the delivery-note satisfied the schema
+        JsonNode content
+        String cont = ""
+
+        if (resp["dn-invalid"] != null) {
+            isJsonValid = false
+            line = resp["dn-invalid"]["line"]
+            offset = resp["dn-invalid"]["offset"]
+            message = resp["dn-invalid"]["message"]
+        } else {
+            isSchemaValid = resp["valid"]
+            content = resp["results"]
+            cont = JacksonUtils.prettyPrint(content)
+        }
+
+        JSONObject validationResult = new JSONObject()
+        validationResult.put('isJsonValid', isJsonValid)
+        validationResult.put('line', line)
+        validationResult.put('offset', offset)
+        validationResult.put('message', message)
+        validationResult.put('isSchemaValid', isSchemaValid)
+        validationResult.put('content', cont)
+
+        return validationResult
     }
 
     /*

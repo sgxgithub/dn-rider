@@ -78,4 +78,23 @@
         $blockDn.html(dnRaw);
     });
 
+    $("#btnValidation").click(function (event) {
+        event.preventDefault();
+
+        let formData = new FormData();
+        formData.append("dn", $("#blockDn").data('dnraw'));
+
+        $.ajax({
+            method: "POST",
+            url: $("#btnValidation").data('url'),
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+            .done(function (result) {
+                //set table content
+                $("#validationResult").html(result);
+            });
+    });
+
 }(jQuery));

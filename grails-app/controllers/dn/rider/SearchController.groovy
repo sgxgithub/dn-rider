@@ -1,7 +1,6 @@
 package dn.rider
 
 import grails.converters.JSON
-
 import java.util.regex.Pattern
 
 class SearchController {

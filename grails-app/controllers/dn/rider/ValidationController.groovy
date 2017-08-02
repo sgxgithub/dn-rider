@@ -13,6 +13,19 @@ class ValidationController {
         render new String(dnFile.bytes)
     }
 
+    def validateSchema() {
+        String schema = jsonSchemaValidationService.getSchemaText()
+        String dn = params.dn
+
+        def validationResult = null
+
+        if (schema && dn) {
+            validationResult = jsonSchemaValidationService.validateSchema(schema, dn)
+        }
+
+        render template: "resultPanel", model: [validationResult: validationResult]
+    }
+
     def showSchema() {
         String schemaraw = jsonSchemaValidationService.getSchemaText()
 
