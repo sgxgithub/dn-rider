@@ -69,15 +69,6 @@
         $blockDn.jsonBrowse(dnJson);
     }
 
-    $("#formatJson").click(function (e) {
-        e.preventDefault();
-        $blockDn.jsonBrowse(dnJson);
-    });
-    $("#formatRaw").click(function (e) {
-        e.preventDefault();
-        $blockDn.html(dnRaw);
-    });
-
     $("#btnValidation").click(function (event) {
         event.preventDefault();
 
@@ -95,6 +86,15 @@
                 //set table content
                 $("#validationResult").html(result);
             });
+    });
+
+    $("input[type='radio']").on('change', function () {
+        const formatShow = $('input[name=formatShow]:checked').val();
+        if (formatShow === 'json') {
+            $blockDn.jsonBrowse(dnJson);
+        } else {
+            $blockDn.html(dnRaw);
+        }
     });
 
 }(jQuery));

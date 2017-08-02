@@ -33,7 +33,7 @@ class SearchController {
                     releaseType: releaseType,
                     version    : version,
                     regex      : regex
-            ], view: 'search')
+            ], view: 'index')
             return
         }
 
@@ -51,7 +51,7 @@ class SearchController {
                     apps        : apps as JSON,
                     releaseType : releaseType,
                     regex       : regex
-            ], view: "search")
+            ], view: "index")
             return
         }
         //when the user choose the version
@@ -88,7 +88,7 @@ class SearchController {
                     version     : version,
                     regex       : regex,
                     urlNexus    : urlNexus
-            ], view: "search")
+            ], view: "index")
         }
     }
 
