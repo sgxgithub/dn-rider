@@ -40,7 +40,7 @@
                 </div>
             </g:form>
 
-            <g:render template="resultPanel"/>
+            <g:render template="/validation/resultPanel"/>
 
         </div>
     </div>

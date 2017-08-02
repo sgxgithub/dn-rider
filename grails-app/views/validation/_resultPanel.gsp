@@ -5,6 +5,7 @@
                 <g:message code="dn.rider.validation.result.title"/>
             </h5>
             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <g:hiddenField name="offset" value="${validationResult?.offset}"/>
             <strong><g:message code="dn.rider.validation.msg.invalidJson"/></strong> <a id="json-error-link" href="#">line: ${validationResult.line}</a>
             <pre>${validationResult.message}</pre>
         </div>
