@@ -38,11 +38,6 @@
                     <g:message code="dn.rider.nav.comparison"/>
                 </g:link>
             </li>
-            <li class="nav-item" id="nav-item-validation">
-                <g:link class="nav-link" controller="validation" action="index">
-                    <g:message code="dn.rider.nav.validation"/>
-                </g:link>
-            </li>
             <li class="nav-item" id="nav-item-edition">
                 <g:link class="nav-link" controller="edition" action="index">
                     Edition

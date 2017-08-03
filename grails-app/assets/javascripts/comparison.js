@@ -2,6 +2,7 @@
 //= require lib/jquery.shift-click
 //= require lib/jquery.autocomplete-app
 //= require lib/jquery.json-browse-popover
+//= require lib/jquery.utils
 //= require_self
 
 (function ($) {
@@ -11,21 +12,7 @@
 
         //button back to top
         let $btt = $('#back-to-top');
-        $("#content").scroll(function () {
-            if ($(this).scrollTop() > 50) {
-                $btt.fadeIn();
-            } else {
-                $btt.fadeOut();
-            }
-        });
-        // scroll body to 0px on click
-        $btt.click(function () {
-            $(this).tooltip('hide');
-            $("#content").animate({
-                scrollTop: 0
-            }, 500);
-            return false;
-        });
+        $btt.backToTop($("#content"));
     });
 
     $('#sidebar').sidebarCollapse();

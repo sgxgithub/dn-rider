@@ -1,8 +1,0 @@
-/*
-*= require lib/numberdtextarea
-*= require_self
-*/
-
-.custom-file-control.changed::after {
-  content: attr(data-content);
-}

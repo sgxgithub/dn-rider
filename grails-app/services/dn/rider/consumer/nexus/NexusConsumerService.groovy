@@ -12,10 +12,10 @@ class NexusConsumerService {
     def NEXUS_URL
 
     @Value('${dn.rider.nexus.username}')
-    def NEXUS_USERNAME
+    String NEXUS_USERNAME
 
     @Value('${dn.rider.nexus.password}')
-    def NEXUS_PASSWORD
+    String NEXUS_PASSWORD
 
     @Value('${dn.rider.nexus.repoDefault}')
     def NEXUS_REPO_DEFAULT
@@ -36,6 +36,24 @@ class NexusConsumerService {
         def resp = rest.get(url)
 
         return resp
+    }
+
+    def getPackages(String app, String version) {
+        log.info 'Searching for the delivery-note in Nexus...'
+        String url = getDnUrl(app, version)
+        RestBuilder rest = new RestBuilder()
+        def resp = rest.get(url)
+
+        def packages = resp.json.NDL_pour_rundeck.packages
+
+        List<String> list = []
+
+        packages.each { p ->
+            String id = p.name + '#' + p.module
+            list.add(id)
+        }
+
+        return list
     }
 
 //    @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
@@ -76,10 +94,37 @@ class NexusConsumerService {
         return list
     }
 
+    /**
+     * step 1 : find all the repositories in Nexus
+     * step 2 : add all the apps in every repositories in the list, remove the duplicates and sort the list
+     * limitation in Nexus 2, if we use ${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json to search all the apps, Lucene doesn't return all the results(too many results)
+     * Nexus issue : https://issues.sonatype.org/browse/NEXUS-8365
+     */
 //    @Cacheable(value = 'cacheListApps')
     def getApps() {
         log.info 'Searching for the apps with delivery-notes in Nexus...'
-        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
+        log.info 'Searching for the repositories in Nexus...'
+        String url = "http://nexus:50080/nexus/service/local/all_repositories"
+
+        def rest = new RestBuilder()
+        def resp = rest.get(url)
+
+        NodeChildren repoIds = resp.xml.data[0]['repositories-item'].id
+        List<String> list = []
+
+        repoIds.each { repoId ->
+            def repoApps = getAppsInRepository(repoId.toString())
+            list.addAll(repoApps)
+        }
+
+        list.unique().sort()
+        return list
+    }
+
+//    @Cacheable(value = 'cacheListApps', key = '{#repositoryId}')
+    def getAppsInRepository(String repositoryId) {
+        log.info "Searching for the apps in repository ${repositoryId} in Nexus..."
+        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json&repositoryId=${repositoryId}"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -88,20 +133,19 @@ class NexusConsumerService {
 
         for (int i = 0; i < artifacts.size(); i++) {
             String groupeId = artifacts[i].groupId.toString() - 'com.vsct.'
-            if (!list.contains(groupeId)) {
-                list.add(groupeId)
-            }
+            list.add(groupeId)
         }
 
-        list.sort()
+        list.unique().sort()
         return list
     }
 
-    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
-    def getRepo(String app, String releaseType) {
+    //TODO: save dn with repo name, propose repo in IHM
+//    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
+    def getReposOfApp(String app) {
         log.info 'Searching for the repo in Nexus...'
 
-        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
+        String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -116,35 +160,10 @@ class NexusConsumerService {
             }
         }
 
-        def repoIds = artifact.artifactHits.artifactHit.repositoryId
-
-//        def repo = repoIds.find(){ repoId ->
-//            getRepoKind(repoId.toString(),
-//        }
-
-        def repo
-
-        if (releaseType == 'releases') {
-            repo = artifact?.latestReleaseRepositoryId.toString() ?: "${NEXUS_REPO_DEFAULT}-releases"
-        } else {
-            repo = artifact?.latestSnapshotRepositoryId.toString() ?: "${NEXUS_REPO_DEFAULT}-snapshots"
-        }
-
-        return repo
-    }
-
-    def getRepoKind(resp, String repo) {
-        NodeChildren repos = resp.xml.repoDetails[0].'org.sonatype.nexus.rest.model.NexusNGRepositoryDetail'
-
-        def repoDetail = repos.find { it ->
-            it.repositoryId.toString() == repo
-        }
-
-        return repoDetail?.repositoryKind.toString()
+        def repoId = artifact.artifactHits.artifactHit.repositoryId
     }
 
     def saveDn(dn, String app, String releaseType, String version) {
-//        String repo = getRepo(app, releaseType)
         String repo = 'asset-releases'
 
         def f = new File('temp')
@@ -153,7 +172,7 @@ class NexusConsumerService {
         String url = "${NEXUS_URL}service/local/artifact/maven/content"
         def rest = new RestBuilder()
         def resp = rest.post(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
+            auth NEXUS_USERNAME, NEXUS_PASSWORD
             contentType "multipart/form-data"
             r = repo
             hasPom = false
@@ -174,7 +193,7 @@ class NexusConsumerService {
         String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
         def rest = new RestBuilder()
         def resp = rest.delete(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
+            auth NEXUS_USERNAME, NEXUS_PASSWORD
         }
 
         return resp

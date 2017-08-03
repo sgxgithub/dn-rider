@@ -54,9 +54,9 @@ WEB: IHM Web
 - [ ] [API] Autres appels pour extraire des infos des NDLs
     - GET /api/deliveryNotes/*APP*/*VERSION*/packages: ramene la liste des identifiants de packages de la note de livraison
       (?format=json (default) -> tableau json OU ?format=text -> liste d'identifiant)
-      les identifiants doivent permettre de retrouver chaque package individuel: *packageName(sansNumeroDeVersion)*#*module* ou *packageName(sansNumeroDeVersion)*#*module*#*techno* (s'il y a plusieurs module/packages sur des technos séparées)
+      les identifiants doivent permettre de retrouver chaque package individuel: *packageName(sansNumeroDeVersion)*@*module* ou *packageName(sansNumeroDeVersion)*@*module*@*techno* (s'il y a plusieurs module/packages sur des technos séparées)
     - GET /api/deliveryNotes/*APP*/*VERSION*/packages/*ID*: ramene les infos d'un package individuel
-      avec ID=*packageName* ou *packageName*#*module* ou *packageName*#*techno*#*techno*
+      avec ID=*packageName* ou *packageName*@*module* ou *packageName*@*techno*@*techno*
       (?format=json (default) OU ?format=text)
       si format=json: ramener l'objet JSON complete
       si format=text: 1 ligne par valeur (ex:MODULE=XXX pour les attributs de niveau 0 ou CHECKAFTERINSTALL_<index>_EXPECTEDHTTPCODE=200 pour les sous-elements en tableau)

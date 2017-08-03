@@ -34,14 +34,13 @@
                 </div>
 
                 <div class="form-group row">
-                    <g:hiddenField name="offset" value="${offset}"/>
                     <div class="col-12">
                         <textarea name='dn' id="textarea-dn" class="form-control" rows="20" cols="20">${dn}</textarea>
                     </div>
                 </div>
             </g:form>
 
-            <g:render template="resultPanel"/>
+            <g:render template="/validation/resultPanel"/>
 
         </div>
     </div>

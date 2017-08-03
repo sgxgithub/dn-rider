@@ -17,7 +17,7 @@
      * @return boolean
      */
     function isUrl(string) {
-        var regexp = /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+        let regexp = /^(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
         return regexp.test(string);
     }
 
@@ -48,7 +48,7 @@
         else if (json instanceof Array) {
             if (json.length > 0) {
                 html += '[<ol class="json-array">';
-                for (var i = 0; i < json.length; ++i) {
+                for (let i = 0; i < json.length; ++i) {
                     html += '<li>'
                     // Add toggle button if item is collapsable
                     if (isCollapsable(json[i])) {
@@ -69,13 +69,13 @@
             }
         }
         else if (typeof json === 'object') {
-            var key_count = Object.keys(json).length;
+            let key_count = Object.keys(json).length;
             if (key_count > 0) {
                 html += '{<ul class="json-dict">';
-                for (var key in json) {
+                for (let key in json) {
                     if (json.hasOwnProperty(key)) {
                         html += '<li>';
-                        var keyRepr = options.withQuotes ?
+                        let keyRepr = options.withQuotes ?
                             '<span class="json-string">"' + key + '"</span>' : key;
                         // Add toggle button if item is collapsable
                         if (isCollapsable(json[key])) {

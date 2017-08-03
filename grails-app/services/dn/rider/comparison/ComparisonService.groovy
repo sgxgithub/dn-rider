@@ -18,6 +18,7 @@ class ComparisonService {
     def sortPackages(app, dns) {
 
         List<String> versions = dns.version
+
         //the table head
         List<JSONObject> rowVersions = []
 

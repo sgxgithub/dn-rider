@@ -17,9 +17,9 @@
         </div>
 
         <div class="col-9" id="content">
-            <a data-toggle="collapse" href="#sidebar">
-                <i class="fa fa-navicon fa-lg"></i>
-            </a>
+            <g:if test="${dnRaw || dnJson}">
+                <g:render template="content"/>
+            </g:if>
         </div>
     </div>
 </div>

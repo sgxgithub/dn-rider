@@ -1,5 +1,6 @@
 //ref: https://forum.jquery.com/topic/jquery-1-9-1-shift-select-range-of-same-class-checkboxes-each-residing-in-same-class-divs
 //ref: http://jsfiddle.net/jakecigar/QB9RT/3/
+
 $.fn.shiftClick = function () {
     let lastSelected; // Firefox error: LastSelected is undefined
     let checkBoxes = $(this);
