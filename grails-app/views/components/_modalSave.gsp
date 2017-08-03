@@ -4,6 +4,7 @@
         <div class="modal-content" role="document">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Save delivery-notes</h5>
+                <g:render template="/components/spinner"/>
                 <button type="button" class="close" data-dismiss="modal">
                     <span>&times;</span>
                 </button>
@@ -29,27 +30,31 @@
                     <div class="form-group row">
                         <div class="col-4">
                             <h5>
-                                <g:message code="dn.rider.sidebar.releaseType"/>
+                                <g:message code="dn.rider.sidebar.version"/>
                             </h5>
                         </div>
 
                         <div class="col-8">
-                            <g:select name="releaseType" class="form-control" from='["Releases", "Snapshots"]'
-                                      value="${releaseType}"/>
+                            <g:textField name="version" class="form-control" value="${version}"
+                                         placeholder="52.00.0-2, 1.36.1..."
+                                         autocomplete="off"
+                                         data-url="${createLink(controller: 'search', action: 'getVersionsList', params: [releaseType: 'All'])}"/>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <div class="col-4">
                             <h5>
-                                <g:message code="dn.rider.sidebar.version"/>
+                                Repository
                             </h5>
                         </div>
 
                         <div class="col-8">
-                            <g:textField name="version" class="form-control" value="${version}" placeholder="52.00.0-2, 1.36.1..."
-                                         autocomplete="off"
-                                         data-url="${createLink(controller: 'search', action: 'getVersionsList', params: [releaseType: 'All'])}"/>
+                            <div class="ui-widget">
+                                <g:select id="combobox" name='repo' value="" from=''
+                                          data-url="${createLink(controller: 'edition', action: 'getRepos')}">
+                                </g:select>
+                            </div>
                         </div>
                     </div>
                 </div>

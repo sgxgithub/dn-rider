@@ -1,6 +1,6 @@
-//= require lib-ext/jquery-ui.min
 //= require lib-ext/tether.min
 //= require lib-ext/bootstrap
+//= require lib-ext/jquery-ui.min
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

@@ -4,6 +4,7 @@ import grails.plugin.cache.Cacheable
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import groovy.util.slurpersupport.NodeChildren
+import org.grails.web.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 
 @Transactional
@@ -142,30 +143,24 @@ class NexusConsumerService {
 
     //TODO: save dn with repo name, propose repo in IHM
 //    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
-    def getReposOfApp(String app) {
+    def getRepos(String app) {
         log.info 'Searching for the repo in Nexus...'
 
         String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
-        NodeChildren artifacts = resp.xml.data[0].artifact
+        NodeChildren repoDetails = resp.xml.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail']
 
-        // recherche un repo
-        def artifact = artifacts.find() { artifact ->
-            String groupeId = artifact.groupId.toString() - 'com.vsct.'
-
-            if (groupeId.contains(app.toLowerCase()) && repoKind == 'hosted') {
-                return true
-            }
+        JSONObject repos = new JSONObject()
+        repoDetails.each { repoDetail ->
+            repos.put(repoDetail.repositoryId.toString(), repoDetail.repositoryName.toString())
         }
 
-        def repoId = artifact.artifactHits.artifactHit.repositoryId
+        return repos
     }
 
-    def saveDn(dn, String app, String releaseType, String version) {
-        String repo = 'asset-releases'
-
+    def saveDn(dn, String app, String version, String repo) {
         def f = new File('temp')
         f.append dn.bytes
 

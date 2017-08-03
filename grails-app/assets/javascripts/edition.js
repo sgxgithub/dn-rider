@@ -47,6 +47,38 @@
         $("#hidden-field-dn").val($("#textarea-dn").val());
     });
 
-    $("#app").autocompleteApp();
+    $app = $("#app");
+    $combobox = $('#combobox');
+
+    $app.autocompleteApp();
+
+    $app.on('input', function () {
+
+        //clean the combobox
+        $('input.custom-combobox-input').val('');
+        $combobox
+            .find('option')
+            .remove()
+            .end();
+
+        let formData = new FormData();
+        formData.append("app", $app.val());
+
+        $.ajax({
+            method: "POST",
+            url: $("#combobox").data('url'),
+            data: formData,
+            processData: false,
+            contentType: false
+        })
+            .done(function (repos) {
+                $.each(repos, function (key, value) {
+                    $combobox
+                        .append($("<option></option>")
+                            .attr("value", key)
+                            .text(value));
+                });
+            });
+    });
 
 }(jQuery));

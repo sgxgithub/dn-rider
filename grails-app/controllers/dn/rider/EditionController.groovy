@@ -15,10 +15,10 @@ class EditionController {
     def saveDn() {
         def dn = params.dn
         String app = params.app
-        String releaseType = params.releaseType
+        String repo = params.repo
         String version = params.version
 
-        def resp = nexusConsumerService.saveDn(dn, app, releaseType, version)
+        def resp = nexusConsumerService.saveDn(dn, app, version, repo)
 
         //return 405 when the target is a Maven SNAPSHOT repository
         //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
@@ -55,5 +55,13 @@ class EditionController {
         String dn = resp.text
 
         respond([dn: dn], view: 'index')
+    }
+
+    def getRepos(){
+        String app = params.app
+
+        def repos = nexusConsumerService.getRepos(app)
+
+        render repos as JSON
     }
 }

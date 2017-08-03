@@ -52,6 +52,7 @@
 </a>
 
 <asset:javascript src="edition.js"/>
+<asset:javascript src="lib/combobox.js"/>
 
 </body>
 </html>
