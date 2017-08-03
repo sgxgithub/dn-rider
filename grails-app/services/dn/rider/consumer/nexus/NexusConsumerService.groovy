@@ -12,10 +12,10 @@ class NexusConsumerService {
     def NEXUS_URL
 
     @Value('${dn.rider.nexus.username}')
-    def NEXUS_USERNAME
+    String NEXUS_USERNAME
 
     @Value('${dn.rider.nexus.password}')
-    def NEXUS_PASSWORD
+    String NEXUS_PASSWORD
 
     @Value('${dn.rider.nexus.repoDefault}')
     def NEXUS_REPO_DEFAULT
@@ -98,6 +98,7 @@ class NexusConsumerService {
      * step 1 : find all the repositories in Nexus
      * step 2 : add all the apps in every repositories in the list, remove the duplicates and sort the list
      * limitation in Nexus 2, if we use ${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json to search all the apps, Lucene doesn't return all the results(too many results)
+     * Nexus issue : https://issues.sonatype.org/browse/NEXUS-8365
      */
 //    @Cacheable(value = 'cacheListApps')
     def getApps() {
@@ -171,7 +172,7 @@ class NexusConsumerService {
         String url = "${NEXUS_URL}service/local/artifact/maven/content"
         def rest = new RestBuilder()
         def resp = rest.post(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
+            auth NEXUS_USERNAME, NEXUS_PASSWORD
             contentType "multipart/form-data"
             r = repo
             hasPom = false
@@ -192,7 +193,7 @@ class NexusConsumerService {
         String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
         def rest = new RestBuilder()
         def resp = rest.delete(url) {
-            auth 'jenkins_nexus', 'Bb&fX!Z9'
+            auth NEXUS_USERNAME, NEXUS_PASSWORD
         }
 
         return resp
