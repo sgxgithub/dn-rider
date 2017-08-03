@@ -46,6 +46,10 @@ class UrlMappings {
         "/api/validations"(controller: "deliveryNotes", action: "validationNoStored", method: "POST")
         "/api/validations/$app/$version"(controller: "deliveryNotes", action: "validationStored", method: "GET")
 
+        //[API] Autres appels pour extraire des infos des NDLs
+        "/api/deliveryNotes/$app/$version/packages"(controller: "deliveryNotes", action: "getPackages", method: "GET")
+        "/api/deliveryNotes/$app/$version/packages/$id"(controller: "deliveryNotes", action: "getPackage", method: "GET")
+
         "/"(controller: 'home')
         "500"(view: '/error')
         "404"(view: '/notFound')

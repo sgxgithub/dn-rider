@@ -193,8 +193,6 @@ class DeliveryNotesController {
             httpMethod = "POST"
     )
     @ApiResponses([
-            @ApiResponse(code = 404,
-                    message = "NDL Not Found"),
             @ApiResponse(code = 200,
                     message = "NDL validée"),
             @ApiResponse(code = 422,
@@ -217,11 +215,8 @@ class DeliveryNotesController {
     }
 
     def setStatus(res) {
-        if (res['valid']) response.status = 200
-        else {
-            if (!res['valid']) response.status = 422
-            else response.status = 500
-        }
+        if (res['isJsonValid'] && res['isSchemaValid']) response.status = 200
+        else response.status = 422
     }
 
     /**
@@ -307,5 +302,65 @@ class DeliveryNotesController {
         } else if (resp.status == 404) {
             render status: 404, text: 'Dn Not Found'
         } else render status: 400, text: 'Failed'
+    }
+
+    def getPackages() {
+        String app = params.app
+        String version = params.version
+        String format = params.format ?: 'json'
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        //when there is no result
+        if (resp.responseEntity.statusCode.toString() == '404') {
+            String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+            String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+            render status: 404, text: message
+        } else {
+            def packages = getNexusConsumerService().getPackages(app, version)
+
+            if (format.toUpperCase() == 'TEXT')
+                render packages
+            else render packages as JSON
+        }
+    }
+
+    def getPackage() {
+        String app = params.app
+        String version = params.version
+        String id = params.id
+        String format = params.format ?: 'json'
+
+        log.info "searching for the delivery-note with app=${app}, version=${version}..."
+        def resp = nexusConsumerService.getDn(app, version)
+        log.info "received the delivery-note"
+
+        //when there is no result
+        if (resp.responseEntity.statusCode.toString() == '404') {
+            String dnUrl = getNexusConsumerService().getDnUrl(app, version)
+            String message = "No result for app=${app}, version=${version} !\nTried with url: ${dnUrl}"
+            render status: 404, text: message
+        } else {
+            def packages = resp.json.NDL_pour_rundeck.packages
+            def pack
+
+            boolean isExist = packages.any { p ->
+                if ((p.name + '@' + p.module) == id) {
+                    pack = p
+                    return true
+                }
+            }
+
+            if (isExist) {
+                if (format.toUpperCase() == 'TEXT')
+                    render pack
+                else render pack as JSON
+            } else {
+                String message = "No package found with id=${id}!"
+                render status: 404, text: message
+            }
+        }
     }
 }

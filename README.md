@@ -28,9 +28,11 @@ gradle assemble
 ==> /build/libs
 
 ## Lancer les tests 
+Les codes sources se situe dans grails-app/src/integration-test.
 ```
 grails test-app
 ```
+
 ==> /build/reports/tests
 
  
