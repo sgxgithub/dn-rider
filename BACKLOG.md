@@ -36,9 +36,15 @@ WEB: IHM Web
     -  format JSON ou Textuel selon parametre format (?format=json (default) OU ?format=text)
 
 - [ ] [API] Stocker une note de livraison.
-    -  POST /api/deliveryNotes/*APP*/releases?version=*VERSION* (erreur si la version cible est une release deja existante)
-    -  POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION* (erreur si la version cible est une release deja existante)
-    -  PUT /api/deliveryNotes/*APP*/*VERSION* (erreur si la version cible est une release deja existante)
+    -  POST /api/deliveryNotes/*APP*?version=*VERSION*[&type=*RELEASE|SNAPSHOT*][&repositoryId=*REPO*]
+       (type est optionnel: Si pas fourni, RELEASE sauf si syntaxe  type snapshot: ex xxx-SNAPSHOT ; erreur si valeur invalide)
+       (si type RELEASE et donnée déjà présente -> erreur)
+       (repositoryId est optionnel et doit correspondre a un repo conforme au type: si pas fourni: identifier le repo unique adéquat, si pas trouvé ou plusieurs solution -> erreur; erreur si repository inexistant)    
+    -  POST /api/deliveryNotes/*APP*/releases?version=*VERSION*[&repositoryId=*REPO*] = POST /api/deliveryNotes/*APP* avec type=RELEASE
+    -  POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION*[&repositoryId=*REPO*] = POST /api/deliveryNotes/*APP* avec type=SNAPSHOT
+    -  PUT /api/deliveryNotes/*APP*/*VERSION*
+       - Si la version n'existe pas: stockage dans le repository NEXUS correspondant à l'appli, si possible de l'identifier de manière unique (si version=xxx-SNAPSHOT, prendre un prendre snapshot, sinon prendre un repo release)
+       - Si la version existe: stockage/mise a jour dans le repository NEXUS correspondant (si identique a l'objet déjà stocké, ne pas tenter de le restocker)
 
 - [ ] [API] Supprimer une note de livraison (DELETE /api/deliveryNotes/*APP*/*VERSION*)
 
