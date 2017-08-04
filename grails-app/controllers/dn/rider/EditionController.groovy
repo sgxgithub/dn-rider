@@ -57,10 +57,11 @@ class EditionController {
         respond([dn: dn], view: 'index')
     }
 
+    //for ajax usage
     def getRepos(){
         String app = params.app
 
-        def repos = nexusConsumerService.getRepos(app)
+        def repos = nexusConsumerService.getRepoIdsAndNames(app)
 
         render repos as JSON
     }

@@ -1,8 +1,6 @@
 package dn.rider.api
 
-import dn.rider.consumer.nexus.NexusConsumerService
 import grails.converters.JSON
-import grails.plugins.rest.client.RestBuilder
 import io.swagger.annotations.Api
 import io.swagger.annotations.ApiImplicitParam
 import io.swagger.annotations.ApiImplicitParams
@@ -254,18 +252,79 @@ class DeliveryNotesController {
                     dataType = "string")
     ])
     def saveDn() {
+        // get parameters
         def dn = params.dn
         String app = params.app
-        String releaseType = params.releaseType
         String version = params.version
+        String releaseType = params.releaseType
+        String repositoryId = params.repositoryId
 
-        def resp = nexusConsumerService.saveDn(dn, app, releaseType, version)
+        //validation parameters niveau 1
+        if (!version) {
+            render status: 400, text: "version n'est pas fourni"
+            return
+        }
+        if (releaseType && (releaseType != 'releases') && (releaseType != 'snapshots')) {
+            render status: 400, text: "releaseType pas correct"
+            return
+        }
 
-        //return 405 when the target is a Maven SNAPSHOT repository
-        //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
-        if (resp.status == 400) render status: 405, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
-        else
-            render status: 200, json: resp.json
+        // consolidation parameters
+        if (!releaseType) {
+            releaseType = version.contains('SNAPSHOT') ? 'snapshots' : 'releases'
+        }
+
+        //check
+        if (repositoryId) {
+            //TODO: traduire en code
+            String repositoryPolicy = nexusConsumerService.getRepositoryPolicy(repositoryId)
+            //SI repo inexistant - > return error 404
+            if (!repositoryPolicy) {
+                render status: 404, text: "repositoryId non validé"
+                return
+            }
+            //SI repo pas conforme au releaseType : return error 400
+            if (!releaseType.toLowerCase().contains(repositoryPolicy.toLowerCase())) {
+                render status: 400, text: "repositoryId ${repositoryId} n'est pas de release type ${releaseType}"
+                return
+            }
+        } else {
+            def repositoryIds = nexusConsumerService.getRepositoryIds(app, releaseType)
+            switch (repositoryIds.size()) {
+                case 0:
+                    render status: 400, text: "non repositoryId trouvé avec l'app=${app} et releaseType=${releaseType}"
+                    return
+                case 1:
+                    break
+                default:
+                    render status: 400, text: "plusieur repositoryIds trouvé avec l'app=${app} et releaseType=${releaseType}"
+                    return
+            }
+        }
+
+        //si type est RELEASE & donnée déjà présente -> erreur
+        if (releaseType == 'release') {
+            def versions = nexusConsumerService.getVersions(app, 'releases')
+            if (versions.find { it ->
+                it == version
+            }) {
+                render status: 400, text: 'la version de release déjà présente'
+                return
+            }
+        }
+
+        //save
+        def resp = nexusConsumerService.saveDn(dn, app, version, repositoryId)
+
+        if (resp.status == 404) { //nexus ne repond pas : 503
+            render status: 503, text: 'Nexus ne respond pas'
+        } else if (resp.status == 400) {
+            //return 405 when the target is a Maven SNAPSHOT repository
+            //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
+            render status: 405, text: 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
+        } else {
+            render status: 201, json: resp.json
+        }
     }
 
     /**

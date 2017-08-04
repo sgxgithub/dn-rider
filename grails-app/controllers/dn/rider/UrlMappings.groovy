@@ -29,15 +29,16 @@ class UrlMappings {
 
         //[API] Stocker une note de livraison
         // (pour l'instant mettre à jour si la version cible est une release deja existante)
+        "/api/deliveryNotes/$app"(controller: "deliveryNotes", action: "saveDn", method: "POST")
         "/api/deliveryNotes/$app/releases"(controller: "deliveryNotes", action: "saveDn", method: "POST") {
             releaseType = 'releases'
         }
         "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "saveDn", method: "POST") {
             releaseType = 'snapshots'
         }
-        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT") {
-            releaseType = 'releases'
-        }
+//        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT") {
+//            releaseType = 'releases'
+//        }
 
         //[API] Supprimer une note de livraison (DELETE /api/deliveryNotes/*APP*/*VERSION*)
         "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "deleteDn", method: "DELETE")

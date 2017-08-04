@@ -290,18 +290,40 @@ class DeliveryNotesControllerSpec extends Specification {
         String url = "http://localhost:${serverPort}/api/deliveryNotes/"
 
         when: "we ask to save a delivery-notess and then delete it"
-        def respPost = rest.post(url + "/xxx/releases?version=0.0") {
+        def respPostWithWrongRepository = rest.post(url + "/xxx?version=0.0-0&repositoryId=ThisIsAWrongRepository") {
             contentType "multipart/form-data"
-                dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+            dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respDelete = rest.delete(url + "xxx/0.0")
+        def respPostWithRepositoryNoConformeWithReleaseType = rest.post(url + "/xxx?version=0.0-0&repositoryId=asset-releases&releaseType=snapshots") {
+            contentType "multipart/form-data"
+            dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+        }
 
-        then: "we haveis saved and the deleted"
-        assert respPost.status == 200
-        assert respPost.headers["Content-Type"].any { it.contains("application/json") }
-        assert respPost.json
+        def respPostValid = rest.post(url + "/xxx?version=0.0-0&repositoryId=asset-releases") {
+            contentType "multipart/form-data"
+            dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+        }
 
-        assert respDelete.status == 200
+        def respPostValidWithReleaseTypeInUrl = rest.post(url + "/xxx/releases?version=0.0-1&repositoryId=asset-releases") {
+            contentType "multipart/form-data"
+            dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+        }
+
+        def respDeleteFirst = rest.delete(url + "xxx/0.0-0")
+        def respDeleteSecond = rest.delete(url + "xxx/0.0-1")
+
+        then: "we have saved and the deleted"
+        assert respPostWithWrongRepository.status == 404
+        assert respPostWithRepositoryNoConformeWithReleaseType.status == 400
+
+        assert respPostValid.status == 201
+        assert respPostValid.headers["Content-Type"].any { it.contains("application/json") }
+        assert respPostValid.json
+
+        assert respPostValidWithReleaseTypeInUrl.status == 201
+
+        assert respDeleteFirst.status == 200
+        assert respDeleteSecond.status == 200
     }
 }

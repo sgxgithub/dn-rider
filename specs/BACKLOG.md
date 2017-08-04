@@ -43,7 +43,7 @@ WEB: IHM Web
     -  POST /api/deliveryNotes/*APP*/releases?version=*VERSION*[&repositoryId=*REPO*] = POST /api/deliveryNotes/*APP* avec type=RELEASE
     -  POST /api/deliveryNotes/*APP*/snapshots?version=*VERSION*[&repositoryId=*REPO*] = POST /api/deliveryNotes/*APP* avec type=SNAPSHOT
     -  PUT /api/deliveryNotes/*APP*/*VERSION*
-       - Si la version n'existe pas: stockage dans le repository NEXUS correspondant à l'appli, si possible de l'identifier de manière unique (si version=xxx-SNAPSHOT, prendre un prendre snapshot, sinon prendre un repo release)
+       - Si la version n'existe pas: stockage dans le repository NEXUS correspondant à l'appli, si possible de l'identifier de manière unique (si version=xxx-SNAPSHOT, prendre un repo snapshot, sinon prendre un repo release)
        - Si la version existe: stockage/mise a jour dans le repository NEXUS correspondant (si identique a l'objet déjà stocké, ne pas tenter de le restocker)
 
 - [ ] [API] Supprimer une note de livraison (DELETE /api/deliveryNotes/*APP*/*VERSION*)

@@ -141,9 +141,55 @@ class NexusConsumerService {
         return list
     }
 
-    //TODO: save dn with repo name, propose repo in IHM
+    def getRepositoryIds(String app, String releaseType = 'all') {
+        log.info 'Searching for the repositoryIds in Nexus...'
+
+        String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
+        def rest = new RestBuilder()
+        def resp = rest.get(url)
+
+        def repositories = resp.xml.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail']
+
+        def list = []
+        repositories.each { repository ->
+            if (releaseType == 'releases') {
+                if (repository.repositoryPolicy.toString() == 'RELEASE')
+                    list.add(repository.repositoryId.toString())
+            } else if (releaseType == 'snapshots') {
+                if (repository.repositoryPolicy.toString() == 'SNAPSHOT')
+                    list.add(repository.repositoryId.toString())
+            } else list.add(repository.repositoryId.toString())
+        }
+
+        list.unique()
+
+        return list
+    }
+
+    def getRepositoriesDetails() {
+        log.info 'Searching for the repositoryIds in Nexus...'
+
+        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
+        def rest = new RestBuilder()
+        def resp = rest.get(url)
+
+        def repositoriesDetails = resp.xml.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail']
+
+        return repositoriesDetails
+    }
+
+    def getRepositoryPolicy(String repositoryId) {
+        def repositoriesDetails = getRepositoriesDetails()
+
+        def repositoryDetail = repositoriesDetails.find { it ->
+            it.repositoryId.toString() == repositoryId
+        }
+
+        return repositoryDetail?.repositoryPolicy?.toString()
+    }
+
 //    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
-    def getRepos(String app) {
+    def getRepoIdsAndNames(String app) {
         log.info 'Searching for the repo in Nexus...'
 
         String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
@@ -160,7 +206,7 @@ class NexusConsumerService {
         return repos
     }
 
-    def saveDn(dn, String app, String version, String repo) {
+    def saveDn(dn, String app, String version, String repositoryId) {
         def f = new File('temp')
         f.append dn.bytes
 
@@ -169,7 +215,7 @@ class NexusConsumerService {
         def resp = rest.post(url) {
             auth NEXUS_USERNAME, NEXUS_PASSWORD
             contentType "multipart/form-data"
-            r = repo
+            r = repositoryId
             hasPom = false
             e = 'json'
             g = "com.vsct." + app

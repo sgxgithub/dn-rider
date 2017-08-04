@@ -1,0 +1,46 @@
+API Save :
+
+# get parameters
+get params (app, version, releaseType, repositoryId)
+
+# validation parameters niveau 1
+SI version pas fourni :
+    return error 400
+SI releaseType fourni et pas dans ('releases'|'snapshots') :
+      return error 400
+
+# consolidation parameters
+SI !releaseType :
+  SI version contains 'SNAPSHOT' ( à voir s'il faut faire une function individuel) :
+      releaseType = 'snapshots'
+  SINON :
+      releaseType = 'releases'
+
+# check
+SI repo fourni :
+    verifier existence du repo et extraire son type
+    SI repo inexistant :
+      return error 404
+
+    SI repo pas conforme au releaseType :
+      return error 400
+SINON :
+    chercher les repos pour l'application
+    SELON nb de repo trouvé pour le releasetype :
+      0 ) return error 400
+      1 ) do nothing
+      + ) return error 400
+
+SI releaseType==release :
+  check object avec version deja present
+  SI version presente:
+     return error code ??
+
+# save
+Do save
+SI error :
+    nexus ne repond pas : 503
+    nexus repond une erreur HTTP (reprendre code de Nexus)
+SINON :
+    return success 201
+
