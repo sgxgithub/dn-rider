@@ -36,9 +36,9 @@ class UrlMappings {
         "/api/deliveryNotes/$app/snapshots"(controller: "deliveryNotes", action: "saveDn", method: "POST") {
             releaseType = 'snapshots'
         }
-//        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT") {
-//            releaseType = 'releases'
-//        }
+        "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "saveDn", method: "PUT") {
+            releaseType = 'releases'
+        }
 
         //[API] Supprimer une note de livraison (DELETE /api/deliveryNotes/*APP*/*VERSION*)
         "/api/deliveryNotes/$app/$version"(controller: "deliveryNotes", action: "deleteDn", method: "DELETE")

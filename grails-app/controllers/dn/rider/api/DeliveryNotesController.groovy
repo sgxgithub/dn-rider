@@ -224,11 +224,19 @@ class DeliveryNotesController {
      */
     @ApiOperation(
             value = "Stocker une note de livraison",
-            nickname = "deliveryNotes/{app}/{releaseType}",
+            nickname = "deliveryNotes/{app}",
             produces = "application/json",
             consumes = "application/json",
             httpMethod = "POST"
     )
+    @ApiResponses([
+            @ApiResponse(code = 201,
+                    message = "NDL saved"),
+            @ApiResponse(code = 404,
+                    message = "repo inexistant"),
+            @ApiResponse(code = 400,
+                    message = "url no valide")])
+
     @ApiImplicitParams([
             @ApiImplicitParam(name = "dn",
                     paramType = "formData",
@@ -240,16 +248,21 @@ class DeliveryNotesController {
                     required = true,
                     value = "app name",
                     dataType = "string"),
-            @ApiImplicitParam(name = "releaseType",
-                    paramType = "path",
-                    required = true,
-                    value = "releases/snapshots",
-                    dataType = "string"),
             @ApiImplicitParam(name = "version",
                     paramType = "query",
                     required = true,
                     value = "app version",
-                    dataType = "string")
+                    dataType = "string"),
+            @ApiImplicitParam(name = "releaseType",
+                    paramType = "query",
+                    required = false,
+                    value = "releases/snapshots",
+                    dataType = "string"),
+            @ApiImplicitParam(name = "repositoryId",
+                    paramType = "query",
+                    required = false,
+                    value = "repositoryId",
+                    dataType = "string"),
     ])
     def saveDn() {
         // get parameters
@@ -270,13 +283,13 @@ class DeliveryNotesController {
         }
 
         // consolidation parameters
+        // identify 'snapshot' in version in uppercase or lowercase, but not transform it
         if (!releaseType) {
-            releaseType = version.contains('SNAPSHOT') ? 'snapshots' : 'releases'
+            releaseType = version.toUpperCase().contains('SNAPSHOT') ? 'snapshots' : 'releases'
         }
 
         //check
         if (repositoryId) {
-            //TODO: traduire en code
             String repositoryPolicy = nexusConsumerService.getRepositoryPolicy(repositoryId)
             //SI repo inexistant - > return error 404
             if (!repositoryPolicy) {
@@ -303,12 +316,12 @@ class DeliveryNotesController {
         }
 
         //si type est RELEASE & donnée déjà présente -> erreur
-        if (releaseType == 'release') {
+        if (releaseType == 'releases') {
             def versions = nexusConsumerService.getVersions(app, 'releases')
             if (versions.find { it ->
                 it == version
             }) {
-                render status: 400, text: 'la version de release déjà présente'
+                render status: 403, text: 'la version de release déjà présente'
                 return
             }
         }
@@ -350,7 +363,7 @@ class DeliveryNotesController {
                     value = "app version",
                     dataType = "string")
     ])
-    def deleteDn() {
+    def deleteDn() { //TODO: deal with case when there are multiples repos(try with the first ; classer by hosted/proxy)
         String app = params.app
         String version = params.version
 

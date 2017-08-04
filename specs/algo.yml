@@ -18,7 +18,7 @@ SI !releaseType :
 
 # check
 SI repo fourni :
-    verifier existence du repo et extraire son type
+    verifier existence du repo (dans la liste de tous les repos) et extraire son type
     SI repo inexistant :
       return error 404
 
@@ -34,12 +34,13 @@ SINON :
 SI releaseType==release :
   check object avec version deja present
   SI version presente:
-     return error code ??
+     return error 403
 
 # save
 Do save
 SI error :
     nexus ne repond pas : 503
+    pas le droit dans un Maven SNAPSHOT repository : 405
     nexus repond une erreur HTTP (reprendre code de Nexus)
 SINON :
     return success 201

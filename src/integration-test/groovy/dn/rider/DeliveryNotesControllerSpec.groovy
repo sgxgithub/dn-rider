@@ -305,6 +305,11 @@ class DeliveryNotesControllerSpec extends Specification {
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
+        def respPostDuplicated = rest.post(url + "/xxx?version=0.0-0&repositoryId=asset-releases") {
+            contentType "multipart/form-data"
+            dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
+        }
+
         def respPostValidWithReleaseTypeInUrl = rest.post(url + "/xxx/releases?version=0.0-1&repositoryId=asset-releases") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
@@ -320,6 +325,8 @@ class DeliveryNotesControllerSpec extends Specification {
         assert respPostValid.status == 201
         assert respPostValid.headers["Content-Type"].any { it.contains("application/json") }
         assert respPostValid.json
+
+        assert respPostDuplicated.status == 403
 
         assert respPostValidWithReleaseTypeInUrl.status == 201
 
