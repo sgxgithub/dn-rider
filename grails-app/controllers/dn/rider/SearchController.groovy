@@ -32,9 +32,9 @@ class SearchController {
         } else {
             //search for the list of delivery-notes by using the service function
             log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-            versions = nexusConsumerService.getVersions(app, releaseType)
+            versions = nexusConsumerService.getVersions(app)
+            versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
             log.info "received the list of delivery-notes"
-
             //before the user choose the version
             if (version) {
                 log.info "searching for the delivery-note with app=${app}, version=${version}..."
@@ -68,7 +68,8 @@ class SearchController {
         String releaseType = params.releaseType
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-        def versions = nexusConsumerService.getVersions(app, releaseType)
+        def versions = nexusConsumerService.getVersions(app)
+        versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
         log.info "received the list of delivery-notes"
 
         render versions as JSON
@@ -83,7 +84,8 @@ class SearchController {
         String template = params.template
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
-        def versions = nexusConsumerService.getVersions(app, releaseType)
+        def versions = nexusConsumerService.getVersions(app)
+        versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
         log.info "received the list of delivery-notes"
 
         versions = versions.findAll { it ->

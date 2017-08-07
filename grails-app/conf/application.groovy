@@ -19,4 +19,3 @@ swagger {
 //    schemes = [Scheme.HTTP]
     consumes = ["application/json"]
 }
-

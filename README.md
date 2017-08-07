@@ -35,5 +35,9 @@ grails test-app
 
 ==> /build/reports/tests
 
+## Proxy
+Sur le serveur l'application passe par le proxy bluelagoon, 
+En local il faut commenter les configuration associées dans gradle.properties pour télécharger les packages sans passer par bluelagoon.
+
  
  

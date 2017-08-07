@@ -1,11 +1,12 @@
 package dn.rider.consumer.nexus
 
-import grails.plugin.cache.Cacheable
 import grails.plugins.rest.client.RestBuilder
 import grails.transaction.Transactional
 import groovy.util.slurpersupport.NodeChildren
 import org.grails.web.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
+import grails.plugin.cache.*
+import org.springframework.cache.annotation.Caching
 
 @Transactional
 class NexusConsumerService {
@@ -29,7 +30,7 @@ class NexusConsumerService {
         return url
     }
 
-    // @Cacheable(value = 'cacheDn', key = '{#app, #version}')
+    @Cacheable(value = 'dn', key = '{#app, #version}')
     def getDn(String app, String version) {
         log.info 'Searching for the delivery-note in Nexus...'
         String url = getDnUrl(app, version)
@@ -57,42 +58,41 @@ class NexusConsumerService {
         return list
     }
 
-//    @Cacheable(value = 'cacheListVersions', key = '{#app, #releaseType}')
-    def getVersions(String app, String releaseType) {
+    @Cacheable(value = 'versions', key = '{#app}')
+    def getVersions(String app) {
         log.info "Searching for the list of delivery-notes in Nexus..."
         String url
-        app = app.toLowerCase()
-        app = app - 'com.vsct.'
+        app = app.toLowerCase() - 'com.vsct.'
         url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
 
         RestBuilder rest = new RestBuilder()
         def resp = rest.get(url)
 
         //listOfVersions is of type NodeChildren
-        def listOfVersions = resp.xml.data.artifact.version
-        List<String> list = []
+        def versions = resp.xml.data.artifact.version
 
-        //when the string contains 'SNAPSHOT', consider it as Snapshot
-        //add the version to list according to releaseType
-        for (int i = 0; i < listOfVersions.size(); i++) {
-            String version = listOfVersions[i].toString()
-            if (releaseType.toUpperCase() == 'SNAPSHOTS') {
-                if (version.toUpperCase().contains("SNAPSHOT")) {
-                    list.add(version)
-                }
-            } else if (releaseType.toUpperCase() == 'RELEASES') {
-                if (!version.toUpperCase().contains("SNAPSHOT")) {
-                    list.add(version)
-                }
-            } else {
-                list.add(version)
-            }
+        List<String> list = []
+        versions.each {
+            list.add(it.toString())
         }
+
         //filter form newest to oldest
         list.reverse()
 
         //return the list of versions
         return list
+    }
+
+    def filterVersionsByReleaseType(List<String> versions, String releaseType) {
+        if (releaseType.toUpperCase() == 'SNAPSHOTS') {
+            return versions.findAll { version ->
+                version.toUpperCase().contains("SNAPSHOT")
+            }
+        } else if (releaseType.toUpperCase() == 'RELEASES') {
+            return versions.findAll { version ->
+                !version.toUpperCase().contains("SNAPSHOT")
+            }
+        } else return versions
     }
 
     /**
@@ -101,7 +101,7 @@ class NexusConsumerService {
      * limitation in Nexus 2, if we use ${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json to search all the apps, Lucene doesn't return all the results(too many results)
      * Nexus issue : https://issues.sonatype.org/browse/NEXUS-8365
      */
-//    @Cacheable(value = 'cacheListApps')
+    @Cacheable(value = 'apps')
     def getApps() {
         log.info 'Searching for the apps with delivery-notes in Nexus...'
         log.info 'Searching for the repositories in Nexus...'
@@ -122,7 +122,6 @@ class NexusConsumerService {
         return list
     }
 
-//    @Cacheable(value = 'cacheListApps', key = '{#repositoryId}')
     def getAppsInRepository(String repositoryId) {
         log.info "Searching for the apps in repository ${repositoryId} in Nexus..."
         String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json&repositoryId=${repositoryId}"
@@ -141,6 +140,7 @@ class NexusConsumerService {
         return list
     }
 
+    @Cacheable(value = 'repositoryIds', key = '{#app, #releaseType}')
     def getRepositoryIds(String app, String releaseType = 'all') {
         log.info 'Searching for the repositoryIds in Nexus...'
 
@@ -166,6 +166,7 @@ class NexusConsumerService {
         return list
     }
 
+    @Cacheable(value = 'repositoryPolicy', key = '{#app, #repositoryId}')
     def getRepositoryPolicy(String repositoryId) {
         log.info "Searching for the repositoryPolicy with repositoryId = ${repositoryId}"
 
@@ -181,7 +182,7 @@ class NexusConsumerService {
         return repoDetails?.repositoryPolicy?.toString()
     }
 
-//    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
+    @Cacheable(value = 'repoIdsAndNames', key = '{#app}')
     def getRepoIdsAndNames(String app) {
         log.info 'Searching for the repo in Nexus...'
 
@@ -199,6 +200,9 @@ class NexusConsumerService {
         return repos
     }
 
+    //TODO: multiples evict -> delete cache of the dn with (app, version) as key (in case of renew)
+    //TODO: multiples evict -> delete cache of the apps (in case when add new app)
+    @CacheEvict(value = 'versions', key = '{#app}')
     def saveDn(dn, String app, String version, String repositoryId) {
         def f = new File('temp')
         f.append dn.bytes
@@ -223,6 +227,8 @@ class NexusConsumerService {
         return resp
     }
 
+    //TODO: multiples evict -> delete cache of the dn with (app, version) as key
+    @CacheEvict(value = 'versions', key = '{#app}')
     def deleteDn(String app, String version) {
         String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
         def rest = new RestBuilder()
