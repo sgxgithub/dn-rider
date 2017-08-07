@@ -105,7 +105,7 @@ class NexusConsumerService {
     def getApps() {
         log.info 'Searching for the apps with delivery-notes in Nexus...'
         log.info 'Searching for the repositories in Nexus...'
-        String url = "http://nexus:50080/nexus/service/local/all_repositories"
+        String url = "${NEXUS_URL}service/local/all_repositories"
 
         def rest = new RestBuilder()
         def resp = rest.get(url)
@@ -166,26 +166,19 @@ class NexusConsumerService {
         return list
     }
 
-    def getRepositoriesDetails() {
-        log.info 'Searching for the repositoryIds in Nexus...'
+    def getRepositoryPolicy(String repositoryId) {
+        log.info "Searching for the repositoryPolicy with repositoryId = ${repositoryId}"
 
-        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json"
+        String url = "${NEXUS_URL}service/local/lucene/search?a=delivery-notes&p=json&repositoryId=${repositoryId}"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
-        def repositoriesDetails = resp.xml.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail']
+        //bad request with this repositoryId
+        if (resp.responseEntity.statusCode.toString() == '400') return null
 
-        return repositoriesDetails
-    }
+        def repoDetails = resp.xml?.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail'][0]
 
-    def getRepositoryPolicy(String repositoryId) {
-        def repositoriesDetails = getRepositoriesDetails()
-
-        def repositoryDetail = repositoriesDetails.find { it ->
-            it.repositoryId.toString() == repositoryId
-        }
-
-        return repositoryDetail?.repositoryPolicy?.toString()
+        return repoDetails?.repositoryPolicy?.toString()
     }
 
 //    @Cacheable(value = 'cacheListRepos', key = '{#app, #releaseType}')
