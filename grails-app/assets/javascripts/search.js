@@ -20,6 +20,11 @@
         //button back to top
         let $btt = $('#back-to-top');
         $btt.backToTop($("#content"));
+
+        //collapse sidebar when content is not empty
+        if ($("#content").children().length !== 0) {
+            $("#sidebar").collapse('hide');
+        }
     });
 
     let setVersions = function () {

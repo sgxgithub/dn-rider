@@ -25,6 +25,6 @@
 
 <div id="validationResult"></div>
 
-<pre id="blockDn" data-dnraw="${dnRaw}" data-dnjson="${dnJson}"></pre>
+<pre id="blockDn" data-dnraw="${dnRaw}" data-dnjson= ${dnJson}> </pre>
 
 <g:render template="/components/backToTop"/>

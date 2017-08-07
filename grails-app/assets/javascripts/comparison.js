@@ -72,6 +72,7 @@
             .done(function (result) {
                 //set table content
                 $("#tableComparison").html(result);
+                $("#sidebar").collapse('hide');
                 let timer;
                 //enable popover
                 //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
