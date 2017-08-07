@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-10">
                         <g:textField class="form-control" autocomplete="off" name="app"
-                                     placeholder="trigramme" value="${app}" data-apps="${apps}"/>
+                                     placeholder="trigramme" value="${app}" data-apps="${apps}" autofocus="true"/>
                     </div>
 
                     <div class="col-2">

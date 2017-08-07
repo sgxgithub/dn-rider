@@ -19,7 +19,7 @@
     </g:link>
 
     <a class="nav-link" href="${urlNexus}"
-       target="_blank" id="lienNexus">Nexus</a>
+       target="_blank" id="lienNexus">Source</a>
 
 </nav>
 

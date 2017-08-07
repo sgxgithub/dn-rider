@@ -12,7 +12,6 @@ $.fn.backToTop = function (content) {
 
 // scroll body to 0px on click
     $btt.click(function () {
-        $(this).tooltip('hide');
         content.animate({
             scrollTop: 0
         }, 500);

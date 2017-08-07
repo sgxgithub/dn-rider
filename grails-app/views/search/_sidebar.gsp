@@ -11,7 +11,7 @@
                 <g:textField name="app" class="form-control" value="${app}" placeholder="ccl, kli..."
                              data-url="${createLink(controller: 'search', action: 'getVersionsView')}"
                              data-apps="${apps}"
-                             autocomplete="off" required="true"/>
+                             autocomplete="off" required="true" autofocus="true"/>
             </div>
         </div>
 

@@ -24,10 +24,10 @@ class EditionController {
         //when the version contain 'SNAPSHOT', it will be put in the snapshots repo automatically
         if (resp.status == 400) {
             flash.error = 'This is a Maven SNAPSHOT repository, and manual upload against it is forbidden!'
-            render view: 'index'
+            render(view: 'index', model: [dn: dn])
         } else {
             flash.success = "Dn Saved !" + resp.json
-            render view: 'index'
+            render(view: 'index', model: [dn: dn])
         }
     }
 
@@ -58,7 +58,7 @@ class EditionController {
     }
 
     //for ajax usage
-    def getRepos(){
+    def getRepos() {
         String app = params.app
 
         def repos = nexusConsumerService.getRepoIdsAndNames(app)

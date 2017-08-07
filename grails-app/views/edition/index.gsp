@@ -33,14 +33,14 @@
                     <a href class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSave">Stocker</a>
                 </div>
 
+                <g:render template="/validation/resultPanel"/>
+
                 <div class="form-group row">
                     <div class="col-12">
                         <textarea name='dn' id="textarea-dn" class="form-control" rows="20" cols="20">${dn}</textarea>
                     </div>
                 </div>
             </g:form>
-
-            <g:render template="/validation/resultPanel"/>
 
         </div>
     </div>
