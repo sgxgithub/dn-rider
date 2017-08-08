@@ -21,7 +21,8 @@
                 <div class="row">
                     <div class="col-10">
                         <g:textField class="form-control" autocomplete="off" name="app"
-                                     placeholder="trigramme" value="${app}" data-apps="${apps}" autofocus="true"/>
+                                     placeholder="trigramme" value="${app}" data-apps="${apps}"
+                                     data-url="${createLink(controller: 'home', action: 'getApps')}" autofocus="true"/>
                     </div>
 
                     <div class="col-2">
@@ -34,7 +35,7 @@
             <div class="d-flex justify-content-around mt-5">
                 <g:each var="appQuickAccess" in="${appsQuickAccessArray}">
                     <g:link class="btn btn-outline-primary btn-lg" controller="search" action="search"
-                            params="[app:appQuickAccess]">
+                            params="[app: appQuickAccess]">
                         ${appQuickAccess}
                     </g:link>
                 </g:each>

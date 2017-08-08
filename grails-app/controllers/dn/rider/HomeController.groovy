@@ -10,10 +10,16 @@ class HomeController {
         flash.message = null
         //get the apps for quick access in cookie
         def appsQuickAccessArray = getAppsQuickAccessArray()
+
+        [appsQuickAccessArray:appsQuickAccessArray]
+    }
+
+    // autocomplete by ajax
+    def getApps(){
         //get the list of apps in service
         def apps = nexusConsumerService.getApps()
 
-        [apps: apps as JSON, appsQuickAccessArray:appsQuickAccessArray]
+        render apps as JSON
     }
 
     //get the apps for quick access from cookies
