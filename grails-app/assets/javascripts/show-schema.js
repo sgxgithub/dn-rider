@@ -17,13 +17,13 @@
         $schema.jsonBrowse(schemajson);
     }
 
-    $("#formatJson").click(function (e) {
-        e.preventDefault();
-        $schema.jsonBrowse(schemajson);
-    });
-    $("#formatRaw").click(function (e) {
-        e.preventDefault();
-        $schema.html(schemaraw);
+    $("input[type='radio']").on('change', function () {
+        const formatShow = $('input[name=formatShow]:checked').val();
+        if (formatShow === 'json') {
+            $schema.jsonBrowse(schemajson);
+        } else {
+            $schema.html(schemaraw);
+        }
     });
 
 }(jQuery));

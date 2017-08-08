@@ -11,10 +11,12 @@
 <body>
 
 <div id="content">
-    <nav class="nav">
-        <a class="nav-link" href="" id="formatJson">JSON</a>
-        <a class="nav-link" href="" id="formatRaw">RAW</a>
-    </nav>
+    <div class="btn-group nav-link" id="status" data-toggle="buttons">
+        <label class="btn btn-secondary btn-on btn-sm active">
+            <input type="radio" name="formatShow" value="json" checked>JSON</label>
+        <label class="btn btn-secondary btn-off btn-sm ">
+            <input type="radio" name="formatShow" value="raw">RAW</label>
+    </div>
 
     <pre id="schema" data-schemajson="${schemajson}" data-schemaraw="${schemaraw}"></pre>
 </div>
