@@ -11,39 +11,33 @@
 
 <g:render template="/components/modalSave"/>
 
-<div class="container-fluid">
-    <div class="row" id="row-main">
-        <div class="col-3 py-3 bg-faded sidebar collapse show" id="sidebar">
-            <g:render template="sidebar"/>
+<div class="container">
+    <g:form action="validateSchema" method="post">
+        <div class="my-2">
+            <button class="btn btn-outline-primary" type="submit">
+                <g:message code="dn.rider.validation.btn.checkSyntax"/>
+            </button>
+            <g:link action="showSchema" controller="validation" class="btn btn-outline-primary" target="_blank">
+                <g:message code="dn.rider.validation.btn.showSchema"/>
+            </g:link>
+            <a href class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSave">Stocker</a>
         </div>
 
-        <div class="col-9" id="content">
-            <a data-toggle="collapse" href="#sidebar" id="btn-sidebar">
-                <i class="fa fa-navicon fa-lg py-3 p-1"></i>
-            </a>
+        <g:render template="/validation/resultPanel"/>
 
-            <g:form action="validateSchema" method="post">
-                <div class="col-12 my-2">
-                    <button class="btn btn-outline-primary" type="submit">
-                        <g:message code="dn.rider.validation.btn.checkSyntax"/>
-                    </button>
-                    <g:link action="showSchema" controller="validation" class="btn btn-outline-primary" target="_blank">
-                        <g:message code="dn.rider.validation.btn.showSchema"/>
-                    </g:link>
-                    <a href class="btn btn-outline-primary" data-toggle="modal" data-target="#modalSave">Stocker</a>
-                </div>
-
-                <g:render template="/validation/resultPanel"/>
-
-                <div class="form-group row">
-                    <div class="col-12">
-                        <textarea name='dn' id="textarea-dn" class="form-control" rows="20" cols="20">${dn}</textarea>
-                    </div>
-                </div>
-            </g:form>
-
+        <div class="dn-upload">
+            <label for="deliveryNoteFile">
+                <span class="fa fa-paperclip fa-lg"></span>
+            </label>
+            <input type="file" id="deliveryNoteFile" name="deliveryNoteFile" class="custom-file-input"
+                   data-url="${createLink(controller: 'validation', action: 'uploadDn')}"/>
+            <g:render template="/components/spinner"/>
         </div>
-    </div>
+
+        <div class="mb-5">
+            <textarea name='dn' id="textarea-dn" class="form-control" rows="20" cols="20">${dn}</textarea>
+        </div>
+    </g:form>
 </div>
 
 <a id="back-to-top" href="#" class="btn btn-primary back-to-top"

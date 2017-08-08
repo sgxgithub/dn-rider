@@ -1,5 +1,4 @@
 /*
-*= require lib/collapseSidebar
 *= require lib/numberdtextarea
 *= require lib/combobox
 *= require_self
@@ -15,4 +14,9 @@
 
 .custom-file-control.changed::after {
     content: attr(data-content);
+}
+
+.dn-upload > input
+{
+    display: none;
 }

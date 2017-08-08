@@ -1,4 +1,3 @@
-//= require lib/jquery.sidebar
 //= require lib/jquery.numberedtextarea
 //= require lib/jquery.set-cursor-position
 //= require lib/jquery.autocomplete-app
@@ -10,8 +9,6 @@
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-edition").addClass("active");
     });
-    //sidebar collapse
-    $('#sidebar').sidebarCollapse();
 
     $("#deliveryNoteFile").change(function (e) {
         //show file name
