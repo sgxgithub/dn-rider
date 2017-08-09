@@ -20,7 +20,7 @@ class SearchController {
         String regex = params.regex ?: ''
 
         def apps = nexusConsumerService.getApps()
-        def versions
+        def versions = []
         def resp
         String urlNexus
 
@@ -46,6 +46,7 @@ class SearchController {
                 //when there is no result
                 if (resp.responseEntity.statusCode.toString() == '404') {
                     flash.message = "No result for app=${app}, version=${version} !\nTried with url: ${urlNexus}"
+                    resp = null
                 }
             }
         }

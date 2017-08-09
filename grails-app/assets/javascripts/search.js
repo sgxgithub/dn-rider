@@ -69,7 +69,6 @@
     //ref : http://www.jqueryscript.net/demo/Tiny-jQuery-Plugin-For-Pretty-JSON-Print-JSON-Browse/
     let $blockDn = $("#blockDn");
     let dnJson = $blockDn.data('dnjson');
-    let dnRaw = $blockDn.data('dnraw');
     if (dnJson) {
         $blockDn.jsonBrowse(dnJson);
     }
@@ -78,7 +77,7 @@
         event.preventDefault();
 
         let formData = new FormData();
-        formData.append("dn", $("#blockDn").data('dnraw'));
+        formData.append("dn", JSON.stringify(dnJson));
 
         $.ajax({
             method: "POST",
@@ -98,7 +97,7 @@
         if (formatShow === 'json') {
             $blockDn.jsonBrowse(dnJson);
         } else {
-            $blockDn.html(dnRaw);
+            $blockDn.html(JSON.stringify(dnJson, null, 4));
         }
     });
 

@@ -17,7 +17,7 @@
         </div>
 
         <div class="col-9" id="content">
-            <g:if test="${dnRaw || dnJson}">
+            <g:if test="${dnJson || dnRaw}">
                 <g:render template="content"/>
             </g:if>
         </div>

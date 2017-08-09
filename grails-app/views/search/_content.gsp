@@ -25,6 +25,18 @@
 
 <div id="validationResult"></div>
 
-<pre id="blockDn" data-dnraw="${dnRaw}" data-dnjson= ${dnJson}> </pre>
+
+
+<g:if test="${dnJson}">
+    <pre id="blockDn" data-dnjson="${dnJson}"></pre>
+</g:if>
+
+<g:if test="${!dnJson && dnRaw}">
+    <div class="alert alert-danger alert-dismissable fade show">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <pre class="notification">NDL ne conforme pas au format JSON</pre>
+    </div>
+    <pre>${dnRaw}</pre>
+</g:if>
 
 <g:render template="/components/backToTop"/>
