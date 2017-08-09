@@ -1,8 +1,8 @@
 package dn.rider
 
-import javax.servlet.http.Cookie
-
 class SettingsController {
+
+    def cookiesService
 
     //save the apps for quick access in cookie
     def index(SettingsCommand cmd) {
@@ -11,12 +11,7 @@ class SettingsController {
 
         log.info appsQuickAccess
 
-        //save the cookie even if it is null
-        log.info "Saving appQuickAcces..."
-        def cookie = new Cookie('appsQuickAccess', appsQuickAccess)
-        cookie.maxAge = 2592000
-        cookie.path = '/'
-        response.addCookie cookie
+        cookiesService.saveAppsQuickAccessArray(appsQuickAccess)
 
         redirect(controller: "home", action: "index")
     }

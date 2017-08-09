@@ -5,32 +5,23 @@ import grails.converters.JSON
 class HomeController {
 
     def nexusConsumerService
+    def cookiesService
 
     def index() {
         flash.message = null
         //get the apps for quick access in cookie
-        def appsQuickAccessArray = getAppsQuickAccessArray()
+        def appsQuickAccessArray = cookiesService.getAppsQuickAccessArray()
+        String lastApp = cookiesService.getLastApp()
 
-        [appsQuickAccessArray:appsQuickAccessArray]
+        [app: lastApp, appsQuickAccessArray: appsQuickAccessArray]
     }
 
     // autocomplete by ajax
-    def getApps(){
+    def getApps() {
         //get the list of apps in service
         def apps = nexusConsumerService.getApps()
 
         render apps as JSON
-    }
-
-    //get the apps for quick access from cookies
-    def getAppsQuickAccessArray(){
-        def appsQuickAccess = request.cookies.find { it.name == 'appsQuickAccess' }?.value
-
-        if(appsQuickAccess){
-            log.info "appsQuickAccess cookie found:" + appsQuickAccess
-        }
-
-       return appsQuickAccess?.tokenize('_')
     }
 
     def search(SearchCommand cmd) {

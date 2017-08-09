@@ -1,4 +1,4 @@
-<form id="formCompare">
+<g:form id="formCompare" url="[action: 'compare', controller: 'comparison']" method="get">
     <div id="fixForm">
         <div class="form-group row">
             <div class="col-4">
@@ -56,4 +56,4 @@
     <div id="versions">
         <g:render template="listVersions"/>
     </div>
-</form>
+</g:form>

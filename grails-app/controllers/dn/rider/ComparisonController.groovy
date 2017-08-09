@@ -9,12 +9,15 @@ class ComparisonController {
 
     def nexusConsumerService
     def comparisonService
+    def cookiesService
 
     def index() {
         flash.message = null
 
         def apps = nexusConsumerService.getApps()
-        [apps: apps as JSON]
+        String lastApp = cookiesService.getLastApp()
+
+        [app: lastApp, apps: apps as JSON]
     }
 
     def compare() {

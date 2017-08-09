@@ -6,11 +6,14 @@ import java.util.regex.Pattern
 class SearchController {
 
     def nexusConsumerService
+    def cookiesService
 
     def index() {
         flash.message = null
         def apps = nexusConsumerService.getApps()
-        [apps: apps as JSON]
+        String lastApp = cookiesService.getLastApp()
+
+        [app: lastApp, apps: apps as JSON]
     }
 
     def search(SearchCommand cmd) {
@@ -30,6 +33,8 @@ class SearchController {
                 flash.message = "The valid size range of field app is between 3 and 15"
             }
         } else {
+            cookiesService.saveLastApp(app)
+
             //search for the list of delivery-notes by using the service function
             log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
             versions = nexusConsumerService.getVersions(app)
@@ -68,6 +73,8 @@ class SearchController {
         String app = params.app
         String releaseType = params.releaseType
 
+        cookiesService.saveLastApp(app)
+
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app)
         versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
@@ -83,6 +90,8 @@ class SearchController {
         Pattern p = Pattern.compile(regex)
         log.info "regex: $regex"
         String template = params.template
+
+        cookiesService.saveLastApp(app)
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app)
