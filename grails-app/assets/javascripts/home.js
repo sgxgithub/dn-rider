@@ -13,6 +13,7 @@
         })
             .done(function (result) {
                 $app.data('apps', result);
+                $('#appsQuickAccessInput').data('apps', result);
                 $app.autocompleteApp();
             });
     });

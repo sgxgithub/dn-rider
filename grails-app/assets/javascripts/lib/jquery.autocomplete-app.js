@@ -17,7 +17,7 @@ $.fn.autocompleteApp = function (functionAfterSelect, version = null) {
             $app.val(ui.item.value);
 
             if (functionAfterSelect !== undefined) {
-                functionAfterSelect();
+                functionAfterSelect(event, ui);
             }
 
             if (version !== null) {
