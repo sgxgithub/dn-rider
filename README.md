@@ -25,6 +25,8 @@ ou
 ``` 
 gradle assemble
 ```
+[Référence](http://mrhaki.blogspot.fr/2016/06/grails-goodness-creating-fully.html)
+
 ==> /build/libs
 
 ## Lancer les tests 
