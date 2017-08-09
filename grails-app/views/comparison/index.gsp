@@ -17,13 +17,7 @@
         </div>
 
         <div class="col-9" id="content">
-            <a data-toggle="collapse" href="#sidebar" id="btn-sidebar">
-                <i class="fa fa-navicon fa-lg py-3 p-1"></i>
-            </a>
-
-            <div id="tableComparison">
-                <g:render template="tableComparison"/>
-            </div>
+            <g:render template="content"/>
         </div>
     </div>
 </div>

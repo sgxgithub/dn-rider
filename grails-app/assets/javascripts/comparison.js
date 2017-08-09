@@ -43,6 +43,15 @@
                 $("#versions").html(result);
                 //active shift range select
                 $('.checkbox-version').off('click').shiftClick();
+
+                //disable button compare when no version selected
+                $("input:checkbox").change(function () {
+                    if ($("form input:checkbox:checked").length == 0) {
+                        $('#btnCompare').addClass('disabled');
+                    } else {
+                        $('#btnCompare').removeClass('disabled');
+                    }
+                });
             });
     };
 
@@ -71,8 +80,11 @@
         })
             .done(function (result) {
                 //set table content
-                $("#tableComparison").html(result);
-                $("#sidebar").collapse('hide');
+                $("#content").html(result);
+                console.log(result);
+                if (result) {
+                    $("#sidebar").collapse('hide');
+                }
                 let timer;
                 //enable popover
                 //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered

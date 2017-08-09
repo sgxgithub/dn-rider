@@ -20,19 +20,21 @@ class ComparisonController {
     def compare() {
         String app = params.app
         List<String> versions = []
-        versions.addAll(params.versions)
+        if (params.versions) {
+            versions.addAll(params.versions)
+        }
         //from oldest to newest
         versions.reverse(true)
 
         if (!app || !versions) {
-            render text: "<div></div>"
+            render ''
             return
         }
 
         List<JSONObject> dns = []
         flash.message = ''
 
-        versions.each{ String version ->
+        versions.each { String version ->
             log.info "searching for the delivery-note with app=${app}, version=${version}..."
             def resp = nexusConsumerService.getDn(app, version)
 
@@ -55,6 +57,6 @@ class ComparisonController {
 
         def table = comparisonService.sortPackages(app, dns)
 
-        render template: "tableComparison", model: [rowVersions: table.rowVersions, rowPackages: table.rowPackages]
+        render template: "content", model: [app: app, rowVersions: table.rowVersions, rowPackages: table.rowPackages]
     }
 }
