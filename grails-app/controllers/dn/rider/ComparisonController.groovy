@@ -16,8 +16,12 @@ class ComparisonController {
 
         def apps = nexusConsumerService.getApps()
         String lastApp = cookiesService.getLastApp()
+        def versions = []
+        if (lastApp) {
+            versions = nexusConsumerService.getVersions(lastApp)
+        }
 
-        [app: lastApp, apps: apps as JSON]
+        [app: lastApp, apps: apps as JSON, versions: versions]
     }
 
     def compare() {
