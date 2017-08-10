@@ -14,8 +14,18 @@
         let $btt = $('#back-to-top');
         $btt.backToTop($("#content"));
 
-        setVersions();
         setPopovers();
+
+        //active shift range select
+        $('.checkbox-version').off('click').shiftClick();
+
+        //set checkbox checked
+        const versionsSelected = $('#cb-group-versions').data('versionsselected');
+        $.each(versionsSelected, function (index, val) {
+            $(`input:checkbox[value='${val}']`).prop('checked', true)
+        });
+
+        enableButtonCompare();
     });
 
     $('#sidebar').sidebarCollapse();
@@ -47,14 +57,7 @@
                 //active shift range select
                 $('.checkbox-version').off('click').shiftClick();
 
-                //disable button compare when no version selected
-                $("input:checkbox").change(function () {
-                    if ($("form input:checkbox:checked").length == 0) {
-                        $('#btnCompare').addClass('disabled');
-                    } else {
-                        $('#btnCompare').removeClass('disabled');
-                    }
-                });
+                enableButtonCompare();
             });
     };
 
@@ -126,5 +129,21 @@
                 });
             });
     };
+
+    let enableButtonCompare = function () {
+        //disable button compare when no version selected
+        if ($("form input:checkbox:checked").length == 0) {
+            $('#btnCompare').addClass('disabled');
+        } else {
+            $('#btnCompare').removeClass('disabled');
+        }
+        $("input:checkbox").change(function () {
+            if ($("form input:checkbox:checked").length == 0) {
+                $('#btnCompare').addClass('disabled');
+            } else {
+                $('#btnCompare').removeClass('disabled');
+            }
+        });
+    }
 
 }(jQuery));

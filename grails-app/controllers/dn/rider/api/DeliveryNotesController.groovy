@@ -73,7 +73,7 @@ class DeliveryNotesController {
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app)
-        versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
+        versions = nexusConsumerService.filterVersions(versions, releaseType)
         log.info "received the list of delivery-notes"
 
         if (!versions) {
@@ -319,7 +319,7 @@ class DeliveryNotesController {
         //si type est RELEASE & donnée déjà présente -> erreur
         if (releaseType == 'releases') {
             def versions = nexusConsumerService.getVersions(app)
-            versions = nexusConsumerService.filterVersionsByReleaseType(versions, 'releases')
+            versions = nexusConsumerService.filterVersions(versions, 'releases')
             if (versions.find { it ->
                 it == version
             }) {

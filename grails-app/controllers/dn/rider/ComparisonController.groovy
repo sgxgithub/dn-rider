@@ -24,10 +24,12 @@ class ComparisonController {
         String app = params.app
         def versionsUrl = params.versions
         String releaseType = params.releaseType ?: 'all'
-        String regex = params.regex
+        String regex = params.regex ?: ''
 
         flash.message = ''
-        List<String> versionsSelected = makeVersionsFromUrl(app, releaseType, versionsUrl)
+        def versions = nexusConsumerService.getVersions(app)
+        versions = nexusConsumerService.filterVersions(versions, releaseType, regex)
+        List<String> versionsSelected = makeVersionsFromUrl(versions, versionsUrl)
         List<JSONObject> dns = []
 
         versionsSelected.each { String version ->
@@ -57,7 +59,8 @@ class ComparisonController {
                 app             : app,
                 releaseType     : releaseType,
                 regex           : regex,
-                versionsSelected: versionsSelected,
+                versions        : versions,
+                versionsSelected: versionsSelected as JSON,
                 rowVersions     : table.rowVersions,
                 rowPackages     : table.rowPackages
         ], view: 'index')
@@ -69,18 +72,19 @@ class ComparisonController {
      * case 2 : versions=v1,v2,v3
      * case 3 : versions=v1>v3
      * case 4 ( un mélange des 3 cas): versions=v1>v3&versions=v4>v7&versions=v9,v10&versions=v12
+     * releaseType & regex est valable sur une portée
      */
-    def makeVersionsFromUrl(String app, String releaseType, versionsUrl) {
+    def makeVersionsFromUrl(versions, versionsUrl) {
         List<String> versionsSelected = []
 
         //case 1, 2, 3
         if (versionsUrl instanceof String) {
-            versionsSelected.addAll(takeVersionsFromString(app, releaseType, versionsUrl))
+            versionsSelected.addAll(takeVersionsFromString(versions, versionsUrl))
         }
         //case 4
         else {
             versionsUrl.each { it ->
-                versionsSelected.addAll(takeVersionsFromString(app, releaseType, it.toString()))
+                versionsSelected.addAll(takeVersionsFromString(versions, it.toString()))
             }
         }
         //from oldest to newest
@@ -89,7 +93,7 @@ class ComparisonController {
         return versionsSelected
     }
 
-    def takeVersionsFromString(String app, String releaseType, String versionsUrl) {
+    def takeVersionsFromString(versions, String versionsUrl) {
         List<String> versionsSelected = []
         //case 2
         if (versionsUrl.contains(',')) {
@@ -97,8 +101,7 @@ class ComparisonController {
         }
         // case 3
         else if (versionsUrl.contains('>')) {
-            def versions = nexusConsumerService.getVersions(app)
-            versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
+
 
             def versionBegin = versionsUrl.tokenize('>')[0]
             def versionEnd = versionsUrl.tokenize('>')[1]

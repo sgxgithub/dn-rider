@@ -7,6 +7,8 @@ import org.grails.web.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import grails.plugin.cache.*
 
+import java.util.regex.Pattern
+
 @Transactional
 class NexusConsumerService {
     @Value('${dn.rider.nexus.url}')
@@ -82,7 +84,13 @@ class NexusConsumerService {
         return list
     }
 
-    def filterVersionsByReleaseType(List<String> versions, String releaseType) {
+    def filterVersions(List<String> versions, String releaseType, String regex = '') {
+        log.info "regex: $regex"
+        Pattern p = Pattern.compile(regex)
+        versions = versions.findAll { it ->
+            it =~ p
+        }
+
         if (releaseType.toUpperCase() == 'SNAPSHOTS') {
             return versions.findAll { version ->
                 version.toUpperCase().contains("SNAPSHOT")

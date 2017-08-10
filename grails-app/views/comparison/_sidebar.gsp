@@ -46,7 +46,7 @@
             </div>
 
             <div class="col-md-3">
-                <button class="btn btn-outline-primary disabled" id="btnCompare">
+                <button class="btn btn-outline-primary" id="btnCompare">
                     <g:message code="dn.rider.btn.compare"/>
                 </button>
             </div>

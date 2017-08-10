@@ -16,16 +16,15 @@ class ComparisonService {
      * rowPackages correspond to the table content
      */
     def sortPackages(app, dns) {
+        //sort the dns by date
+        dns.sort { a, b ->
+            a.date <=> b.date
+        }
 
         List<String> versions = dns.version
 
         //the table head
         List<JSONObject> rowVersions = []
-
-        //sort the dns by date
-        dns.sort { a, b ->
-            a.date <=> b.date
-        }
 
         dns.each { dn ->
             JSONObject rowVersion = new JSONObject()

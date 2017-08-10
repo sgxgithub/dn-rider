@@ -38,7 +38,7 @@ class SearchController {
             //search for the list of delivery-notes by using the service function
             log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
             versions = nexusConsumerService.getVersions(app)
-            versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
+            versions = nexusConsumerService.filterVersions(versions, releaseType)
             log.info "received the list of delivery-notes"
             //before the user choose the version
             if (version) {
@@ -77,7 +77,7 @@ class SearchController {
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app)
-        versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
+        versions = nexusConsumerService.filterVersions(versions, releaseType)
         log.info "received the list of delivery-notes"
 
         render versions as JSON
@@ -87,20 +87,14 @@ class SearchController {
         String app = params.app
         String releaseType = params.releaseType
         String regex = params.regex ?: ''
-        Pattern p = Pattern.compile(regex)
-        log.info "regex: $regex"
         String template = params.template
 
         cookiesService.saveLastApp(app)
 
         log.info "searching for the list of delivery-notes with app=${app}, releaseType=${releaseType}..."
         def versions = nexusConsumerService.getVersions(app)
-        versions = nexusConsumerService.filterVersionsByReleaseType(versions, releaseType)
+        versions = nexusConsumerService.filterVersions(versions, releaseType, regex)
         log.info "received the list of delivery-notes"
-
-        versions = versions.findAll { it ->
-            it =~ p
-        }
 
         render template: template, model: [versions: versions, versionCount: versions.size(), app: app, releaseType: releaseType]
     }
