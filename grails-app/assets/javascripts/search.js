@@ -25,6 +25,8 @@
         if ($("#content").children().length !== 0) {
             $("#sidebar").collapse('hide');
         }
+
+        setVersions();
     });
 
     let setVersions = function () {

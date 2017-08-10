@@ -13,6 +13,9 @@
         //button back to top
         let $btt = $('#back-to-top');
         $btt.backToTop($("#content"));
+
+        setVersions();
+        setPopovers();
     });
 
     $('#sidebar').sidebarCollapse();
@@ -65,83 +68,63 @@
     $releaseType.on('change', setVersions);
     $regex.on('input', setVersions);
 
-    //compare
-    $("#btnCompare").click(function (event) {
-        event.preventDefault();
-
-        let formData = new FormData(document.getElementById("formCompare"));
-
-        $.ajax({
-            method: "POST",
-            url: "compare",
-            data: formData,
-            processData: false,
-            contentType: false
+    let setPopovers = function () {
+        let timer;
+        //enable popover
+        //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
+        let $popovers = $("[data-toggle='popover']");
+        //transfer content json to html
+        $(".popover-body").each(function () {
+            $(this).setPopoverContent($(this).data('content'));
+        });
+        $popovers.popover({
+            container: 'body',
+            html: true,
+            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
+            animation: false,
+            placement: 'left',
+            trigger: 'manual',
+            content: ""
         })
-            .done(function (result) {
-                //set table content
-                $("#content").html(result);
-                console.log(result);
-                if (result) {
-                    $("#sidebar").collapse('hide');
-                }
-                let timer;
-                //enable popover
-                //ref: https://stackoverflow.com/questions/15989591/how-can-i-keep-bootstrap-popover-alive-while-the-popover-is-being-hovered
-                let $popovers = $("[data-toggle='popover']");
-                //transfer content json to html
-                $(".popover-body").each(function () {
-                    $(this).setPopoverContent($(this).data('content'));
-                });
-                $popovers.popover({
-                    container: 'body',
-                    html: true,
-                    template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>',
-                    animation: false,
-                    placement: 'left',
-                    trigger: 'manual',
-                    content: ""
-                })
-                    .on("mouseenter", function () {
-                        let _this = this;
-                        timer = setTimeout(function () {
-                            $(_this).popover("show");
-                            $(".popover").on("mouseleave", function () {
-                                $(_this).popover('hide');
-                            });
-                        }, 300);
-                    })
-                    .on("mouseleave", function () {
-                        clearTimeout(timer);
-                        let _this = this;
-                        setTimeout(function () {
-                            if (!$(".popover:hover").length) {
-                                $(_this).popover("hide");
-                            }
-                        }, 300);
-                    })
-                    .on('shown.bs.popover', function () {
-                        $("a.json-toggle").click(function (event) {
-                            let _this = this;
-                            event.preventDefault();
-                            let target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
-                            target.toggle();
-                            if (target.is(':visible')) {
-                                target.siblings('.json-placeholder').remove();
-                            }
-                            else {
-                                let count = target.children('li').length;
-                                let placeholder = count + (count > 1 ? ' items' : ' item');
-                                target.after('<a href class="json-placeholder">' + placeholder + '</a>');
-                                // Simulate click on toggle button when placeholder is clicked
-                                $("a.json-placeholder").click(function (event) {
-                                    event.preventDefault();
-                                    $(_this).click();
-                                });
-                            }
-                        });
+            .on("mouseenter", function () {
+                let _this = this;
+                timer = setTimeout(function () {
+                    $(_this).popover("show");
+                    $(".popover").on("mouseleave", function () {
+                        $(_this).popover('hide');
                     });
+                }, 300);
+            })
+            .on("mouseleave", function () {
+                clearTimeout(timer);
+                let _this = this;
+                setTimeout(function () {
+                    if (!$(".popover:hover").length) {
+                        $(_this).popover("hide");
+                    }
+                }, 300);
+            })
+            .on('shown.bs.popover', function () {
+                $("a.json-toggle").click(function (event) {
+                    let _this = this;
+                    event.preventDefault();
+                    let target = $(this).toggleClass('collapsed').siblings('ul.json-dict, ol.json-array');
+                    target.toggle();
+                    if (target.is(':visible')) {
+                        target.siblings('.json-placeholder').remove();
+                    }
+                    else {
+                        let count = target.children('li').length;
+                        let placeholder = count + (count > 1 ? ' items' : ' item');
+                        target.after('<a href class="json-placeholder">' + placeholder + '</a>');
+                        // Simulate click on toggle button when placeholder is clicked
+                        $("a.json-placeholder").click(function (event) {
+                            event.preventDefault();
+                            $(_this).click();
+                        });
+                    }
+                });
             });
-    });
+    };
 
 }(jQuery));

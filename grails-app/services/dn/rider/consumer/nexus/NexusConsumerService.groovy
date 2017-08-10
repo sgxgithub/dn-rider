@@ -6,7 +6,6 @@ import groovy.util.slurpersupport.NodeChildren
 import org.grails.web.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import grails.plugin.cache.*
-import org.springframework.cache.annotation.Caching
 
 @Transactional
 class NexusConsumerService {
@@ -60,7 +59,7 @@ class NexusConsumerService {
 
     @Cacheable(value = 'versions', key = '{#app}')
     def getVersions(String app) {
-        log.info "Searching for the list of delivery-notes in Nexus..."
+        log.error "Searching for the list of delivery-notes in Nexus with app=${app}..."
         String url
         app = app.toLowerCase() - 'com.vsct.'
         url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes"
