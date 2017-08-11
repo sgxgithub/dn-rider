@@ -26,6 +26,11 @@
         });
 
         enableButtonCompare();
+
+        //collapse sidebar when content is not empty
+        if ($("#content").children().length !== 0) {
+            $("#sidebar").collapse('hide');
+        }
     });
 
     $('#sidebar').sidebarCollapse();
