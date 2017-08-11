@@ -6,6 +6,7 @@ import groovy.util.slurpersupport.NodeChildren
 import org.grails.web.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import grails.plugin.cache.*
+import grails.plugin.cache.GrailsCacheManager
 
 import java.util.regex.Pattern
 
@@ -22,6 +23,8 @@ class NexusConsumerService {
 
     @Value('${dn.rider.nexus.repoDefault}')
     def NEXUS_REPO_DEFAULT
+
+    GrailsCacheManager grailsCacheManager
 
     def getDnUrl(String app, String version) {
         String url
@@ -207,8 +210,6 @@ class NexusConsumerService {
         return repos
     }
 
-    //TODO: multiples evict -> delete cache of the dn with (app, version) as key (in case of renew)
-    //TODO: multiples evict -> delete cache of the apps (in case when add new app)
     @CacheEvict(value = 'versions', key = '{#app}')
     def saveDn(dn, String app, String version, String repositoryId) {
         def f = new File('temp')
@@ -231,10 +232,18 @@ class NexusConsumerService {
 
         f.delete()
 
+        List<String> apps = getApps()
+        List<String> versions = getVersions(app)
+        if (!apps.any { it == app }) { //delete cache of the apps (in case when add new app)
+            grailsCacheManager.getCache('apps').clear()
+        }
+        if (versions.any { it == version }) { //delete cache of the dn with (app, version) as key (in case of renew)
+            grailsCacheManager.getCache('dn').evict([app, version])
+        }
+
         return resp
     }
 
-    //TODO: multiples evict -> delete cache of the dn with (app, version) as key
     @CacheEvict(value = 'versions', key = '{#app}')
     def deleteDn(String app, String version) {
         String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
@@ -242,6 +251,9 @@ class NexusConsumerService {
         def resp = rest.delete(url) {
             auth NEXUS_USERNAME, NEXUS_PASSWORD
         }
+
+        //delete cache of the dn with (app, version) as key
+        grailsCacheManager.getCache('dn').evict([app, version])
 
         return resp
     }
