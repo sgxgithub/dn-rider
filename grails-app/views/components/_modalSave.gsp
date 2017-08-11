@@ -50,11 +50,8 @@
                         </div>
 
                         <div class="col-8">
-                            <div class="ui-widget">
-                                <g:select id="combobox" name='repo' value="" from=''
-                                          data-url="${createLink(controller: 'edition', action: 'getRepos')}">
-                                </g:select>
-                            </div>
+                            <input id="combobox" name='repo' class="form-control custom-select"
+                                   data-url="${createLink(controller: 'edition', action: 'getRepos')}">
                         </div>
                     </div>
                 </div>

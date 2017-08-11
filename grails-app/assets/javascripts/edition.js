@@ -1,7 +1,6 @@
 //= require lib/jquery.numberedtextarea
 //= require lib/jquery.set-cursor-position
 //= require lib/jquery.autocomplete-app
-//= require lib/combobox
 //= require_self
 
 (function ($) {
@@ -50,30 +49,35 @@
     $app = $("#app");
     $combobox = $('#combobox');
 
+    $combobox.click(function () {
+        // close if already visible
+        if ($combobox.autocomplete("widget").is(":visible")) {
+            $combobox.autocomplete("close");
+            return;
+        }
+        $(this).blur();
+        $combobox.autocomplete("search", "");
+        $combobox.focus();
+    });
+
     let setCombobox = function () {
         //clean the combobox
-        $('input.custom-combobox-input').val('');
-        $combobox
-            .find('option')
-            .remove()
-            .end();
+        $combobox.val('');
 
         let formData = new FormData();
         formData.append("app", $app.val());
 
         $.ajax({
             method: "POST",
-            url: $("#combobox").data('url'),
+            url: $combobox.data('url'),
             data: formData,
             processData: false,
             contentType: false
         })
             .done(function (repos) {
-                $.each(repos, function (key, value) {
-                    $combobox
-                        .append($("<option></option>")
-                            .attr("value", key)
-                            .text(value));
+                $combobox.autocomplete({
+                    source: repos,
+                    minLength: 0
                 });
             });
     };
