@@ -32,7 +32,7 @@
     let setVersions = function () {
         let app = $app.val();
         //fired only if the length >= 3
-        if (app.length < 3) return;
+        // if (app.length < 3) return;
 
         let releaseType = $releaseType.val();
         let regex = $regex.val();

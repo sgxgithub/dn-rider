@@ -38,7 +38,8 @@
                             <g:textField name="version" class="form-control" value="${version}"
                                          placeholder="52.00.0-2, 1.36.1..."
                                          autocomplete="off"
-                                         data-url="${createLink(controller: 'search', action: 'getVersionsList', params: [releaseType: 'All'])}"/>
+                                         data-url="${createLink(controller: 'search', action: 'getVersionsList', params: [releaseType: 'All'])}"
+                                         required="true"/>
                         </div>
                     </div>
 
@@ -51,7 +52,8 @@
 
                         <div class="col-8">
                             <input id="combobox" name='repo' class="form-control custom-select"
-                                   data-url="${createLink(controller: 'edition', action: 'getRepos')}">
+                                   data-url="${createLink(controller: 'edition', action: 'getRepos')}"
+                                   required>
                         </div>
                     </div>
                 </div>
