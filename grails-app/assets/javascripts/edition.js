@@ -1,6 +1,7 @@
 //= require lib/jquery.numberedtextarea
 //= require lib/jquery.set-cursor-position
 //= require lib/jquery.autocomplete-app
+//= require lib/combobox
 //= require_self
 
 (function ($) {
@@ -8,6 +9,8 @@
         //set actived nav item
         $("nav .navbar-nav .nav-item").removeClass("active");
         $("#nav-item-edition").addClass("active");
+
+        setCombobox();
     });
 
     $("#deliveryNoteFile").change(function (e) {
@@ -47,10 +50,7 @@
     $app = $("#app");
     $combobox = $('#combobox');
 
-    $app.autocompleteApp();
-
-    $app.on('input', function () {
-
+    let setCombobox = function () {
         //clean the combobox
         $('input.custom-combobox-input').val('');
         $combobox
@@ -76,6 +76,9 @@
                             .text(value));
                 });
             });
-    });
+    };
+
+    $app.autocompleteApp(setCombobox);
+    $app.on('input', setCombobox);
 
 }(jQuery));

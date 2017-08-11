@@ -14,7 +14,7 @@
 <div class="container">
     <g:form action="validateSchema" method="post">
         <div class="my-2">
-            <button class="btn btn-outline-primary" type="submit">
+            <button class="btn btn-outline-primary">
                 <g:message code="dn.rider.validation.btn.checkSyntax"/>
             </button>
             <g:link action="showSchema" controller="validation" class="btn btn-outline-primary" target="_blank">
@@ -46,7 +46,6 @@
 </a>
 
 <asset:javascript src="edition.js"/>
-<asset:javascript src="lib/combobox.js"/>
 
 </body>
 </html>

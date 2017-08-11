@@ -6,10 +6,13 @@ class EditionController {
 
     def nexusConsumerService
     def jsonSchemaValidationService
+    def cookiesService
 
     def index() {
         def apps = nexusConsumerService.getApps()
-        [apps: apps as JSON]
+        String lastApp = cookiesService.getLastApp()
+
+        [app: lastApp, apps: apps as JSON]
     }
 
     def saveDn() {
@@ -17,6 +20,8 @@ class EditionController {
         String app = params.app
         String repo = params.repo
         String version = params.version
+
+        cookiesService.saveLastApp(app)
 
         def resp = nexusConsumerService.saveDn(dn, app, version, repo)
 
