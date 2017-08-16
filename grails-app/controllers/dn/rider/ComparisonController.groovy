@@ -2,7 +2,6 @@ package dn.rider
 
 import grails.converters.JSON
 import org.grails.web.json.JSONObject
-
 import java.text.SimpleDateFormat
 
 class ComparisonController {
@@ -30,7 +29,7 @@ class ComparisonController {
         String releaseType = params.releaseType ?: 'all'
         String regex = params.regex ?: ''
 
-        flash.message = ''
+        flash.error = ''
         def versions = nexusConsumerService.getVersions(app)
         versions = nexusConsumerService.filterVersions(versions, releaseType, regex)
         List<String> versionsSelected = makeVersionsFromUrl(versions, versionsUrl)
@@ -44,16 +43,26 @@ class ComparisonController {
             //example : app = ner, version = 1.36.1.0-SNAPSHOT
             if (resp.responseEntity.statusCode.toString() == '404') {
                 String dnUrl = getNexusConsumerService().getDnUrl(app, version)
-                log.info "No result for app=${app}, version=${version} ! Tried with url: \n${dnUrl}"
-                flash.message += "No result for app=${app}, version=${version} ! Tried with url: \n${dnUrl} \n"
+                String msg = message(code: "dn.rider.comparison.msg.noResultFound", args: [app, version, dnUrl])
+                log.info msg
+                flash.error += "${msg}\n"
             } else {
                 log.info "received the delivery-note"
-                def dn = resp.json.NDL_pour_rundeck
-                def sdf = new SimpleDateFormat('EEE, d MMM yyyy HH:mm:ss z', Locale.ENGLISH)
-                def date = sdf.parse(resp.headers['Last-Modified'][0])
-                dn.put('version', version)
-                dn.put('date', date)
-                dns << dn
+                JSONObject dn = resp.json?.NDL_pour_rundeck
+                if (!dn) {
+                    String msg = message(code: "dn.rider.comparison.msg.noDnFound", args: [app, version])
+                    flash.error += "${msg}\n"
+                } else {
+                    //create a new JSONObject to avoid operating the variable 'resp', otherwise the cache of dn will be changed
+                    JSONObject json = new JSONObject()
+                    json << dn
+
+                    def sdf = new SimpleDateFormat('EEE, d MMM yyyy HH:mm:ss z', Locale.ENGLISH)
+                    def date = sdf.parse(resp.headers['Last-Modified'][0])
+                    json.put('version', version)
+                    json.put('date', date)
+                    dns << json
+                }
             }
         }
 

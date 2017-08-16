@@ -10,12 +10,9 @@
     </nav>
 
     <div id="tableComparison">
-        <g:render template="/components/notification"/>
-
         <table class="table table-hover text-nowrap">
             <thead>
             <tr>
-
                 <th>Module</th>
                 <th>Name</th>
                 <g:each var="rowVersion" in="${rowVersions}">

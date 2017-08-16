@@ -17,7 +17,6 @@ node {
     env.GRAILS_OPTS="-Dhttp.proxyHost=bluelagoon -Dhttp.proxyPort=22222 -Dhttps.proxyHost=bluelagoon -Dhttps.proxyPort=22222 -Dhttp.nonProxyHosts='nexus*|localhost' -Dhttps.nonProxyHosts='nexus*|localhost'"
     sh 'grails -version'
     sh 'grails clean'
-
     sh 'grails package'
 
     stage 'deploy'
