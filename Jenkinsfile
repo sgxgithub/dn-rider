@@ -7,7 +7,7 @@ node {
      sh 'sed -i -e "s/version \\"0.1*\\"/version \\"0.1-${BUILD_NUMBER}\\"/g" ./build.gradle'
      sh 'cat ./build.gradle'
 
-    stage 'build'
+    stage 'test'
     env.JAVA_HOME="${tool 'JDK1.8u91'}" // JDK1.8u91 est le nom de la task jenkins
     env.PATH="${env.JAVA_HOME}/bin:${env.PATH}"
     env.JAVA_OPTS=""
@@ -17,6 +17,9 @@ node {
     env.GRAILS_OPTS="-Dhttp.proxyHost=bluelagoon -Dhttp.proxyPort=22222 -Dhttps.proxyHost=bluelagoon -Dhttps.proxyPort=22222 -Dhttp.nonProxyHosts='nexus*|localhost' -Dhttps.nonProxyHosts='nexus*|localhost'"
     sh 'grails -version'
     sh 'grails clean'
+    sh 'grails test-app'
+
+    stage 'build'
     sh 'grails package'
 
     stage 'deploy'
