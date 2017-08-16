@@ -81,6 +81,7 @@ class ComparisonController {
 
     /**
      * possible versions :
+     * case 0 : null -> versions = all
      * case 1 : versions=v1
      * case 2 : versions=v1,v2,v3
      * case 3 : versions=v1>v3
@@ -90,8 +91,12 @@ class ComparisonController {
     def makeVersionsFromUrl(versions, versionsUrl) {
         List<String> versionsSelected = []
 
+        //case 0
+        if (!versionsUrl) {
+            versionsSelected.addAll(versions)
+        }
         //case 1, 2, 3
-        if (versionsUrl instanceof String) {
+        else if (versionsUrl instanceof String) {
             versionsSelected.addAll(takeVersionsFromString(versions, versionsUrl))
         }
         //case 4
