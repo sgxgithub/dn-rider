@@ -1,4 +1,6 @@
-API Save :
+#############################
+#######  API Save  ##########
+#############################
 
 # get parameters
 get params (app, version, releaseType, repositoryId)
@@ -28,7 +30,7 @@ SINON :
     chercher les repos pour l'application
     SELON nb de repo trouvé pour le releasetype :
       0 ) return error 400
-      1 ) do nothing
+      1 ) repositoryId = repositoryIds[0]
       + ) return error 400
 
 SI releaseType==release :
@@ -45,3 +47,32 @@ SI error :
 SINON :
     return success 201
 
+#############################
+#######  API Delete  ########
+#############################
+
+# get parameters
+get params (app, version)
+
+# consolidation parameters
+SI version contains 'SNAPSHOT' ( à voir s'il faut faire une function individuel) :
+    releaseType = 'snapshots'
+SINON :
+    releaseType = 'releases'
+
+# chercher repo
+chercher les repos pour l'application avec app, releaseType et version
+
+SELON nb de repo trouvé :
+  0 ) return error 400
+  + ) repositoryId = repositoryIds[0]
+
+# delete
+Do delete :
+    delete json
+    delete pom if exist ??
+    rebuild metadata ??
+Code delete json :
+    404 : 404, dn not found
+    204 :  success 200
+    SINON :400 failed

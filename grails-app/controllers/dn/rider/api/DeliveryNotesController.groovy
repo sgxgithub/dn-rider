@@ -309,6 +309,7 @@ class DeliveryNotesController {
                     render status: 400, text: "non repositoryId trouvé avec l'app=${app} et releaseType=${releaseType}"
                     return
                 case 1:
+                    repositoryId = repositoryIds[0]
                     break
                 default:
                     render status: 400, text: "plusieur repositoryIds trouvé avec l'app=${app} et releaseType=${releaseType}"
@@ -365,11 +366,23 @@ class DeliveryNotesController {
                     value = "app version",
                     dataType = "string")
     ])
-    def deleteDn() { //TODO: deal with case when there are multiples repos(try with the first ; classer by hosted/proxy)
+    def deleteDn() {
         String app = params.app
         String version = params.version
 
-        def resp = nexusConsumerService.deleteDn(app, version)
+        String releaseType = version.toUpperCase().contains('SNAPSHOT') ? 'snapshots' : 'releases'
+        String repositoryId
+
+        def repositoryIds = nexusConsumerService.getRepositoryIds(app, releaseType, version)
+        switch (repositoryIds.size()) {
+            case 0:
+                render status: 400, text: "non repositoryId trouvé avec l'app=${app}, releaseType=${releaseType} et version=${version}"
+                return
+            default:
+                repositoryId = repositoryIds[0]
+        }
+
+        def resp = nexusConsumerService.deleteDn(app, version, repositoryId)
 
         if (resp.status == 204) {
             render status: 200, text: 'Dn Deleted'

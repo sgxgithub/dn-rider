@@ -150,11 +150,11 @@ class NexusConsumerService {
         return list
     }
 
-    @Cacheable(value = 'repositoryIds', key = '{#app, #releaseType}')
-    def getRepositoryIds(String app, String releaseType = 'all') {
+    @Cacheable(value = 'repositoryIds', key = '{#app, #releaseType, #version}')
+    def getRepositoryIds(String app, String releaseType = 'all', String version = '') {
         log.info 'Searching for the repositoryIds in Nexus...'
 
-        String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
+        String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&v=${version}&a=delivery-notes&p=json"
         def rest = new RestBuilder()
         def resp = rest.get(url)
 
@@ -162,13 +162,16 @@ class NexusConsumerService {
 
         def list = []
         repositories.each { repository ->
-            if (releaseType == 'releases') {
-                if (repository.repositoryPolicy.toString() == 'RELEASE')
-                    list.add(repository.repositoryId.toString())
-            } else if (releaseType == 'snapshots') {
-                if (repository.repositoryPolicy.toString() == 'SNAPSHOT')
-                    list.add(repository.repositoryId.toString())
-            } else list.add(repository.repositoryId.toString())
+            // use only the repositoryId with repositoryKind = hosted
+            if (repository.repositoryKind.toString().toUpperCase() == 'HOSTED') {
+                if (releaseType == 'releases') {
+                    if (repository.repositoryPolicy.toString() == 'RELEASE')
+                        list.add(repository.repositoryId.toString())
+                } else if (releaseType == 'snapshots') {
+                    if (repository.repositoryPolicy.toString() == 'SNAPSHOT')
+                        list.add(repository.repositoryId.toString())
+                } else list.add(repository.repositoryId.toString())
+            }
         }
 
         list.unique()
@@ -190,24 +193,6 @@ class NexusConsumerService {
         def repoDetails = resp.xml?.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail'][0]
 
         return repoDetails?.repositoryPolicy?.toString()
-    }
-
-    @Cacheable(value = 'repoIdsAndNames', key = '{#app}')
-    def getRepoIdsAndNames(String app) {
-        log.info 'Searching for the repo in Nexus...'
-
-        String url = "${NEXUS_URL}service/local/lucene/search?g=com.vsct.${app}&a=delivery-notes&p=json"
-        def rest = new RestBuilder()
-        def resp = rest.get(url)
-
-        NodeChildren repoDetails = resp.xml.repoDetails[0]['org.sonatype.nexus.rest.model.NexusNGRepositoryDetail']
-
-        JSONObject repos = new JSONObject()
-        repoDetails.each { repoDetail ->
-            repos.put(repoDetail.repositoryId.toString(), repoDetail.repositoryName.toString())
-        }
-
-        return repos
     }
 
     @CacheEvict(value = 'versions', key = '{#app}')
@@ -245,8 +230,8 @@ class NexusConsumerService {
     }
 
     @CacheEvict(value = 'versions', key = '{#app}')
-    def deleteDn(String app, String version) {
-        String url = "${NEXUS_URL}service/local/repositories/asset-releases/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
+    def deleteDn(String app, String version, String repositoryId) {
+        String url = "${NEXUS_URL}service/local/repositories/${repositoryId}/content/com/vsct/${app}/delivery-notes/${version}/delivery-notes-${version}.json"
         def rest = new RestBuilder()
         def resp = rest.delete(url) {
             auth NEXUS_USERNAME, NEXUS_PASSWORD

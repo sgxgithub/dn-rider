@@ -290,33 +290,33 @@ class DeliveryNotesControllerSpec extends Specification {
         String url = "http://localhost:${serverPort}/api/deliveryNotes/"
 
         when: "we ask to save a delivery-notess and then delete it"
-        def respPostWithWrongRepository = rest.post(url + "/xxx?version=0.0.00-0&repositoryId=ThisIsAWrongRepository") {
+        def respPostWithWrongRepository = rest.post(url + "/xxx?version=TEST-0&repositoryId=ThisIsAWrongRepository") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respPostWithRepositoryNoConformeWithReleaseType = rest.post(url + "/xxx?version=0.0.00-0&repositoryId=asset-releases&releaseType=snapshots") {
+        def respPostWithRepositoryNoConformeWithReleaseType = rest.post(url + "/xxx?version=TEST-0&repositoryId=asset-releases&releaseType=snapshots") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respPostValid = rest.post(url + "/xxx?version=0.0.00-0&repositoryId=asset-releases") {
+        def respPostValid = rest.post(url + "/xxx?version=TEST-0&repositoryId=asset-releases") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respPostDuplicated = rest.post(url + "/xxx?version=0.0.00-0&repositoryId=asset-releases") {
+        def respPostDuplicated = rest.post(url + "/xxx?version=TEST-0&repositoryId=asset-releases") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respPostValidWithReleaseTypeInUrl = rest.post(url + "/xxx/releases?version=0.0.00-1&repositoryId=asset-releases") {
+        def respPostValidWithReleaseTypeInUrl = rest.post(url + "/xxx/releases?version=TEST-1&repositoryId=asset-releases") {
             contentType "multipart/form-data"
             dn = '{"NDL_pour_rundeck":{"dependency":[],"packages":[]}}'
         }
 
-        def respDeleteFirst = rest.delete(url + "xxx/0.0.00-0")
-        def respDeleteSecond = rest.delete(url + "xxx/0.0.00-1")
+        def respDeleteFirst = rest.delete(url + "xxx/TEST-0")
+        def respDeleteSecond = rest.delete(url + "xxx/TEST-1")
 
         then: "we have saved and the deleted"
         assert respPostWithWrongRepository.status == 404
