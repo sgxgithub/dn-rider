@@ -10,6 +10,9 @@ class UrlMappings {
             }
         }
 
+        //[API] Png
+        "/api/ping"(controller: "deliveryNotes", action: "ping", method: "GET")
+
         //[API] Récupèrer la liste des applications avec note de livraison
         "/api/applications"(controller: "deliveryNotes", action: "showApps", method: "GET")
 
@@ -60,6 +63,8 @@ class UrlMappings {
          * SWAGGER DOC
          *****************************************************************/
 
+        //[API] Ping
+        "/apidoc/ping"(controller: "deliveryNotes", action: "ping")
 
         //[API] Récupèrer la liste des applications avec note de livraison
         "/apidoc/applications"(controller: "deliveryNotes", action: "showApps")

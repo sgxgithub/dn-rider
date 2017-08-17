@@ -15,6 +15,17 @@ class DeliveryNotesController {
     def jsonSchemaValidationService
 
     @ApiOperation(
+            value = "ping",
+            nickname = "ping",
+            produces = "application/text",
+            consumes = "application/text",
+            httpMethod = "GET"
+    )
+    def ping() {
+        render status: 200, text: 'app is running'
+    }
+
+    @ApiOperation(
             value = "Récupèrer la liste des applications avec note de livraison",
             nickname = "applications",
             produces = "application/json",
