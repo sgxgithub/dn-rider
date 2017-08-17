@@ -26,4 +26,9 @@ node {
 
     stage 'run'
     sh 'ssh wasktcu1@crisdorgasmes-bck dn-rider/launch.sh'
+    // repeter jusqu'a ce que http://crisdorgasmes:56000/api/ping reponde 200 ou timeout
+    waitUntil {
+     def r = sh script: 'wget --retry-connrefused --tries=60 --waitretry=1 http://crisdorgasmes:56000/api/ping -O -', returnStatus: true
+     return (r == 0);
+    }
 }
